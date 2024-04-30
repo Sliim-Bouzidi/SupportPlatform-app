@@ -1,0 +1,35 @@
+<p-toast></p-toast>
+
+
+<div class="container">
+    <div class="card">
+        <div class="user signup_form">
+            <div class="form">
+                <img src="../../assets/cedlogo.png" alt="" class="ced-logo"> <!-- Add class="ced-logo" here -->
+                <div class="text_signup">
+                    <h2>Welcome Back !</h2>
+                    <p>Enter your Credentials to access your account</p>
+                </div>
+
+                <div class="Email-container">
+                    <label for="email" class="email-label">Email adresse</label>
+                    <div class="email-input">
+                        <p-iconField iconPosition="left">
+                            <p-inputIcon styleClass="pi pi-user" />
+                            <input [(ngModel)]="user.username"  class="ng-invalid ng-dirty"   id="email" type="email" pInputText placeholder="Email or Username" />
+                        </p-iconField>
+                    </div>
+                </div>
+                
+                <div class="password-container">
+                    <label for="password" class="password-label">Password</label>
+                    <p-password  class="ng-invalid ng-dirty"    [(ngModel)]="user.password"  id="password" [toggleMask]="true" [feedback]="false"  placeholder="Password"   ></p-password>
+                </div>
+
+                <p-button  (onClick)="verif()" [disabled]="!user.username || !user.password" label="Sign In" [rounded]="true" [severity]="buttonSeverity"></p-button>
+
+            </div>
+            <div class="image-box"> <img src="../../assets/Tree.png" > </div>
+        </div>
+    </div>
+</div>

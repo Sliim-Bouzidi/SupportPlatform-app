@@ -1,0 +1,94 @@
+<p-toast></p-toast>
+ <app-Navbar></app-Navbar>
+
+ 
+ <div class="button-container">
+  <p-button id="CancelButton" label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
+  <p-button label="Create"  (click)="(AddTicket())" class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button>
+  
+</div>
+<br>
+
+
+  <div class="container">
+    
+    <div class="f card">
+      <div class="section">
+        <h3>Ticket Creation</h3>
+        <label for="PF">Process Flow*</label>
+        <!--<p-dropdown id="PF" [options]="cities" placeholder="Select Process Flow" [editable]="true" optionLabel="name"></p-dropdown>-->
+        <p-treeSelect optionLabel="label" [(ngModel)]="ProcessFlowNames"   class="md:w-20rem w-full" [filter]="true" [filterInputAutoFocus]="true"  containerStyleClass="w-full"      [options]="nodes" placeholder="Select Process Flow"></p-treeSelect>
+      
+
+
+
+
+
+        <label for="Status">Status</label>
+        <p-dropdown id="Status" [options]="StatusOptions"  [(ngModel)]="Status" placeholder="Add Status" [editable]="true" optionLabel="name" ></p-dropdown>
+        
+
+        <label for="Tags">Add Tag</label>
+        <p-chips id="Tags" placeholder="Add tag"  [max]="4"    [(ngModel)]="ticket.tags"></p-chips>
+       
+
+        <label for="TicketTitle">Ticket Title</label>
+        <input id="TicketTitle" type="text" pInputText  [(ngModel)]="ticket.title"  placeholder="Ticket Title"/>
+
+        
+        
+
+        
+        <br>
+        <br>
+      
+        <label for="">Description</label>
+        <div  *ngIf="usePrimeNGQuill" >
+          <p-editor [(ngModel)]="htmlEditor"  [(ngModel)]="ticket.description"  [style]="{ height: '320px' }">
+          
+          
+          
+          
+          
+          
+          
+          </p-editor>
+        </div>
+        <div *ngIf="!usePrimeNGQuill">
+          <!-- Fallback editor or message for SSR -->
+          <textarea placeholder="Enter text here" [(ngModel)]="htmlEditor"></textarea>
+        </div>
+        
+
+         <!-- <div [froalaEditor]>Hello, Froala!</div>-->
+      
+       
+         
+
+      </div>
+      
+      
+    </div>
+    <div class="g card">
+      
+        <div class="section">
+        <h3>Ticket Properties</h3>
+        <label for="Assigned">Assigned to</label>
+        <p-dropdown id="Assigned" [options]="userOptions" [(ngModel)]="AssignTo"  placeholder="Assign to" [editable]="true" optionLabel="name"></p-dropdown>
+     
+       
+        
+      
+        <label for="Priority">Priority</label>
+        <p-dropdown id="Priority" [options]="PriorityOptions" placeholder="Select Priority" [(ngModel)]="PriorityNames"   [editable]="true" optionLabel="name"></p-dropdown>
+
+        <label for="Severity">Severity</label>
+        <p-dropdown id="Severity" [options]="severityOptions"  [(ngModel)]="Severity" placeholder="Select Severity" [editable]="true" optionLabel="name"></p-dropdown>
+     
+
+
+    </div>
+
+  </div>
+  <app-Sidebar></app-Sidebar>
+

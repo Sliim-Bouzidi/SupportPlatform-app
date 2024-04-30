@@ -1,0 +1,19 @@
+<p-toast></p-toast>
+<div class="container">
+    <div class="image-section">
+        <img src="../../assets/bg.jpg" alt="Image" class="full-height">
+    </div>
+    <div class="button-section">
+        <!-- Logo of the company -->
+        <img src="../../assets/cedlogo.png" alt="Company Logo" class="company-logo">
+        
+        <!-- PrimeNG Buttons -->
+        <ng-container *ngFor="let tenant of tenants; let i = index">
+            <p-button  label="{{ tenant.name }}" [raised]="true" [routerLink]="['/Overview', tenant.name]" class="custom-button"></p-button>
+          </ng-container>
+          
+    </div>
+</div>
+
+
+

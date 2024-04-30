@@ -1,0 +1,33 @@
+<nav class="navbar">
+  <div class="logo">
+    <img src="../../assets/cedlogo.png" />
+    <ul>
+      <li><a [routerLink]="['/Overview', tenantname]" >Overview</a></li>
+      <li><a href="./Summary">Summary</a></li>
+      <li><a [routerLink]="['/CreateTicket', tenantname]">Create Ticket</a></li>
+      <li><a [routerLink]="['/TicketList', tenantname]" >Ticket List</a></li>
+     
+    </ul>
+    
+   
+  </div>
+  <div class="search">
+    <span class="material-symbols-outlined">  </span>
+   
+
+    <p-iconField iconPosition="left">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input type="text" pInputText placeholder="Search" />
+  </p-iconField>
+
+  
+  </div>
+  <nav>
+    <p-badge value="2" class="badge"></p-badge>
+    <p-button icon="pi pi-bell" [rounded]="true" severity="secondary" [outlined]="true" class="bell-button"></p-button>
+    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" (click)="menu.toggle($event)"   size="large"></p-avatar>
+    <p-menu #menu [model]="items" [popup]="true"></p-menu>
+
+  </nav>
+  
+</nav>

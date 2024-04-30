@@ -1,0 +1,62 @@
+body{
+  background-color: #e6ecf3;
+}
+/* Adjusted container */
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1em 1em;
+  grid-auto-flow: row;
+  padding: 1rem;
+  margin-left: 18vh;
+  margin-top: 8.5vh;
+  margin-right: 8vh;
+  grid-template-areas:
+    "f f f f f g g"
+    "f f f f f g g"
+    "f f f f f g g"
+    "f f f f f g g"
+    "f f f f f g g"
+    "l l m m m n n";
+}
+
+/* Adjusted grid areas */
+.f { grid-area: f; }
+.g { grid-area: g; }
+.n { grid-area: n; }
+
+/* Adjusted card styles */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  transition: box-shadow 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: row; /* Ensure items are in a row */
+  align-items: center; /* Center items vertically */
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+h3 {
+  margin-right: auto; /* Pushes text to the left */
+}
+
+img {
+  margin-left: auto; /* Pushes image to the right */
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-right: 40px;
+}
+
+.section{
+  margin: 15px;
+}

@@ -1,0 +1,158 @@
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) repeat(5, minmax(0, 1fr)); /* Adjusted columns */
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1em 1em;
+  grid-auto-flow: row;
+  padding: 1rem;
+  margin-left: 18vh;
+  margin-top: 5vh;
+  margin-right: 8vh;
+
+  grid-template-areas:
+
+    "f f g g g g g"
+    "f f g g g g g"
+    "f f g g g g g"
+    "k k k k k k k"
+    "k k k k k k k"
+    "l l m m n n n";
+}
+
+
+
+.f { grid-area: f; }
+
+.g { grid-area: g; }
+
+.h { grid-area: h; }
+
+.i { grid-area: i; }
+
+.j { grid-area: j; }
+
+.k { grid-area: k; }
+
+.l { grid-area: l; }
+
+.m { grid-area: m; }
+
+.n { grid-area: n; }
+
+
+.container > div[class]:not(.g.card):not(.n.card):not(.m.card):not(.k.card) {
+  background: #ffffff;
+  position: relative;
+  border-radius: 1rem;
+  font-weight: bold;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+
+.black {
+  color: #000;
+}
+/* Card styles */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+
+
+
+.back {
+  background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.radius-10 {
+  border-radius: 10px !important;
+}
+
+.border-info {
+  border-left: 5px solid  #0dcaf0 !important;
+}
+.border-danger {
+  border-left: 5px solid  #fd3550 !important;
+}
+.border-success {
+  border-left: 5px solid  #15ca20 !important;
+}
+.border-warning {
+  border-left: 5px solid  #ffc107 !important;
+}
+
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0px solid rgba(0, 0, 0, 0);
+  border-radius: 25px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+
+}
+.bg-gradient-scooter {
+  background: #17ead9;
+  background: -webkit-linear-gradient(
+45deg
+, #17ead9, #6078ea)!important;
+  background: linear-gradient(
+45deg
+, #17ead9, #6078ea)!important;
+}
+.widgets-icons-2 {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ededed;
+  font-size: 27px;
+  border-radius: 10px;
+}
+.rounded-circle {
+  border-radius: 50%!important;
+}
+.text-white {
+  color: #fff!important;
+}
+.ms-auto {
+  margin-left: auto!important;
+}
+
+/* Add this CSS to your component's CSS file */
+/*::ng-deep .p-dialog {
+    border-radius: 6px;
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, -0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}*/
+
+.clickable-icon, .clickableTicket {
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}

@@ -1,0 +1,80 @@
+<app-Navbar></app-Navbar>
+<app-Sidebar></app-Sidebar>
+<header>
+        <div class="container">
+            <div class="k card">
+                <p-table
+                        [value]="tickets"
+                        selectionMode="single"
+                        [resizableColumns]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [rows]="10"
+                        [showCurrentPageReport]="true"
+                        [rowsPerPageOptions]="[5,10, 25, 50]"
+                        [paginator]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="flex" style="display: flex; align-items: center;">
+                              <!-- <button pButton label="Retourner" class="p-button-outlined" icon="pi pi-arrow-left"></button>-->
+                                <button pButton  class="p-button-outlined" icon="pi pi-refresh" (click)="ResetList()"   ></button>
+                                <span class="p-input-icon-left" style="margin-left: auto;">
+                                    <i class="pi pi-search"></i>
+                                    <input pInputText type="text" [(ngModel)]="searchkey" (ngModelChange)="Search()" placeholder="Mot-clé à rechercher" />
+                                </span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                                <tr  >
+                                    <th pSortableColumn="code">Index 
+                                        <p-sortIcon field="code"></p-sortIcon>
+                                    </th>
+                                    <th>Assign to 
+                                        <p-columnFilter type="text" field="assignTo" display="menu"></p-columnFilter>
+                                    </th>
+                                    <th>Title 
+                                         <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                                    </th>
+
+                                    <th>Status
+                                         <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                                        </th>
+                                    <th>Priority 
+                                        <p-columnFilter type="text" field="priority.priorityName" display="menu"></p-columnFilter>
+                                    </th>
+
+                                    <th>Description
+                                    
+                                    </th>
+                                </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-ticket let-columns="columns" let-i="rowIndex">
+                                <tr  class="clickableTicket" (click)="navigateToTicketDetails(ticket.ticketID)" >
+                                    <td>{{i}}</td>
+                                    
+
+                                    <td>
+                                        <div style="display: flex; align-items: center;">
+                                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
+                                            <span style="margin-top: -5px; margin-left: 15px;">{{ticket.assignTo}}</span>
+                                        </div>
+                                    </td>
+                                    
+                                    <td>{{ticket.title}}</td>
+                                    <td>{{ticket.status}}</td>
+                                    <td>
+                                        <p-tag [value]="ticket.priority.priorityName" [severity]="getPriorityColor(ticket.priority.priorityName)"></p-tag>
+                                    </td>
+                                    <td    style="text-align: center;" (click)="showModel(); descriptionModel(ticket.description); $event.stopPropagation()"><svg class="clickable-icon" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512" style="margin-right: 50px; fill: #45494e;">
+                                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc-->
+                                        <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 232V334.1l31-31c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0l-72-72c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l31 31V232c0-13.3 10.7-24 24-24s24 10.7 24 24z"/>
+                                    </svg></td>
+                                  
+                                </tr>
+                        </ng-template>
+                </p-table>
+            </div>   
+        </div>
+</header>   
+<p-dialog header="Description" [(visible)]="visible" [maximizable]="true" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="false">
+    <p class="m-0" [innerHTML]="description"></p>
+</p-dialog>
+

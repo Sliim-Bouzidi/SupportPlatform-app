@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.container {
+    display: flex;
+    height: 100vh; /* Adjust the height as needed */
+    background-color: #ffffff;
+}
+
+.image-section {
+    flex: 1;
+    position: relative;
+    border-top-right-radius: 50px; /* Adjust the radius as needed */
+    border-bottom-right-radius: 50px; /* Adjust the radius as needed */
+    overflow: hidden; /* Ensure image does not overflow rounded corners */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+}
+
+.button-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ensure content doesn't overflow */
+
+}
+
+.company-logo {
+    position: absolute;
+    top: -50px; /* Adjust the top position as needed */
+    right: 50%; /* Position the logo in the center horizontally */
+    transform: translateX(50%); /* Adjust horizontal positioning */
+
+    
+}
+
+.custom-button {
+    margin: 20px; /* Adjust the margin between buttons as needed */
+}
+
+.full-height {
+    height: 100%;
+    width: 100%; /* Fill the entire width of the container */
+    object-fit: cover;
+}
+
+::ng-deep .p-button {
+    color: #ffffff;
+    background: #4461F2;
+    border: 1px solid #3B82F6;
+    padding: 0.75rem 1.25rem;
+    font-size: rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0;
+    width: 310px;
+}

@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.container {
+    display: flex;
+    height: 100vh; /* Adjust the height as needed */
+    background-color: #ffffff;
+    overflow: hidden; /* Ensure no overflow */
+}
+
+
+
+
+.card {
+    width: 100%; /* Changed to take the entire width of the container */
+    height: 100%; /* Changed to take the entire height of the container */
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form {
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    align-items: center; /* Center items horizontally */
+    margin-top: -145px; /* Adjust the margin-top as needed */
+    /* Other styles */
+}
+
+.image-box {
+    flex: 1; /* Use flex property to make it fill the available space */
+    height: 100%; /* Ensure it takes the full height */
+    overflow: hidden;
+}
+
+.image-box img {
+    box-sizing: border-box;
+    object-fit: cover; /* Use cover to fill the entire space without stretching */
+    width: 100%;
+    height: 100%;
+}
+
+/* CSS for CED logo */
+.ced-logo {
+    width: 800px; /* Adjust the max-width as needed */
+    margin-bottom: -17vh;
+    margin-top: 5vh;
+}
+
+.image-box {
+    text-align: center; /* Center the image */
+}
+
+.signup_form .image-box {
+    position: absolute;
+    right: 0;
+    transition: all 1s;
+    z-index: 1
+}
+
+.card .signup_form .form {
+    position: absolute;
+    background-color: #fff;
+    padding: 20px 30px;
+    left: 0;
+    box-sizing: border-box;
+    transition: all 1s;
+    z-index: 1;
+    height: 100%
+}
+
+::ng-deep  .p-inputtext {
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
+    color: #4b5563;
+    background: #F0EDFF;
+    border: 1px solid #F0EDFF;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    border-radius: 6px;
+    width: 60vh;
+}
+
+.password-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start (left) */
+    margin-bottom: 20px; /* Add some space between label and input */
+    margin-top: 40px;
+}
+
+.password-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: bold; /* Make the label bold */
+    color: #000000; /* Set the color to black */
+    margin-bottom: 5px; /* Adjust as needed */
+    text-align: left; /* Align the text to the left */
+}
+
+.Email-container {
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    align-items: flex-start; /* Align items to the start (left) */
+}
+
+.email-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.email-input {
+    display: flex;
+    align-items: center;
+}
+
+.user .form {
+    display: flex;
+    flex-direction: column; /* Ensure items stack vertically */
+    align-items: center; /* Center items horizontally */
+    /* Other styles */
+}
+
+.text_signup {
+    text-align: center; /* Center the text */
+    margin-bottom: 40px ;
+}
+
+.text_signup h2 {
+    font-size: 36px; /* Increase the font size for emphasis */
+    font-weight: bold; /* Keep the text bold */
+    text-align: center; /* Center the text for better alignment */
+    margin-bottom: 20px; /* Add some space below the heading */
+    background: linear-gradient(to right, #543392, #80c14b,#3598d3 ); /* Apply gradient color to the text */
+    -webkit-background-clip: text; /* Apply gradient only to the text */
+    -moz-background-clip: text; /* Apply gradient only to the text (Firefox) */
+    background-clip: text; /* Apply gradient only to the text (Standard) */
+    -webkit-text-fill-color: transparent; /* Hide the original text color */
+    color: transparent; /* Hide the original text color for compatibility */
+    text-align: left;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3); /* Increase the text shadow for depth */
+}
+
+
+
+.text_signup p {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    margin-top: 10px;
+}
+
+
+::ng-deep .p-button {
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    width: 40vh;
+    margin-top: 30px;
+}
+
+::ng-deep .p-icon-field-left .p-input-icon:first-of-type {
+    left: 0.75rem;
+    color: #000000;
+}

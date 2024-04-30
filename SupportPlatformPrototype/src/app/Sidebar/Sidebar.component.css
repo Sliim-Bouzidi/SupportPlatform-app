@@ -1,0 +1,231 @@
+@import url(https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap);
+
+/* Font Awesome Size */
+.fa-2x {
+    font-size: 2em;
+}
+
+/* Font Awesome Base Styles */
+.fa {
+    position: relative;
+    display: table-cell;
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    transition: font-size 0.3s ease;
+}
+
+/* Icon Pulse Animation */
+.fa:hover {
+    animation: pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Main Menu Animation */
+.main-menu:hover,
+nav.main-menu.expanded {
+    width: 250px;
+    height: 100%;
+    overflow: visible;
+    transition: width 0.3s ease, height 0.3s ease; /* Added height transition */
+}
+
+/* Main Menu Styles */
+.main-menu {
+    background: #192F64;
+    border-right: 1px solid #e5e5e5;
+    position: fixed; /* Change position to fixed */
+    top: 72px;
+    bottom: 0; /* Change bottom to 0 */
+    height: auto; /* Set height to auto */
+    left: 0;
+    width: 60px;
+    overflow: hidden;
+    z-index: 900;
+}
+
+/* Main Menu List Styles */
+.main-menu>ul {
+    margin: 7px 0;
+}
+
+/* Main Menu Item Styles */
+.main-menu li {
+    position: relative;
+    display: block;
+    width: 250px;
+}
+
+.main-menu li>a {
+    position: relative;
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #FFFFFF;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.1s linear;
+}
+
+.main-menu .nav-icon {
+    position: relative;
+    display: table-cell;
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.main-menu .nav-text {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    width: 190px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Logout Styles */
+.main-menu>ul.logout {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.main-menu>ul.logout .nav-text {
+  transition: opacity 0s ease; /* Adjust the duration as needed */
+  opacity: 0; /* Set initial opacity to fully hidden */
+}
+
+.main-menu:hover>ul.logout .nav-text {
+  opacity: 1; /* Show the text on hover over the .main-menu */
+}
+
+
+/* Hover Scrollable Effect */
+.no-touch .scrollable.hover {
+    overflow-y: hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+    overflow-y: auto;
+    overflow: visible;
+}
+
+/* Hover and Focus Effect */
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+/* User Selection Disabled */
+nav {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/* List Styles */
+nav ul,
+nav li {
+    outline: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Active and Hover States */
+.main-menu li:hover>a,
+nav.main-menu li.active>a,
+.dropdown-menu>li>a:hover,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:hover,
+.dropdown-menu>.active>a:focus,
+.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
+.dashboard-page nav.dashboard-menu ul li.active a {
+    color: #fff;
+    background-color: #C18C94;
+}
+
+/* Area Styles */
+
+/* Removed the @font-face block as Open Sans is a system font */
+
+/* Increased Font Size */
+.main-menu li>a,
+.main-menu .nav-text {
+    font-size: 16px;
+}
+/* Normal styles for your component */
+
+
+/* Styles specifically for printing */
+@media print {
+  .printable {
+    display: none;
+  }
+}
+
+
+.container {
+  margin-top: 250px;
+}
+
+.modal-header {
+  border: none;
+}
+
+.modal-footer {
+  border: none;
+}
+
+.mid {
+  margin: 0 110px;
+}
+
+.form-control {
+  border: none;
+  border-bottom: 1px solid #DAD8FD;
+  border-radius: 0;
+}
+
+.form-control:focus {
+  border-bottom: 2px solid #6F6E9A;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background: #5B53FE;
+}
+
+.btn-primary:focus {
+  box-shadow: none;
+}
+
+.close:focus {
+  outline: 0;
+}
+
+
+
+.has-subnav:hover {
+  cursor: pointer; /* Change cursor to pointer when hovering */
+}
+
