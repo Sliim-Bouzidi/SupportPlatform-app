@@ -74,4 +74,12 @@ showNextContent() {
         this.currentContentIndex++;
     }
 }
+
+
+
+
+
+showContent(index: number) {
+  this.currentContentIndex = index;
+}
 }

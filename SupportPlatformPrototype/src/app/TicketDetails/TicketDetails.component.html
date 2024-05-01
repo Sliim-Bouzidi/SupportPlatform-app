@@ -15,20 +15,25 @@
         <div class="custom-container">
             <!-- Place your card content here -->
             <div class="icon-container">
-                <i class="pi pi-angle-left" (click)="showPreviousContent()"></i>
-                <i class="pi pi-angle-right" (click)="showNextContent()"></i>
+               <!-- <i class="pi pi-angle-left" (click)="showPreviousContent()"></i>-->
+                <!--<i class="pi pi-angle-right" (click)="showNextContent()"></i>-->
+
+                
+                <i class=" pi pi-info-circle"  (click)="showContent(0)" ></i>
+                <i class="pi pi-history" (click)="showContent(1)"  ></i>
+                <i class="pi pi-paperclip" (click)="showContent(2)"  ></i>
             </div>
         </div>
     
         <div class="card-content">
-            <div style="height: 150px;">
+            <div style="height: 400px;">
             </div>
                 <!-- Content to be shown -->
                 
 
 
                 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-                <div class="container" *ngIf="currentContentIndex === 0">
+                <div class="comment-container" *ngIf="currentContentIndex === 0">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="media g-mb-30 media-comment">
@@ -49,8 +54,9 @@
 
                     <div class="col-md-8">
                         <div class="media g-mb-30 media-comment">
-                            
+
                             <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"  size="large"></p-avatar>
                             <div class="g-mb-15">
                                 <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
                                 <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
@@ -124,7 +130,120 @@
 
 
                 <div *ngIf="currentContentIndex === 1">
-                    <p style="text-align: center;">salem alikoum nesi wo a7bebi</p>
+                    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+<div class="page-content page-container" id="page-content">
+   <div class="padding">
+      <div class="row">
+         <div class="col-sm-8">
+             
+           <div class="container-fluid d-flex justify-content-center">
+            <div class="list list-row card" id="sortable" data-sortable-id="0" aria-dropeffect="move">
+               <div class="list-item" data-id="13" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
+                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-primary">P</span></a></div>
+                  <div class="flex">
+                     <a href="#" class="item-author text-color" data-abc="true">Patrick Linod</a>
+                     <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business content?</div>
+                  </div>
+                  <div class="no-wrap">
+                     <div class="item-date text-muted text-sm d-none d-md-block">3 weeks ago</div>
+                  </div>
+                  <div>
+                     <div class="item-action dropdown">
+                    
+                     
+                     </div>
+                  </div>
+               </div>
+               <div class="list-item" data-id="9" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false">
+                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-info"><img src="https://img.icons8.com/bubbles/24/000000/user.png" alt="."></span></a></div>
+                  <div class="flex">
+                     <a href="#" class="item-author text-color" data-abc="true">Steven Hmpire</a>
+                     <div class="item-except text-muted text-sm h-1x">Build a progressive web app using jQuery</div>
+                  </div>
+                  <div class="no-wrap">
+                     <div class="item-date text-muted text-sm d-none d-md-block">2 days ago</div>
+                  </div>
+                  <div>
+                     <div class="item-action dropdown">
+                      
+                      
+                     </div>
+                  </div>
+               </div>
+               <div class="list-item" data-id="17" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
+                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-warning">A</span></a></div>
+                  <div class="flex">
+                     <a href="#" class="item-author text-color" data-abc="true">Alan musk</a>
+                     <div class="item-except text-muted text-sm h-1x">it be advisable for me to think about business content?</div>
+                  </div>
+                  <div class="no-wrap">
+                     <div class="item-date text-muted text-sm d-none d-md-block">13/12 18</div>
+                  </div>
+                  <div>
+                     <div class="item-action dropdown">
+                    
+                     
+                     </div>
+                  </div>
+               </div>
+               <div class="list-item" data-id="8" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false">
+                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-success"><img src="https://img.icons8.com/doodle/24/000000/user-male.png" alt="."></span></a></div>
+                  <div class="flex">
+                     <a href="#" class="item-author text-color" data-abc="true">Lawrence Telon</a>
+                     <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think</div>
+                  </div>
+                  <div class="no-wrap">
+                     <div class="item-date text-muted text-sm d-none d-md-block">02/11 18</div>
+                  </div>
+                  <div>
+                     <div class="item-action dropdown">
+                    
+                     
+                     </div>
+                  </div>
+               </div>
+               <div class="list-item" data-id="10" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
+                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-danger"><img src="https://img.icons8.com/color/16/000000/administrator-male.png" alt="."></span></a></div>
+                  <div class="flex">
+                     <a href="#" class="item-author text-color" data-abc="true">Stuart Clark</a>
+                     <div class="item-except text-muted text-sm h-1x">For what reason would, i think about business content?</div>
+                  </div>
+                  <div class="no-wrap">
+                     <div class="item-date text-muted text-sm d-none d-md-block">1 day ago</div>
+                  </div>
+                  <div>
+                     <div class="item-action dropdown">
+                      
+                     
+                     </div>
+                  </div>
+               </div>
+               <div class="list-item" data-id="3" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false">
+                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-primary"><img src="https://img.icons8.com/bubbles/16/000000/administrator-male.png" alt="."></span></a></div>
+                  <div class="flex">
+                     <a href="#" class="item-author text-color" data-abc="true">Jordan Stephens</a>
+                     <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business</div>
+                  </div>
+                  <div class="no-wrap">
+                     <div class="item-date text-muted text-sm d-none d-md-block">1 hour ago</div>
+                  </div>
+               
+               </div>
+            </div>
+         </div>
+        </div>     
+      </div>  
+   </div>
+</div>
+
+
                 </div>
 
 
