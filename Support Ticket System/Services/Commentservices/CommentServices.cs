@@ -64,5 +64,18 @@ namespace Support_Ticket_System.Services.Commentservices
             await _context.SaveChangesAsync();
             return "comment has been removed";
         }
+        public async Task<Comment> UpdateComment(Guid CommentID, Guid userID, string text)
+        {
+
+            var comment = await _context.comments.Where(c => c.CommentID == CommentID).Include(c => c.user.UserID).FirstOrDefaultAsync();
+            if (comment.user.UserID != userID)
+            {
+                throw new InvalidOperationException("User is not authorized to update this comment.");
+            }
+
+            comment.text = text;
+            await _context.SaveChangesAsync();
+            return comment;
+        }
     }
 }

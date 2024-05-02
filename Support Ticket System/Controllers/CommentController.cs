@@ -52,6 +52,29 @@ namespace Support_Ticket_System.Controllers
             return Ok(comments);
         }
         [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdateComment(Guid CommentID, UpdateComment request)
+        {
+            try
+            {
+                var userClaims = HttpContext.User.Identity as ClaimsIdentity;
+
+                var userIdClaim = userClaims.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out Guid userId))
+
+                {
+                    var comment = await _commentServices.UpdateComment(CommentID, userId, request.Text);
+                    return Ok(comment);
+                }
+                return BadRequest("comment was not updated");
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
+        }
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> DeleteComment(Guid ticketID, Guid CommentID)
         {

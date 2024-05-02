@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -43,6 +43,8 @@ import { SplitterModule } from 'primeng/splitter';
 import { PanelModule } from 'primeng/panel';
 import { InplaceModule } from 'primeng/inplace';
 import { ChipModule } from 'primeng/chip';
+import { EditorModule as TinyMCEEditorModule } from '@tinymce/tinymce-angular'; // Alias EditorModule from tinymce-angular
+import { TagInputModule } from 'ngx-chips';
 
 
 
@@ -61,6 +63,7 @@ import { ChipModule } from 'primeng/chip';
   imports: [
     
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -91,8 +94,9 @@ import { ChipModule } from 'primeng/chip';
     SplitterModule,
     PanelModule,
     InplaceModule,
-    ChipModule
-    
+    ChipModule,
+    TinyMCEEditorModule,
+    TagInputModule
  
 
   ],

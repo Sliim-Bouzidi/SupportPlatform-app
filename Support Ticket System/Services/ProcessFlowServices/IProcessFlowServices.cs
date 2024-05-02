@@ -6,5 +6,7 @@ namespace Support_Ticket_System.Services.ProcessFlowServices
     {
         IEnumerable<string> FirstLevelProcessFlows();
         IEnumerable<string> GetChildrenOfParentProcessFlow(string parentProcessFlowName);
+        Task<ProcessFlow> AddProcessFlow(string ProcessFlowName , Guid? ParentProcessFlowId , string tenantname );
+        Task<bool> RemoveProcessFlow(string ProcessFlowName );
     }
 }

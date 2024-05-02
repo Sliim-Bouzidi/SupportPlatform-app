@@ -8,5 +8,7 @@ namespace Support_Ticket_System.Services.status_services
         StatusHistory SetStatus(Guid TicketID, string statusName = null);
         IEnumerable<string> GetStatusNames();
         Task<IEnumerable<StatusHistory>> GetStatusHistoryOfTicket(Guid TicketID);
+        Task<Status> AddNewStatus(string statusName);
+        Task<bool> RemoveStatus(string statusName);
     }
 }

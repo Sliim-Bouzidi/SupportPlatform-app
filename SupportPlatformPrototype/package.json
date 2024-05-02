@@ -34,6 +34,7 @@
     "express": "^4.18.2",
     "font-awesome": "^4.7.0",
     "jwt-decode": "^4.0.0",
+    "ngx-chips": "^3.0.0",
     "ngx-editor": "^17.0.2",
     "primeicons": "^7.0.0",
     "primeng": "^17.12.0",

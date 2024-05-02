@@ -11,6 +11,21 @@ namespace Support_Ticket_System.Services.ProcessFlowServices
         {
             _Context = context;
         }
+
+        public  async Task<ProcessFlow> AddProcessFlow(string ProcessFlowName, Guid? ParentProcessFlowId, string tenantname)
+        {
+           var tenant = _Context.tenants.Where(t=>t.Name == tenantname).FirstOrDefault();
+            var processflow = new ProcessFlow
+            {
+                ProcessFlowName = ProcessFlowName,
+                ParentProcessFlowId = ParentProcessFlowId,
+                tenant = tenant 
+            };
+            await _Context.processFlows.AddAsync(processflow);
+            await _Context.SaveChangesAsync();
+            return processflow;
+        }
+
         public IEnumerable<string> FirstLevelProcessFlows()
         {
 
@@ -39,5 +54,18 @@ namespace Support_Ticket_System.Services.ProcessFlowServices
             return childrenNames; 
         }
 
+        public async Task<bool> RemoveProcessFlow(string ProcessFlowName)
+        {
+            var processFlow =  _Context.processFlows.Where(p=>p.ProcessFlowName == ProcessFlowName).FirstOrDefault();
+            if (processFlow == null)
+            {
+                return false;
+            }
+            _Context.processFlows.Remove(processFlow);
+            await _Context.SaveChangesAsync();
+            return true;
+
+
+        }
     }
 }

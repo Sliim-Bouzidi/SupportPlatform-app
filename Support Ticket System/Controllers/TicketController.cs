@@ -65,7 +65,7 @@ namespace Support_Ticket_System.Controllers
         }
 
 
-        [HttpGet("listoftickets")]
+        [HttpGet]
 
         public async Task<IActionResult> GetAllTicketsbytenant(string TenantName)
         {
@@ -121,7 +121,7 @@ namespace Support_Ticket_System.Controllers
         [HttpGet("TicketNotes")]  
         public async Task<IActionResult> GetTicketHistory (Guid TicketID)
         {
-            var ticketHistory =  await _ticketService.GetTicketHistory(TicketID);
+            var ticketHistory =  await _ticketService.GetTicketHistoryMessages(TicketID);
             if (ticketHistory == null)
             {
                 return BadRequest("there are no ticket notes");

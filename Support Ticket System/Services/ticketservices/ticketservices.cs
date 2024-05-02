@@ -114,13 +114,41 @@ namespace Support_Ticket_System.Services.ticketservices
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<TicketHistory>> GetTicketHistory(Guid TicketID)
+        //public async Task<IEnumerable<TicketHistory>> GetTicketHistory(Guid TicketID)
+        //{
+        //    var tickethistory = await _context.ticketHistories.Where(t=>t.TicketID == TicketID)
+        //        .Include(t=>t.user.Username)
+        //        .ToListAsync();
+        //    return tickethistory;
+        //}
+        public async Task<IEnumerable<string>> GetTicketHistoryMessages(Guid TicketID)
         {
-            var tickethistory = await _context.ticketHistories.Where(t=>t.TicketID == TicketID)
-                .Include(t=>t.user.Username)
+            var ticketHistoryMessages = await _context.ticketHistories
+                .Where(t => t.TicketID == TicketID)
+                .Include(t => t.user)
+                .OrderByDescending(th => th.TimeStamp)
+                .Select(th => th.changeType == "update status" ?
+                    $"{th.user.Username} has changed the status from {th.OldValue} to {th.NewValue}" :
+                    th.changeType == "comment added" ?
+                    $" {th.user.Username} has added a comment" :
+                    th.changeType == "ticket Creation" ?
+                    $"The ticket was created at {th.TimeStamp}" :
+                    th.changeType == "Update title" ?
+                    $" {th.user.Username} has changed the title from {th.OldValue} to {th.NewValue}" :
+                    th.changeType == "Update Description" ?
+                    $" {th.user.Username} has changed the description at {th.TimeStamp.Date}" :
+                    th.changeType == "Update Assignee" ?
+                    $"{th.user.Username} has assinged the ticket to {th.NewValue} at  {th.TimeStamp.Date}":
+                    $"Unhandled change type: {th.changeType}"
+
+
+
+                )
                 .ToListAsync();
-            return tickethistory;
+
+            return ticketHistoryMessages;
         }
+
 
         public async Task<bool> StoreInTicketHistory(Guid ticketID, Guid? userID , string changetype , string oldvalue = null , string newvalue = null)
         {
@@ -156,6 +184,7 @@ namespace Support_Ticket_System.Services.ticketservices
                                                 Description = t.Description,
                                                 CreatedDate = t.CreatedDate,
                                                 UpdatedDate = t.UpdatedDate.Date,
+                                                AssignTo = t.AssignTo,
 
 
                                                 processFlow = new ProcessFlow

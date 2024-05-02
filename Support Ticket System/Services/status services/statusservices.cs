@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using Support_Ticket_System.DataContext;
 using Support_Ticket_System.Entites;
 using System.Net.NetworkInformation;
@@ -13,6 +14,22 @@ namespace Support_Ticket_System.Services.status_services
         {
             _context = context;
         }
+
+        public async Task<Status> AddNewStatus(string StatusName)
+        {
+            var status = _context.statuses.Where(s=>s.StatusName == StatusName).FirstOrDefault();
+
+            var statusAdded = new Status
+            {
+                StatusID = Guid.NewGuid(),
+                StatusName = StatusName,
+
+            };
+             await _context.statuses.AddAsync(statusAdded);
+            await _context.SaveChangesAsync();
+            return statusAdded;
+        }
+
         public IEnumerable<Status> GetAllStatuses()
         {
             return _context.statuses.ToList();
@@ -36,6 +53,18 @@ namespace Support_Ticket_System.Services.status_services
                                     .Select(s => s.StatusName)
                                     .ToList(); 
             return statusNames;
+        }
+
+        public async Task<bool> RemoveStatus(string statusName)
+        {
+            var status = _context.statuses.Where(s=>s.StatusName == statusName).FirstOrDefault();
+            if (status == null)
+            {
+                return false;
+            }
+            _context.statuses.Remove(status);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public StatusHistory SetStatus(Guid TicketID, string statusName = null )
@@ -63,6 +92,7 @@ namespace Support_Ticket_System.Services.status_services
             else
                 return null;
         }
+
 
       
     }

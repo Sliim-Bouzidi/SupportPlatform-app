@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Lb7EDuCr/2W/XPYxYIFSc+djmfhfjNYisDQnuDjPXTE=",
+  "Hash": "DAyCx9ApzhwSOYQz4zS9yqO3hvWgK3oHW4RoztmgDlk=",
   "Source": "Support Ticket System",
   "BasePath": "_content/Support Ticket System",
   "Mode": "Default",
@@ -9,10 +9,10 @@
   "DiscoveryPatterns": [],
   "Assets": [
     {
-      "Identity": "C:\\Users\\yassine.zemzem\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
+      "Identity": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
       "SourceId": "Microsoft.AspNetCore.Components.QuickGrid",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\yassine.zemzem\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\",
       "BasePath": "_content/Microsoft.AspNetCore.Components.QuickGrid",
       "RelativePath": "Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
       "AssetKind": "All",
@@ -25,13 +25,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\yassine.zemzem\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\yassine.zemzem\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\QuickGrid.razor.js",
+      "Identity": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\QuickGrid.razor.js",
       "SourceId": "Microsoft.AspNetCore.Components.QuickGrid",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\yassine.zemzem\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\",
       "BasePath": "_content/Microsoft.AspNetCore.Components.QuickGrid",
       "RelativePath": "QuickGrid.razor.js",
       "AssetKind": "All",
@@ -44,13 +44,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\yassine.zemzem\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\QuickGrid.razor.js"
+      "OriginalItemSpec": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "C:\\Users\\yassine.zemzem\\source\\repos\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css",
+      "Identity": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css",
       "SourceId": "Support Ticket System",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\yassine.zemzem\\source\\repos\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Support Ticket System",
       "RelativePath": "Support Ticket System.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\yassine.zemzem\\source\\repos\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css"
+      "OriginalItemSpec": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css"
     }
   ]
 }

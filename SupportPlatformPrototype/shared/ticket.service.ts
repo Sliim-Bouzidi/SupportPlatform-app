@@ -23,8 +23,15 @@ export class TicketService {
 
 
 
+  getTicketById(ticketId: string): Observable<Ticket> {
+    return this.http.get<Ticket>(`${this.apiUrl}/TicketDetails?ticketID=${ticketId}`);
+  }
 
 
+
+ /* updateTicket(ticketId: string, updatedFields: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${ticketId}`, updatedFields);
+  }*/
   
 
 }

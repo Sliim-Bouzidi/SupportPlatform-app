@@ -10,8 +10,22 @@
     <div class="f card">
         <div class="ticket-title-container">
             <i class="pi pi-arrow-left arrow-icon" (click)="navigateToTicketList(tenantname)" style="margin-left: 20px; cursor: pointer;"></i>
-            <h3 class="ticket-title">Ticket Name</h3>
+           
+                <div style="display: flex; align-items: center;">
+                <p-inplace [closable]="closable" id="title-c">
+                    <ng-template pTemplate="display"  >
+                         <h3    class="ticket-title">{{ ticket.title }}</h3>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <input  style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 170px;" type="text"  value="{{this.ticket.title}}" pInputText />
+                    </ng-template>
+                </p-inplace>
+            </div>
+           
+            <i class="pi pi-pencil edit-icon" ></i>
         </div>
+        
+        
         <div class="custom-container">
             <!-- Place your card content here -->
             <div class="icon-container">
@@ -26,13 +40,41 @@
         </div>
     
         <div class="card-content">
-            <div style="height: 400px;">
+           <!-- <div *ngIf="currentContentIndex === 0" style="margin-top: 50px;">
+                <div>
+                    <div *ngIf="usePrimeNGQuill">
+
+                        <p-editor [(ngModel)]="ticket.description" [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px' }">
+                        
+                        
+                           
+                        
+                        </p-editor>
+                    </div>
+                    <div *ngIf="!usePrimeNGQuill" >
+                        
+                        <textarea placeholder="Enter text here" [(ngModel)]="ticket.description"></textarea>
+                    </div>
+                </div>
             </div>
-                <!-- Content to be shown -->
+           -->
+
+           
+                <div *ngIf="currentContentIndex === 0" >
                 
+                 
+<editor apiKey="8h1bs6757avrnz0rd3fii5i9js62c17nsifd4leees5dte39"  [(ngModel)]="ticket.description"  [init]="{plugins:'lists link image table code help wordcount'}">
+</editor>
+                </div>
+            
 
+                    
+                <div style="height:400px;">
 
-                <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+                </div>
+                     
+
+              <!--  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
                 <div class="comment-container" *ngIf="currentContentIndex === 0">
                 <div class="row">
                     <div class="col-md-8">
@@ -70,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+                </div>-->
 
 
 
@@ -130,128 +172,15 @@
 
 
                 <div *ngIf="currentContentIndex === 1">
-                    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
-  } );
-  </script>
-<div class="page-content page-container" id="page-content">
-   <div class="padding">
-      <div class="row">
-         <div class="col-sm-8">
-             
-           <div class="container-fluid d-flex justify-content-center">
-            <div class="list list-row card" id="sortable" data-sortable-id="0" aria-dropeffect="move">
-               <div class="list-item" data-id="13" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
-                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-primary">P</span></a></div>
-                  <div class="flex">
-                     <a href="#" class="item-author text-color" data-abc="true">Patrick Linod</a>
-                     <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business content?</div>
-                  </div>
-                  <div class="no-wrap">
-                     <div class="item-date text-muted text-sm d-none d-md-block">3 weeks ago</div>
-                  </div>
-                  <div>
-                     <div class="item-action dropdown">
-                    
-                     
-                     </div>
-                  </div>
-               </div>
-               <div class="list-item" data-id="9" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false">
-                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-info"><img src="https://img.icons8.com/bubbles/24/000000/user.png" alt="."></span></a></div>
-                  <div class="flex">
-                     <a href="#" class="item-author text-color" data-abc="true">Steven Hmpire</a>
-                     <div class="item-except text-muted text-sm h-1x">Build a progressive web app using jQuery</div>
-                  </div>
-                  <div class="no-wrap">
-                     <div class="item-date text-muted text-sm d-none d-md-block">2 days ago</div>
-                  </div>
-                  <div>
-                     <div class="item-action dropdown">
-                      
-                      
-                     </div>
-                  </div>
-               </div>
-               <div class="list-item" data-id="17" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
-                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-warning">A</span></a></div>
-                  <div class="flex">
-                     <a href="#" class="item-author text-color" data-abc="true">Alan musk</a>
-                     <div class="item-except text-muted text-sm h-1x">it be advisable for me to think about business content?</div>
-                  </div>
-                  <div class="no-wrap">
-                     <div class="item-date text-muted text-sm d-none d-md-block">13/12 18</div>
-                  </div>
-                  <div>
-                     <div class="item-action dropdown">
-                    
-                     
-                     </div>
-                  </div>
-               </div>
-               <div class="list-item" data-id="8" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false">
-                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-success"><img src="https://img.icons8.com/doodle/24/000000/user-male.png" alt="."></span></a></div>
-                  <div class="flex">
-                     <a href="#" class="item-author text-color" data-abc="true">Lawrence Telon</a>
-                     <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think</div>
-                  </div>
-                  <div class="no-wrap">
-                     <div class="item-date text-muted text-sm d-none d-md-block">02/11 18</div>
-                  </div>
-                  <div>
-                     <div class="item-action dropdown">
-                    
-                     
-                     </div>
-                  </div>
-               </div>
-               <div class="list-item" data-id="10" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
-                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-danger"><img src="https://img.icons8.com/color/16/000000/administrator-male.png" alt="."></span></a></div>
-                  <div class="flex">
-                     <a href="#" class="item-author text-color" data-abc="true">Stuart Clark</a>
-                     <div class="item-except text-muted text-sm h-1x">For what reason would, i think about business content?</div>
-                  </div>
-                  <div class="no-wrap">
-                     <div class="item-date text-muted text-sm d-none d-md-block">1 day ago</div>
-                  </div>
-                  <div>
-                     <div class="item-action dropdown">
-                      
-                     
-                     </div>
-                  </div>
-               </div>
-               <div class="list-item" data-id="3" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false">
-                  <div><a href="#" data-abc="true"><span class="w-40 avatar gd-primary"><img src="https://img.icons8.com/bubbles/16/000000/administrator-male.png" alt="."></span></a></div>
-                  <div class="flex">
-                     <a href="#" class="item-author text-color" data-abc="true">Jordan Stephens</a>
-                     <div class="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business</div>
-                  </div>
-                  <div class="no-wrap">
-                     <div class="item-date text-muted text-sm d-none d-md-block">1 hour ago</div>
-                  </div>
-               
-               </div>
-            </div>
-         </div>
-        </div>     
-      </div>  
-   </div>
-</div>
-
-
+                    <p style="text-align: center;">Hello</p>
                 </div>
-
+  
 
 
                 <div *ngIf="currentContentIndex === 2">
                     <p style="text-align: center;">FAKER WHAT WAS THAT</p>
                 </div>
-  
+                
             
         </div>
     </div>
@@ -281,47 +210,170 @@
                 
                 -->
 
-                <div class="ticketIDContainer">
-                    <div class="ticket-label">Ticket ID: <span class="ticket-id">{{ticketID}}</span></div>
+                <div class="ticketPFContainer">
+                    <div class="ticket-PFlabel">Proccess Flow: <span class="ticket-pf">{{this.ticket.processFlow.processFlowName
+                    }}</span></div>
                 </div>
                 
                 
                
                 
                 
-                <div>Created: 15 Mar 2024</div>
-                
+                <div>Created Date: <span style="color: black;">{{this.ticket.createdDate.toString().split('T')[0] }}</span> </div>
+                <div>Updated Date: <span style="color: black;">{{this.ticket.updatedDate.toString().split('T')[0] }}</span> </div>
                 <div style="display: flex; align-items: center;">
                     <div>Status:
                         <p-inplace [closable]="closable">
                             <ng-template pTemplate="display">
-                                <span>Click to Edit</span>
+                                <span>{{this.ticket.status}}</span>
                             </ng-template>
                             <ng-template pTemplate="content">
-                                <input style="margin-left: 10px; margin-bottom: 5px;" type="text" value="PrimeNG" pInputText />
+                                <input style="margin-left: 10px; margin-bottom: 5px;" type="text" value="{{this.ticket.status}}" pInputText />
                             </ng-template>
                         </p-inplace>
                     </div>
                 </div>
                 
-                <div>Priority:Medium</div>
-                <div>Severity:4</div>
-                <div>Created by:yassine</div>
+                <div>Priority: <span style="color: black;"> {{this.ticket.priority.priorityName}}</span></div>
+                <div>Severity:  <span style="color: black;">{{this.ticket.severity.severityName}}</span></div>
+                <div>Assigned to: <span style="color: black;">{{this.ticket.assignTo}}</span></div>
                 <div style="display: flex; align-items: center;"></div>
-                 <div>Tags:
-                    <p-inplace [closable]="closable">
-                        <ng-template pTemplate="display">
-                            <span>Click to Edit</span>
-                        </ng-template>
-                        <ng-template pTemplate="content">
-                            <p-chip label="Action"></p-chip>
-                        </ng-template>
-                    </p-inplace>
-                 </div>
 
+                <div>
+                    Tags:
+                    <tag-input [(ngModel)]="this.ticket.tags" [placeholder]="'Enter Tags'"></tag-input>
+                
+                    <ul>
+                        <li *ngFor="let tag of this.ticket.tags" >{{ tag.tag.tagName }}</li>
+                    </ul>
+                </div>
+                
+                    
+                <!--<div *ngFor="let tag of this.ticket.tags">
+
+                    
+                        <p-inplace [closable]="closable">
+                            <ng-template pTemplate="display">
+                                <span>Click to Edit</span>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                                <p-chip label="{{tag.tag.tagName}}"></p-chip>
+                            </ng-template>
+                        </p-inplace>
+                    </div>-->
+                
+                
             </div>
           </div>
-          <div class="n card">
+          <!--<div class="n card">
                card n
-          </div>
+          </div>-->
+
+          
+
+          
+<div class="k   d-flex justify-content-center mt-100 mb-100">
+    <div class="row">
+        <div class="col-md-12">
+  
+          <div class="card">
+                              <div class="card-body">
+                                  <h4 class="card-title">Recent Comments</h4>
+                                  <h6 class="card-subtitle">Latest Comments section by users</h6> </div>
+  
+                              <div class="comment-widgets m-b-20">
+  
+                                  <div class="d-flex flex-row comment-row">
+                                      <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
+                                      <div class="comment-text w-100">
+                                          <h5>Samso Nagaro</h5>
+                                          <div class="comment-footer">
+                                              <span class="date">April 14, 2019</span>
+                                              <span class="label label-info">Pending</span> <span class="action-icons">
+                                                      <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                                                  </span>
+                                          </div>
+                                          <p class="m-b-5 m-t-10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it</p>
+                                      </div>
+                                  </div>
+  
+                                  <div class="d-flex flex-row comment-row ">
+                                      <div class="p-2"><span class="round"><img src="https://i.imgur.com/tT8rjKC.jpg" alt="user" width="50"></span></div>
+                                      <div class="comment-text active w-100">
+                                          <h5>Jonty Andrews</h5>
+                                          <div class="comment-footer">
+                                              <span class="date">March 13, 2020</span>
+                                              <span class="label label-success">Approved</span> <span class="action-icons active">
+                                                      <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-rotate-right text-success"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-heart text-danger"></i></a>
+                                                  </span>
+                                          </div>
+                                          <p class="m-b-5 m-t-10">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites</p>
+                                      </div>
+                                  </div>
+  
+                                  <div class="d-flex flex-row comment-row">
+                                      <div class="p-2"><span class="round"><img src="https://i.imgur.com/cAdLHeY.jpg" alt="user" width="50"></span></div>
+                                      <div class="comment-text w-100">
+                                          <h5>Sarah Tim</h5>
+                                          <div class="comment-footer">
+                                              <span class="date">Jan 20, 2020</span>
+                                              <span class="label label-danger">Rejected</span> <span class="action-icons">
+                                                      <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                                                  </span>
+                                          </div>
+                                          <p class="m-b-5 m-t-10">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure</p>
+                                      </div>
+                                  </div>
+  
+                                  <div class="d-flex flex-row comment-row">
+                                      <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
+                                      <div class="comment-text w-100">
+                                          <h5>Samso Nagaro</h5>
+                                          <div class="comment-footer">
+                                              <span class="date">March 20, 2020</span>
+                                              <span class="label label-info">Pending</span> <span class="action-icons">
+                                                      <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                                                      <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                                                  </span>
+                                          </div>
+                                          <p class="m-b-5 m-t-10">It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+  
+        </div>
+    </div>
+  </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

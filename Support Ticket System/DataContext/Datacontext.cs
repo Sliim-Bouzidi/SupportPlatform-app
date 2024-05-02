@@ -27,6 +27,7 @@ namespace Support_Ticket_System.DataContext
         public DbSet<TicketHistory> ticketHistories { get; set; }
         public DbSet<Comment> comments { get; set; }
         public DbSet<Reason> reasons { get; set; }
+        public DbSet<Attachment> attachments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
