@@ -12,14 +12,16 @@
             <i class="pi pi-arrow-left arrow-icon" (click)="navigateToTicketList(tenantname)" style="margin-left: 20px; cursor: pointer;"></i>
            
                 <div style="display: flex; align-items: center;">
-                <p-inplace [closable]="closable" id="title-c">
-                    <ng-template pTemplate="display"  >
-                         <h3    class="ticket-title">{{ ticket.title }}</h3>
-                    </ng-template>
-                    <ng-template pTemplate="content">
-                        <input  style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 170px;" type="text"  value="{{this.ticket.title}}" pInputText />
-                    </ng-template>
-                </p-inplace>
+                    <p-inplace [closable]="closable" id="title-c">
+                        <ng-template pTemplate="display">
+                            <h3 class="ticket-title">{{ ticket?.title }}</h3>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <input style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 170px;" 
+                                   type="text" [value]="ticket?.title" pInputText />
+                        </ng-template>
+                    </p-inplace>
+                    
             </div>
            
             <i class="pi pi-pencil edit-icon" ></i>
@@ -63,13 +65,16 @@
                 <div *ngIf="currentContentIndex === 0" >
                 
                  
-<editor apiKey="8h1bs6757avrnz0rd3fii5i9js62c17nsifd4leees5dte39"  [(ngModel)]="ticket.description"  [init]="{plugins:'lists link image table code help wordcount'}">
-</editor>
-                </div>
+                    <editor apiKey="8h1bs6757avrnz0rd3fii5i9js62c17nsifd4leees5dte39"  
+                    [ngModel]="ticket?.description"  
+                    (ngModelChange)="ticket.description = $event"
+                    [init]="{plugins:'lists link image table code help wordcount'}">
+                  </editor>
+                       </div>
             
 
                     
-                <div style="height:400px;">
+                <div  *ngIf="currentContentIndex === 0"  style="height:200px;" >
 
                 </div>
                      
@@ -160,7 +165,7 @@
 
                 <div *ngIf="currentContentIndex === 0">
                     <div *ngIf="usePrimeNGQuill">
-                        <p-editor [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px' }"></p-editor>
+                        <p-editor [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px'} "></p-editor>
                     </div>
                     <div *ngIf="!usePrimeNGQuill">
                         <!-- Fallback editor or message for SSR -->
@@ -172,14 +177,60 @@
 
 
                 <div *ngIf="currentContentIndex === 1">
-                    <p style="text-align: center;">Hello</p>
+                  
+                    <div class="history">
+                        
+                    
+                    <main class="table" id="customers_table">
+                        <section class="table__header">
+                            <h1>Ticket History</h1>
+                            <!-- Export file options (if needed) -->
+                        </section>
+                        <section class="table__body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Agent</th>
+                                        <th>Ticket Change</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Iterate over ticketHistories and generate table rows -->
+                                    <tr *ngFor="let history of ticketHistories">
+                                        <td> 
+                                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
+                                        </td>
+                                        <td>
+                                            {{ history }}
+                                        </td>
+                                    </tr>
+                                    <!-- End of iteration -->
+                                </tbody>
+                            </table>
+                        </section>
+                    </main>
+                    
+                    <div style="height: 150px;">
+
+                    </div>
+
+                </div>
+
+
                 </div>
   
 
 
-                <div *ngIf="currentContentIndex === 2">
-                    <p style="text-align: center;">FAKER WHAT WAS THAT</p>
-                </div>
+                   
+
+                    <div *ngIf="currentContentIndex === 2" class="center-content">
+                        <div class="attachment-icon">
+                            <i class="pi pi-paperclip"></i>
+                        </div>
+                        <p style="text-align: center;">No attachments have been added</p>
+                        <p-button label="Add attachments" icon="pi pi-upload"></p-button>
+                    </div>
+                
                 
             
         </div>
@@ -211,42 +262,64 @@
                 -->
 
                 <div class="ticketPFContainer">
-                    <div class="ticket-PFlabel">Proccess Flow: <span class="ticket-pf">{{this.ticket.processFlow.processFlowName
-                    }}</span></div>
+                    <div class="ticket-PFlabel">Process Flow: 
+                        <span class="ticket-pf">{{ this.ticket?.processFlow?.processFlowName }}</span>
+                    </div>
                 </div>
+                
+
+
+                <div>Assigned to: <span style="color: black;">{{ this.ticket?.assignTo }}</span></div>
                 
                 
                
                 
                 
-                <div>Created Date: <span style="color: black;">{{this.ticket.createdDate.toString().split('T')[0] }}</span> </div>
-                <div>Updated Date: <span style="color: black;">{{this.ticket.updatedDate.toString().split('T')[0] }}</span> </div>
+                <div>Created Date: <span style="color: black;">{{ this.ticket?.createdDate?.toString().split('T')[0] }}</span> </div>
+                <div>Updated Date: <span style="color: black;">{{ this.ticket?.updatedDate?.toString().split('T')[0] }}</span> </div>
+
+            
+                
+                
+                <div>Severity: <span style="color: black;">{{ this.ticket?.severity?.severityName }}</span></div>
+                <div>Priority: <span style="color: black;"> {{ this.ticket?.priority?.priorityName }}</span></div>
+
                 <div style="display: flex; align-items: center;">
                     <div>Status:
                         <p-inplace [closable]="closable">
                             <ng-template pTemplate="display">
-                                <span>{{this.ticket.status}}</span>
+                                <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
                             </ng-template>
                             <ng-template pTemplate="content">
-                                <input style="margin-left: 10px; margin-bottom: 5px;" type="text" value="{{this.ticket.status}}" pInputText />
+                                <input style="margin-left: 10px;  color: black; font-weight: 500; font-size: 18px;width: 200px; " 
+                                       type="text" [value]="ticket?.status" pInputText  />
                             </ng-template>
                         </p-inplace>
                     </div>
+                    
                 </div>
                 
-                <div>Priority: <span style="color: black;"> {{this.ticket.priority.priorityName}}</span></div>
-                <div>Severity:  <span style="color: black;">{{this.ticket.severity.severityName}}</span></div>
-                <div>Assigned to: <span style="color: black;">{{this.ticket.assignTo}}</span></div>
                 <div style="display: flex; align-items: center;"></div>
+                
+                <hr style="margin-top: 20px; margin-bottom: 20px; color: #efefef; border: solid 0.5px; ">
 
                 <div>
-                    Tags:
-                    <tag-input [(ngModel)]="this.ticket.tags" [placeholder]="'Enter Tags'"></tag-input>
-                
-                    <ul>
-                        <li *ngFor="let tag of this.ticket.tags" >{{ tag.tag.tagName }}</li>
-                    </ul>
+                   Tags:
+                    
+                    <tag-input [(ngModel)]="tagNames" [placeholder]="'Enter Tags'"></tag-input>
+                    
+                   <!-- <ul>
+                        <li *ngFor="let tag of this.ticket.tags">
+                            {{ tag?.tag?.tagName }}
+                        </li>
+                    </ul>-->
+
+
+
+                   
+
                 </div>
+                
                 
                     
                 <!--<div *ngFor="let tag of this.ticket.tags">

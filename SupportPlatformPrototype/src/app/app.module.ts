@@ -45,7 +45,7 @@ import { InplaceModule } from 'primeng/inplace';
 import { ChipModule } from 'primeng/chip';
 import { EditorModule as TinyMCEEditorModule } from '@tinymce/tinymce-angular'; // Alias EditorModule from tinymce-angular
 import { TagInputModule } from 'ngx-chips';
-
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 @NgModule({
@@ -96,12 +96,13 @@ import { TagInputModule } from 'ngx-chips';
     InplaceModule,
     ChipModule,
     TinyMCEEditorModule,
-    TagInputModule
+    TagInputModule,
+    MultiSelectModule
  
 
   ],
   providers: [
-    provideClientHydration(),
+   // provideClientHydration(),
     MessageService,
     provideHttpClient(withFetch()),
     { provide: HTTP_INTERCEPTORS, useClass: tokenInterceptor, multi: true }
