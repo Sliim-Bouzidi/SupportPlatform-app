@@ -40,7 +40,7 @@ namespace Support_Ticket_System.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost("CreateTicket")]
         public async Task<IActionResult> CreateTicket(CreateTicketDTO request)
         {
             if (!ModelState.IsValid)
@@ -65,7 +65,7 @@ namespace Support_Ticket_System.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet()]
 
         public async Task<IActionResult> GetAllTicketsbytenant(string TenantName)
         {
@@ -78,7 +78,7 @@ namespace Support_Ticket_System.Controllers
         [HttpGet("TicketDetails")]
         public async Task<IActionResult> GetTicketDetails(Guid ticketID)
         {
-            var ticketdetails =await _ticketService.ticketDetails(ticketID);
+            var ticketdetails = await _ticketService.ticketDetails(ticketID);
             if (ticketdetails == null)
             {
                 return BadRequest("Ticket does not exist");
@@ -86,7 +86,7 @@ namespace Support_Ticket_System.Controllers
             return Ok(ticketdetails);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateTicket(UpdateTicketDto request,Guid TicketID)
+        public async Task<IActionResult> UpdateTicket(UpdateTicketDto request, Guid TicketID)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace Support_Ticket_System.Controllers
                 if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out Guid userId))
 
                 {
-                    
+
                     Ticket ticket = await _ticketService.UpdateTicket(TicketID, userId, request.title, request.description, request.assignTo, request.statusName, request.Tags);
                     return Ok("ticket updated successfully");
                 }
@@ -108,20 +108,20 @@ namespace Support_Ticket_System.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                
+
                 _logger.LogError(ex, "Invalid operation occurred while updating the ticket.");
 
-               
+
                 return BadRequest("Invalid operation occurred while updating the ticket.");
             }
 
 
 
         }
-        [HttpGet("TicketNotes")]  
-        public async Task<IActionResult> GetTicketHistory (Guid TicketID)
+        [HttpGet("TicketNotes")]
+        public async Task<IActionResult> GetTicketHistory(Guid TicketID)
         {
-            var ticketHistory =  await _ticketService.GetTicketHistoryMessages(TicketID);
+            var ticketHistory = await _ticketService.GetTicketHistory(TicketID);
             if (ticketHistory == null)
             {
                 return BadRequest("there are no ticket notes");
@@ -129,5 +129,5 @@ namespace Support_Ticket_System.Controllers
             return Ok(ticketHistory);
         }
     }
-    
+
 }

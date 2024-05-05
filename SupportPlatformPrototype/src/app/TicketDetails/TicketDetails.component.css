@@ -807,8 +807,26 @@ thead th.active,tbody td.active {
 
 
 
+ textarea {
+  width: 800px;
+  height: 230px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
 
-
+textarea:focus {
+  outline: none;
+  border-color: #5c7cfa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
 
 

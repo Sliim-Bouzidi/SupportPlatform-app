@@ -57,6 +57,12 @@ export class UserService {
 
   
 
+
+    // Method to get username by user ID
+ /* getUsernameById(userId: string): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/GetUsernameById/${userId}`);
+  }*/
+
  
   // Method to create HTTP headers
  /* getHeaders(): HttpHeaders {

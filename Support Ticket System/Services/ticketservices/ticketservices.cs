@@ -17,7 +17,7 @@ namespace Support_Ticket_System.Services.ticketservices
         private readonly IPriorityServices _priorityServices;
         private readonly IseverityServices _severityServices;
         private readonly ITagServices _tagServices;
-        
+
 
         public ticketservices(Datacontext context, IStatusservice statusservices, IPriorityServices priorityservices, IseverityServices severityservices, ITagServices tagservices)
         {
@@ -26,9 +26,9 @@ namespace Support_Ticket_System.Services.ticketservices
             _priorityServices = priorityservices;
             _tagServices = tagservices;
             _severityServices = severityservices;
-            
+
         }
-       
+
 
         public async Task<Ticket> CreateTicket(string title, string description, string assignTo, string statusName, string processFlowname, string username, string tenantname, string priorityname, string severityname, List<string> tag)
         {
@@ -55,10 +55,10 @@ namespace Support_Ticket_System.Services.ticketservices
 
             _context.tickets.Add(ticket);
             await _context.SaveChangesAsync();
-            
-            await StoreInTicketHistory(ticket.TicketID, ticket.UserID , "ticket Creation" , null , null);
 
-             _statusservice.SetStatus(ticket.TicketID, statusName ); 
+            await StoreInTicketHistory(ticket.TicketID, ticket.UserID, "ticket Creation", null, null);
+
+            _statusservice.SetStatus(ticket.TicketID, statusName);
             var statusvalue = await _context.statushistory
                 .Where(p => p.TicketID == ticket.TicketID)
                 .OrderByDescending(p => p.TimeStamp)
@@ -67,7 +67,7 @@ namespace Support_Ticket_System.Services.ticketservices
 
             ticket.Status = statusvalue;
 
-            var tagadded =  _tagServices.AddTagtoticket(ticket.TicketID, tag); 
+            var tagadded = _tagServices.AddTagtoticket(ticket.TicketID, tag);
             foreach (var tag1 in tagadded)
             {
                 ticket.tags.Add(tag1);
@@ -86,7 +86,7 @@ namespace Support_Ticket_System.Services.ticketservices
                     .ThenInclude(ti => ti.tag)
                 .Include(t => t.user)
                 .Include(t => t.processFlow)
-                .Include(t => t.priority) 
+                .Include(t => t.priority)
                 .Select(t => new Ticket
                 {
                     TicketID = t.TicketID,
@@ -114,43 +114,15 @@ namespace Support_Ticket_System.Services.ticketservices
                 .ToListAsync();
         }
 
-        //public async Task<IEnumerable<TicketHistory>> GetTicketHistory(Guid TicketID)
-        //{
-        //    var tickethistory = await _context.ticketHistories.Where(t=>t.TicketID == TicketID)
-        //        .Include(t=>t.user.Username)
-        //        .ToListAsync();
-        //    return tickethistory;
-        //}
-        public async Task<IEnumerable<string>> GetTicketHistoryMessages(Guid TicketID)
+        public async Task<IEnumerable<TicketHistory>> GetTicketHistory(Guid TicketID)
         {
-            var ticketHistoryMessages = await _context.ticketHistories
-                .Where(t => t.TicketID == TicketID)
-                .Include(t => t.user)
-                .OrderByDescending(th => th.TimeStamp)
-                .Select(th => th.changeType == "update status" ?
-                    $"{th.user.Username} has changed the status from {th.OldValue} to {th.NewValue}" :
-                    th.changeType == "comment added" ?
-                    $" {th.user.Username} has added a comment" :
-                    th.changeType == "ticket Creation" ?
-                    $"The ticket was created at {th.TimeStamp}" :
-                    th.changeType == "Update title" ?
-                    $" {th.user.Username} has changed the title from {th.OldValue} to {th.NewValue}" :
-                    th.changeType == "Update Description" ?
-                    $" {th.user.Username} has changed the description at {th.TimeStamp.Date}" :
-                    th.changeType == "Update Assignee" ?
-                    $"{th.user.Username} has assinged the ticket to {th.NewValue} at  {th.TimeStamp.Date}":
-                    $"Unhandled change type: {th.changeType}"
-
-
-
-                )
+            var tickethistory = await _context.ticketHistories.Where(t => t.TicketID == TicketID)
+                .Include(t => t.user.Username)
                 .ToListAsync();
-
-            return ticketHistoryMessages;
+            return tickethistory;
         }
 
-
-        public async Task<bool> StoreInTicketHistory(Guid ticketID, Guid? userID , string changetype , string oldvalue = null , string newvalue = null)
+        public async Task<bool> StoreInTicketHistory(Guid ticketID, Guid? userID, string changetype, string oldvalue = null, string newvalue = null)
         {
             var tickethistoryline = new TicketHistory
             {
@@ -163,7 +135,7 @@ namespace Support_Ticket_System.Services.ticketservices
                 UserID = userID
             };
 
-            
+
             _context.ticketHistories.Add(tickethistoryline);
             await _context.SaveChangesAsync();
 
@@ -172,114 +144,114 @@ namespace Support_Ticket_System.Services.ticketservices
 
         public async Task<Ticket> ticketDetails(Guid TicketID)
         {
-           
+
             var ticket = await _context.tickets
                                 .Where(t => t.TicketID == TicketID)
-                                .Include(t=>t.tags)
-                                    .ThenInclude(tags=>tags.tag)
+                                .Include(t => t.tags)
+                                    .ThenInclude(tags => tags.tag)
                                 .Select(t => new Ticket
-                                       {
-                                             TicketID = t.TicketID,
-                                              Title = t.Title,
-                                                Description = t.Description,
-                                                CreatedDate = t.CreatedDate,
-                                                UpdatedDate = t.UpdatedDate.Date,
-                                                AssignTo = t.AssignTo,
+                                {
+                                    TicketID = t.TicketID,
+                                    Title = t.Title,
+                                    Description = t.Description,
+                                    CreatedDate = t.CreatedDate,
+                                    UpdatedDate = t.UpdatedDate.Date,
+                                    AssignTo = t.AssignTo,
 
 
-                                                processFlow = new ProcessFlow
-                                                {
-                                                    ProcessFlowName = t.processFlow.ProcessFlowName
-                                                },
+                                    processFlow = new ProcessFlow
+                                    {
+                                        ProcessFlowName = t.processFlow.ProcessFlowName
+                                    },
 
-                                   
+
 
                                     priority = new Priority
-                                                {
-                                                    PriorityName = t.priority.PriorityName
-                                                },
+                                    {
+                                        PriorityName = t.priority.PriorityName
+                                    },
 
-                                                severity = new Severity
-                                                {
-                                                    SeverityName = t.severity.SeverityName
-                                                },
-                                                Status = t.Status,
-                                                tags = t.tags,
+                                    severity = new Severity
+                                    {
+                                        SeverityName = t.severity.SeverityName
+                                    },
+                                    Status = t.Status,
+                                    tags = t.tags,
 
 
-        })
+                                })
                                 .FirstOrDefaultAsync();
 
 
-                return ticket;
+            return ticket;
         }
 
 
         public async Task<Ticket> UpdateTicket(Guid TicketID, Guid UserID, string title = null, string description = null, string assignTo = null, string statusName = null, List<string> tag = null)
-           {
-               var ticket = await _context.tickets.Where(t => t.TicketID == TicketID).FirstOrDefaultAsync();
-                if (ticket == null)
+        {
+            var ticket = await _context.tickets.Where(t => t.TicketID == TicketID).FirstOrDefaultAsync();
+            if (ticket == null)
+            {
+                throw new InvalidOperationException("Ticket not found.");
+            }
+
+            var oldTitle = ticket.Title;
+            var oldDescription = ticket.Description;
+            var oldAssignTo = ticket.AssignTo;
+            var oldStatus = ticket.Status;
+
+
+            if (title != null && ticket.Title != title)
+            {
+                ticket.Title = title;
+                var changeType = "Update title";
+                await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldTitle, title);
+            }
+
+
+            if (description != null && ticket.Description != description)
+            {
+                ticket.Description = description;
+                var changeType = "Update Description";
+                await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldDescription, description);
+            }
+
+
+            if (assignTo != null && ticket.AssignTo != assignTo)
+            {
+                ticket.AssignTo = assignTo;
+                var changeType = "Update Assignee";
+                await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldAssignTo, assignTo);
+            }
+
+
+            if (statusName != null && ticket.Status != statusName)
+            {
+                _statusservice.SetStatus(ticket.TicketID, statusName);
+                var statusValue = await _context.statushistory
+                    .Where(p => p.TicketID == ticket.TicketID)
+                    .OrderByDescending(p => p.TimeStamp)
+                    .Select(p => p.StatusValue)
+                    .FirstOrDefaultAsync();
+                ticket.Status = statusValue;
+                var changeType = "Update Status";
+                await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldStatus, statusValue);
+            }
+
+
+            if (tag != null)
+            {
+                var tagAdded = _tagServices.AddTagtoticket(ticket.TicketID, tag);
+                foreach (var tag1 in tagAdded)
                 {
-                    throw new InvalidOperationException("Ticket not found.");
+                    ticket.tags.Add(tag1);
                 }
+                var changeType = "Update Tags";
+                await StoreInTicketHistory(ticket.TicketID, UserID, changeType, null, string.Join(",", tag));
+            }
 
-                var oldTitle = ticket.Title;
-                var oldDescription = ticket.Description;
-                var oldAssignTo = ticket.AssignTo;
-                var oldStatus = ticket.Status;
-
-            
-                if (title != null && ticket.Title != title)
-                {
-                    ticket.Title = title;
-                    var changeType = "Update title";
-                    await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldTitle, title);
-                }
-
-          
-                if (description != null && ticket.Description != description)
-                {
-                    ticket.Description = description;
-                    var changeType = "Update Description";
-                    await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldDescription, description);
-                }
-
-           
-                if (assignTo != null && ticket.AssignTo != assignTo)
-                {
-                    ticket.AssignTo = assignTo;
-                    var changeType = "Update Assignee";
-                    await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldAssignTo, assignTo);
-                }
-
-            
-                if (statusName != null && ticket.Status != statusName)
-                {
-                    _statusservice.SetStatus(ticket.TicketID, statusName);
-                    var statusValue = await _context.statushistory
-                        .Where(p => p.TicketID == ticket.TicketID)
-                        .OrderByDescending(p => p.TimeStamp)
-                        .Select(p => p.StatusValue)
-                        .FirstOrDefaultAsync();
-                    ticket.Status = statusValue;
-                    var changeType = "Update Status";
-                    await StoreInTicketHistory(ticket.TicketID, UserID, changeType, oldStatus, statusValue);
-                }
-
-            
-                if (tag != null)
-                {
-                    var tagAdded = _tagServices.AddTagtoticket(ticket.TicketID, tag);
-                    foreach (var tag1 in tagAdded)
-                    {
-                        ticket.tags.Add(tag1);
-                    }
-                    var changeType = "Update Tags";
-                    await StoreInTicketHistory(ticket.TicketID, UserID, changeType, null, string.Join(",", tag));
-                }
-
-              await _context.SaveChangesAsync();
-              return ticket;
+            await _context.SaveChangesAsync();
+            return ticket;
         }
 
 
