@@ -10,7 +10,7 @@ namespace Support_Ticket_System.Services.ticketservices
         Task<bool> StoreInTicketHistory(Guid ticketID, Guid? userID, string changetype, string oldvalue = null, string newvalue = null);
         Task<Ticket> UpdateTicket(Guid TicketID, Guid UserID, string title, string description, string assignTo, string statusName, List<string> tag);
         Task<Ticket> ticketDetails(Guid TicketID);
-        Task<IEnumerable<TicketHistory>> GetTicketHistory(Guid TicketID);
+        Task<IEnumerable<string>> GetTicketHistoryMessages(Guid TicketID);
     }
 
 }
