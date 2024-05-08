@@ -8,12 +8,18 @@ import { environment } from '../environment/environment.development';
 })
 export class TagsService {
 
-  private apiUrl: string = environment.apiBaseUrl + '/Tags';
+  private apiUrl: string = environment.apiBaseUrl + '/Tag';
 
   constructor(private http: HttpClient) { }
 
-  // Method to fetch tag names from the API
-  getTagNames(): Observable<string[]> {
-    return this.http.get<string[]>(this.apiUrl); // Using this.apiUrl instead of environment.apiUrl
+  getTagNames(ticketId: string): Observable<any> {
+    const url = `${this.apiUrl}?ticketId=${ticketId}`;
+    return this.http.get(url);
+  }
+
+
+  updateTagsForTicket(ticketId: string, tags: string[]): Observable<any> {
+    const url = `${this.apiUrl}/updatetags/${ticketId}`;
+    return this.http.put(url, tags);
   }
 }

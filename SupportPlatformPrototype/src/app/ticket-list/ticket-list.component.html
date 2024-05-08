@@ -1,6 +1,10 @@
+<p-toast></p-toast> 
 <app-Navbar></app-Navbar>
 <app-Sidebar></app-Sidebar>
+
+
 <header>
+
         <div class="container">
             <div class="k card">
                 <p-table
@@ -41,9 +45,18 @@
                                         <p-columnFilter type="text" field="priority.priorityName" display="menu"></p-columnFilter>
                                     </th>
 
-                                    <th>Description
+                                  <!-- <th>Description
                                     
+                                    </th>--> 
+
+                                    <th pSortableColumn="createdDate" style="min-width: 10rem">
+                                        <div class="flex justify-content-between align-items-center">
+                                            Created Date
+                                            <p-sortIcon field="createdDate"></p-sortIcon>
+                                            <p-columnFilter type="date" field="createdDate" display="menu" class="ml-auto"></p-columnFilter>
+                                        </div>
                                     </th>
+                                    
                                 </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-ticket let-columns="columns" let-i="rowIndex">
@@ -63,18 +76,19 @@
                                     <td>
                                         <p-tag [value]="ticket.priority.priorityName" [severity]="getPriorityColor(ticket.priority.priorityName)"></p-tag>
                                     </td>
-                                    <td    style="text-align: center;" (click)="showModel(); descriptionModel(ticket.description); $event.stopPropagation()"><svg class="clickable-icon" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512" style="margin-right: 50px; fill: #45494e;">
-                                        <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc-->
+                                <!--    <td    style="text-align: center;" (click)="showModel(); descriptionModel(ticket.description); $event.stopPropagation()"><svg class="clickable-icon" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512" style="margin-right: 50px; fill: #45494e;">
+                                       
                                         <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 232V334.1l31-31c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0l-72-72c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l31 31V232c0-13.3 10.7-24 24-24s24 10.7 24 24z"/>
-                                    </svg></td>
-                                  
+                                    </svg></td>-->
+                                    <td>{{ ticket.createdDate  |  date:'medium' }}</td>
+
                                 </tr>
                         </ng-template>
                 </p-table>
             </div>   
         </div>
 </header>   
-<p-dialog header="Description" [(visible)]="visible" [maximizable]="true" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="false">
+<!--<p-dialog header="Description" [(visible)]="visible" [maximizable]="true" [style]="{ width: '50vw' }" [draggable]="true" [resizable]="false">
     <p class="m-0" [innerHTML]="description"></p>
-</p-dialog>
+</p-dialog>-->
 

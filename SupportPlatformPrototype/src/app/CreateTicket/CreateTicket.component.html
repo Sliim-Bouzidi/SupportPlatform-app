@@ -19,10 +19,28 @@
         <!--<p-dropdown id="PF" [options]="cities" placeholder="Select Process Flow" [editable]="true" optionLabel="name"></p-dropdown>-->
         <p-treeSelect optionLabel="label" [(ngModel)]="ProcessFlowNames"   class="md:w-20rem w-full" [filter]="true" [filterInputAutoFocus]="true"  containerStyleClass="w-full"      [options]="nodes" placeholder="Select Process Flow"></p-treeSelect>
       
+        <div>
 
 
 
+        <div style="display: flex; justify-content: space-between; width: 520px;">
+          <label for="categoryDD">Category</label>
+         <!--  <label for="category">Add Category</label>-->
+        </div>
+      
+       
+      <div style="display: flex;  justify-content: space-between;  width: 800px;">
+       
+        
+        <p-chips id="category" placeholder="Add Category"  [max]="4"    [(ngModel)]="ticket.categories"></p-chips>
+        
+        
+       <!-- <input id="category" type="text" pInputText   [(ngModel)]="ticket.category" placeholder="Add Ticket Category"/>-->
 
+      
+      </div>
+
+    </div>
 
         <label for="Status">Status</label>
         <p-dropdown id="Status" [options]="StatusOptions"  [(ngModel)]="Status" placeholder="Add Status" [editable]="true" optionLabel="name" ></p-dropdown>
@@ -36,7 +54,16 @@
         <input id="TicketTitle" type="text" pInputText  [(ngModel)]="ticket.title"  placeholder="Ticket Title"/>
 
         
-        
+        <ng-template pTemplate="caption">
+          <p-multiSelect 
+              display="chip" 
+              [options]="" 
+              
+              optionLabel="header"
+              selectedItemsLabel="{0} columns selected" 
+              [style]="{'min-width': '200px'}" 
+              placeholder="Choose Columns" />
+      </ng-template>
 
         
         <br>
@@ -84,6 +111,13 @@
 
         <label for="Severity">Severity</label>
         <p-dropdown id="Severity" [options]="severityOptions"  [(ngModel)]="Severity" placeholder="Select Severity" [editable]="true" optionLabel="name"></p-dropdown>
+
+
+
+        
+        <label for="type">Type</label>
+        <p-dropdown id="Type"   [options]="TicketTypeOptions"  [(ngModel)]="TicketType"   placeholder="Select Ticket Type" [editable]="true" optionLabel="name"></p-dropdown>
+     
      
 
 

@@ -23,6 +23,12 @@ import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Category } from '../../../shared/Category.model';
+import { CategoryService } from '../../../shared/Category.service';
+import { TicketHistoryService } from '../../../shared/TicketHistory.service';
+import { TicketType } from '../../../shared/TicketType.model';
+import { TicketTypeService } from '../../../shared/TicketType.service';
+import { SuccessMessageService } from '../../../shared/SuccessMessageService.service';
 
 @Component({
   selector: 'app-CreateTicket',
@@ -33,6 +39,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
  
   htmlEditor: string = '';
   usePrimeNGQuill: boolean;
+  
 
 
   constructor(
@@ -47,6 +54,9 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
     public ServiceSession:SessionService,
     public serviceM: MessageService,
     public serviceTags: TagsService,
+    public serviceCategory: CategoryService,
+    public serviceTicketType : TicketTypeService,
+    private successMessageService: SuccessMessageService, // Inject the SuccessMessageService
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // Check if running on server to determine whether to use PrimeNG Quill
@@ -63,6 +73,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
   ProcessFlowNames:any
   Status: any
   Severity:any
+  TicketType: any
 
 
   ticket : Ticket = new Ticket
@@ -75,6 +86,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 ];
 
 
+ categories: string[] = [];
  tags: string[] = [];
 
 
@@ -86,6 +98,15 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
   StatusOptions: { name: string }[] = [];
 
 
+
+
+
+
+
+
+  
+  TicketTypes: TicketType[] = [];
+  TicketTypeOptions:  { name: string }[] = [];
 
   priority: Priority[] = []; // Array to hold the list of statuses
   PriorityOptions: { name: string }[] = [];
@@ -109,15 +130,8 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 
     this.loadFirstLevelProcessFlow();
       
-       
-    this.serviceTags.getTagNames().subscribe({
-      next: (response: string[]) => {
-        this.tags = response;
-        console.log(this.tags)
-      }
-    });
-
-
+   
+      
 
 
 
@@ -155,6 +169,45 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
         console.error('Error fetching statuses:', error);
       }
     );
+
+
+
+    
+   /* this.serviceCategory.getAllCategoryNames().subscribe(
+      (response: any) => {
+        // Loop over the response array and populate options array
+        for (let i = 0; i < response.length; i++) {
+          this.categoryOptions.push({ name: response[i] });
+        }
+      },
+      (error) => {
+        console.error('Error fetching statuses:', error);
+      }
+    );
+*/
+
+        this.serviceCategory.getAllCategoryNames().subscribe({
+          next: (response: string[]) => {
+            this.categories = response;
+            console.log(this.categories)
+          }
+        });
+
+
+
+
+    this.serviceTicketType.getAllTicketTypeNames().subscribe(
+      (response: any) => {
+        // Loop over the response array and populate options array
+        for (let i = 0; i < response.length; i++) {
+          this.TicketTypeOptions.push({ name: response[i] });
+        }
+      },
+      (error) => {
+        console.error('Error fetching statuses:', error);
+      }
+    );
+
 
 
     this.serviceP.getAllPrioritiesNames().subscribe(
@@ -258,7 +311,6 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 }*/
 
 
-
 AddTicket() {
   // Check if any required field is empty
   if (
@@ -277,7 +329,6 @@ AddTicket() {
   }
 
   // Populate ticket properties
-  console.log(this.AssignTo)
   this.ticket.assignTo = this.AssignTo.name;
   this.ticket.tags = this.ticket.tags;
   this.ticket.severityName = this.Severity.name;
@@ -285,37 +336,35 @@ AddTicket() {
   this.ticket.processflowName = this.ProcessFlowNames.label;
   this.ticket.priorirtyName = this.PriorityNames.name;
   this.ticket.tenantname = this.tenantname;
-  //this.ticket.description = this.removeHtmlTags(this.ticket.description)
+  this.ticket.categories = this.ticket.categories;
+  this.ticket.tickettype = this.TicketType.name;
+
+  // If the user is logged in, set the username
   if (this.ServiceSession.User?.username) {
     this.ticket.username = this.ServiceSession.User?.username;
   }
 
   this.serviceT.createTicket(this.ticket).subscribe({
-    next: (response) => { 
+    next: (response: string) => { 
       console.log(response);
-      
-      if (response === 'ticket created succesfully') {
-        // If server response indicates success, display a success toast
-        this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket created successfully' }); 
-      } else {
-        // If server response indicates failure, display an error toast
-        this.serviceM.add({ severity: 'error', summary: 'Error', detail: response });
-      }
+      if (response === null) {
+        console.log("works");
+        // Set the ticket creation success flag in local storage
+        localStorage.setItem('ticketCreated', 'true');
+        this.router.navigate(['/TicketList', this.tenantname]);
+        
+      } 
     },
-    error: (error) => {
-     
-      this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket created successfully' }); 
-    }
   });
- 
 }
+
 
 
 
 
 Tags:string[] = [];
 filteredSuggestions:  string[] = []
-
+/*
 search(event: any) {
     this.serviceTags.getTagNames().subscribe({
       next: (response: string[]) => {
@@ -339,7 +388,7 @@ search(event: any) {
       this.filteredSuggestions.unshift(query);
     }
     }
-  }
+  }*/
  
 
 

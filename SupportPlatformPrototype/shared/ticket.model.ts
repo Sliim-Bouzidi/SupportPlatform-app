@@ -9,4 +9,6 @@ export class Ticket {
   processflowName:string = "";
   username: string = "";
   tenantname: string = "";
+  categories: string="";
+  tickettype: string ="";
 }

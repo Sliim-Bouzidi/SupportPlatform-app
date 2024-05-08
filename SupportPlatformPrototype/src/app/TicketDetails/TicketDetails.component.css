@@ -62,10 +62,10 @@
     transition: box-shadow 0.3s, transform 0.3s;
   }
   
-  .card:hover {
+  /*.card:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
-  }
+  }*/
   
 
 
@@ -314,7 +314,7 @@
   margin-right: 20px;
   margin-bottom: 20px;
   margin-left: 10px;
-  width: 170px;
+  width: 200px;
   
 }
 
@@ -835,3 +835,32 @@ textarea:focus {
 
 
 
+.button-container {
+  position: absolute;
+  top: 90px;
+  right: 35px;
+  display: flex;
+  flex-direction: row; /* Changed from column to row */
+  margin-top: 25px;
+  margin-right: 30px;  
+  }
+
+  ::ng-deep #CancelButton{
+    margin-right: 40px;
+  }
+  
+
+  ::ng-deep .button-container .p-button {
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    width: 130px;
+    }
+    

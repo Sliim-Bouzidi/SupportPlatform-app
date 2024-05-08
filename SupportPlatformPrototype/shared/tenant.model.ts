@@ -1,4 +1,4 @@
 export class tenant {
-    name: string = "";
+    name!: string;
   }
   

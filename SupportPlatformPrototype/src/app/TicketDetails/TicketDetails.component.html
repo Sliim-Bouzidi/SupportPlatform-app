@@ -5,7 +5,14 @@
 <!--<li><a [routerLink]="['/TicketList', tenantname]" >Ticket List</a></li>-->
 <app-Sidebar></app-Sidebar>
 
+<div class="button-container">
+    <p-button id="CancelButton" label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
+    <p-button label="Save"   (click)="UpdateTags()" (click)="UpdateTicketDetails()"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
+  </div>
 
+<div style="height: 70px;">
+
+</div>
 <div class="container">
     <div class="f card">
         <div class="ticket-title-container">
@@ -17,8 +24,8 @@
                             <h3 class="ticket-title">{{ ticket?.title }}</h3>
                         </ng-template>
                         <ng-template pTemplate="content">
-                            <input style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 170px;" 
-                                   type="text" [value]="ticket?.title" pInputText />
+                            <input style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 200px;" 
+                                   type="text" [(ngModel)]="ticket.title"  pInputText />
                         </ng-template>
                     </p-inplace>
                     
@@ -180,29 +187,28 @@
 
                    
                  
-                        <div *ngIf="visible1" >
-                            <div *ngIf="currentContentIndex === 0" >
-                                <div *ngIf="usePrimeNGQuill">
-                                    <p-editor (ngModelChange)="verifcomment()"   [(ngModel)]="comment"  [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px'} "></p-editor>
-                                </div>
-                                <div *ngIf="!usePrimeNGQuill">
-                                    <!-- Fallback editor or message for SSR -->
-                                    <textarea placeholder="Enter text here" [(ngModel)]="htmlEditor"></textarea>
-                                </div>
-                            </div>
-                            <!-- Additional contents can be added here with corresponding indices -->
-            
-                            <div   style="margin-left: 630px;  margin-bottom: 50px; display: flex;" *ngIf="currentContentIndex === 0">
-                                
-                                <p-button label="Cancel" severity="danger" (click)="(showcomment())"  icon="pi pi-check"></p-button>  
-                                <div style="margin-left: 30px;">
-                                    <p-button label="Send" [disabled]="!verif"   (click)="(AddComment())"  icon="pi pi-check"></p-button>
-                                </div>
-                                
-                            </div>
-                        
-                        </div>
+                    <div *ngIf="visible1">
+                        <div *ngIf="currentContentIndex === 0">
+                            <div *ngIf="usePrimeNGQuill">
+                                <p-editor #editor (ngModelChange)="verifcomment()" [(ngModel)]="comment" [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px'}"></p-editor>
 
+                            </div>
+                            <div *ngIf="!usePrimeNGQuill">
+                                <!-- Fallback editor or message for SSR -->
+                                <textarea placeholder="Enter text here" (input)="verifcomment()" [(ngModel)]="htmlEditor"></textarea>
+                            </div>
+                        </div>
+                    
+                        <!-- Additional contents can be added here with corresponding indices -->
+                    
+                        <div style="margin-left: 630px;  margin-bottom: 50px; display: flex;" *ngIf="currentContentIndex === 0">
+                            <p-button label="Cancel" severity="danger" (click)="showcomment()" icon="pi pi-times"></p-button>
+                            <div style="margin-left: 30px;">
+                                <p-button label="Send" [disabled]="!verif" (click)="AddComment()" icon="pi pi-check"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                    
 
         
                 
@@ -272,104 +278,108 @@
 
 
           <div class="g card">
-             <h3>Details</h3>
-             <div style="display: flex; justify-content: space-between; cursor: pointer;">
-                <h4>Ticket Info</h4>
-                <i class="pi pi-chevron-down" style="font-size: 1.5rem;" (click)="showTicketInfo()"  ></i>
-            </div>
-            
-             
-             <div *ngIf="!visible">
-                   
-               <!-- <div style="display: flex; align-items: center;">
-                    <div style="margin-right: 10px; white-space: nowrap;">Ticket ID:</div>
-                    <div style="position: relative; color: black; margin-top: 30px;">
-                        <span style="cursor: pointer;  " (click)="copyTicketID()">
-                            <p style="color: black; word-break: break-all;">{{ ticketID }}</p>
-                 
-                        </span>
-                    </div>
-                </div>
-                
-                -->
-
-                <div class="ticketPFContainer">
-                    <div class="ticket-PFlabel">Process Flow: 
-                        <span class="ticket-pf">{{ this.ticket?.processFlow?.processFlowName }}</span>
-                    </div>
-                </div>
-                
-
-
-                <div>Assigned to: <span style="color: black;">{{ this.ticket?.assignTo }}</span></div>
-                
-                
-               
-                
-                
-                <div>Created Date: <span style="color: black;">{{ this.ticket?.createdDate?.toString().split('T')[0] }}</span> </div>
-                <div>Updated Date: <span style="color: black;">{{ this.ticket?.updatedDate?.toString().split('T')[0] }}</span> </div>
-
-            
-                
-                
-                <div>Severity: <span style="color: black;">{{ this.ticket?.severity?.severityName }}</span></div>
-                <div>Priority: <span style="color: black;"> {{ this.ticket?.priority?.priorityName }}</span></div>
-
-                <div style="display: flex; align-items: center;">
-                    <div>Status:
-                        <p-inplace [closable]="closable">
-                            <ng-template pTemplate="display">
-                                <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
-                            </ng-template>
-                            <ng-template pTemplate="content">
-                                <input style="margin-left: 10px;  color: black; font-weight: 500; font-size: 18px;width: 200px; " 
-                                       type="text" [value]="ticket?.status" pInputText  />
-                            </ng-template>
-                        </p-inplace>
+                    <h3>Details</h3>
+                    <div style="display: flex; justify-content: space-between; cursor: pointer;">
+                        <h4>Ticket Info</h4>
+                        <i class="pi pi-chevron-down" style="font-size: 1.5rem;" (click)="showTicketInfo()"  ></i>
                     </div>
                     
-                </div>
-                
-                <div style="display: flex; align-items: center;"></div>
-                
-                <hr style="margin-top: 20px; margin-bottom: 20px; color: #efefef; border: solid 0.5px; ">
-
-                <div>
-                   Tags:
                     
-                    <tag-input [(ngModel)]="tagNames" [placeholder]="'Enter Tags'"></tag-input>
+                    <div *ngIf="!visible">
+                        
+                    <!-- <div style="display: flex; align-items: center;">
+                            <div style="margin-right: 10px; white-space: nowrap;">Ticket ID:</div>
+                            <div style="position: relative; color: black; margin-top: 30px;">
+                                <span style="cursor: pointer;  " (click)="copyTicketID()">
+                                    <p style="color: black; word-break: break-all;">{{ ticketID }}</p>
+                        
+                                </span>
+                            </div>
+                        </div>
+                        
+                        -->
+
+                        <div class="ticketPFContainer">
+                            <div class="ticket-PFlabel">Process Flow: 
+                                <span class="ticket-pf">{{ this.ticket?.processFlow?.processFlowName }}</span>
+                            </div>
+                        </div>
+                        
+
+
+                        <div>Assigned to: <span style="color: black;">{{ this.ticket?.assignTo }}</span></div>
+                        
+                        
                     
-                   <!-- <ul>
-                        <li *ngFor="let tag of this.ticket.tags">
-                            {{ tag?.tag?.tagName }}
-                        </li>
-                    </ul>-->
-
-
-
-                   
-
-                </div>
-                
-                
-                    
-                <!--<div *ngFor="let tag of this.ticket.tags">
+                        
+                        
+                        <div>Created Date: <span style="color: black; font-size:16px ;" >{{ ticket?.createdDate | date:'medium' }}</span> </div>
+                        <div>Updated Date: <span style="color: black; font-size:16px ;">{{ ticket?.updatedDate | date:'medium' }}</span> </div>
+                        
 
                     
-                        <p-inplace [closable]="closable">
-                            <ng-template pTemplate="display">
-                                <span>Click to Edit</span>
-                            </ng-template>
-                            <ng-template pTemplate="content">
-                                <p-chip label="{{tag.tag.tagName}}"></p-chip>
-                            </ng-template>
-                        </p-inplace>
-                    </div>-->
-                
-                
-            </div>
-          </div>
+                        
+                        
+                        <div>Severity: <span style="color: black;">{{ this.ticket?.severity?.severityName }}</span></div>
+                        <div>Priority: <span style="color: black;"> {{ this.ticket?.priority?.priorityName }}</span></div>
+
+                        <div style="display: flex; align-items: center;">
+                            <div>Status:
+                                <p-inplace [closable]="closable">
+                                    <ng-template pTemplate="display">
+                                        <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
+                                    </ng-template>
+                                    <ng-template pTemplate="content">
+                                        <input style="margin-left: 10px;  color: black; font-weight: 500; font-size: 18px;width: 200px; " 
+                                            type="text" [(ngModel)]="ticket.statusName" pInputText  />
+                                    </ng-template>
+                                </p-inplace>
+                            </div>
+                            
+                        </div>
+                        
+                        <div style="display: flex; align-items: center;"></div>
+                        
+                        <hr style="margin-top: 20px; margin-bottom: 20px; color: #efefef; border: solid 0.5px; ">
+
+
+                        
+
+                            <div>
+                                <div style="margin-bottom: 30px;">Tags:</div>
+                                
+                                    
+                                <!-- <tag-input [(ngModel)]="tagNames" [placeholder]="'Enter Tags'"></tag-input>-->
+
+                                <p-chips id="Tags" placeholder="Add tag"  [max]="8"    [(ngModel)]="this.tags"></p-chips>
+
+                                <!-- <input id="TicketTitle" type="text" pInputText  [(ngModel)]="tagNames"  placeholder="Ticket Title"/>-->
+                                
+
+                            </div>
+                                
+                            <br>
+                            <hr style="margin-top: 20px; margin-bottom: 20px; color: #f4e8e8; border: solid 0.5px; ">
+   
+                            
+                        <!--<div *ngFor="let tag of this.ticket.tags">
+
+                            
+                                <p-inplace [closable]="closable">
+                                    <ng-template pTemplate="display">
+                                        <span>Click to Edit</span>
+                                    </ng-template>
+                                    <ng-template pTemplate="content">
+                                        <p-chip label="{{tag.tag.tagName}}"></p-chip>
+                                    </ng-template>
+                                </p-inplace>
+                            </div>-->
+                        
+                        
+                    </div>
+                    
+        </div>
+          
           <!--<div class="n card">
                card n
           </div>-->
@@ -411,7 +421,6 @@
     </div>
   </div>
 </div>
-
 
 
 
