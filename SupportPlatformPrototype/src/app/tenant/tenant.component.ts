@@ -18,8 +18,13 @@ export class TenantComponent implements OnInit {
 
   
   tenants : tenant[] = []
+  givenname= ""
 
   ngOnInit() {
+
+    this.decodeToken();
+
+
    // console.log(this.ServiceS.User)
     if (this.ServiceS.hasSession()){
     setTimeout(() => {
@@ -30,7 +35,7 @@ export class TenantComponent implements OnInit {
    // console.log(this.ServiceS.User);
 
 
-
+    
 
     this.serviceT.getTenants().subscribe({
       next:(response) => {
@@ -41,6 +46,27 @@ export class TenantComponent implements OnInit {
     })
 
 
+  }
+
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+
+  decodeToken() {
+    const token = this.getToken();
+    if (token) {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1])); // Decode the token
+      this.givenname = tokenPayload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'] || 'Unknown'; // Extract role
+    } else {
+      this.givenname = 'Unknown';
+    }
+  }
+
+
+  verifTenant(tenantname:string){
+    return tenantname === this.givenname
   }
   
 

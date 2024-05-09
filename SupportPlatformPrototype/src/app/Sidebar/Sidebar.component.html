@@ -13,13 +13,23 @@
                     </a>
                 </li>
                 <li class="has-subnav">
-                    <a href="./Transformateur">
+                    <a href="">
                         <i class="fa fa-bolt fa-2x"></i>
                         <span class="nav-text">
                             Tasks
                         </span>
                     </a>
                 </li>
+
+                <li *ngIf="role === 'Admin'">
+                    <a [routerLink]="['/Admin', tenantname]">
+                      <img style="margin:18px;" height="30px" src="../../assets/user-gear.png" alt="">
+                      <span class="nav-text">
+                        Users Info
+                      </span>
+                    </a>
+                  </li>
+                  
                 
             </ul>
 
@@ -28,7 +38,7 @@
                    <a href="#" (click)="logout()" >
                          <i class="fa fa-power-off fa-2x"></i>
                         <span class="nav-text">
-                            Déconnexion
+                            Logout
                         </span>
 
                     </a>

@@ -46,10 +46,11 @@ import { ChipModule } from 'primeng/chip';
 import { EditorModule as TinyMCEEditorModule } from '@tinymce/tinymce-angular'; // Alias EditorModule from tinymce-angular
 import { TagInputModule } from 'ngx-chips';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { AdminInterfaceComponent } from './AdminInterface/AdminInterface.component';
 
 
 @NgModule({
-  declarations: [								
+  declarations: [									
     AppComponent,
     SignupComponent,
     TenantComponent,
@@ -58,7 +59,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     SidebarComponent,
     CreateTicketComponent,
     TicketListComponent,
-      TicketDetailsComponent
+      TicketDetailsComponent,
+      AdminInterfaceComponent
    ],
   imports: [
     
@@ -97,7 +99,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ChipModule,
     TinyMCEEditorModule,
     TagInputModule,
-    MultiSelectModule
+    MultiSelectModule,
+    FontAwesomeModule
  
 
   ],

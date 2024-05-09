@@ -7,6 +7,7 @@ import { OverviewComponent } from './Overview/Overview.component';
 import { CreateTicketComponent } from './CreateTicket/CreateTicket.component';
 import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { TicketDetailsComponent } from './TicketDetails/TicketDetails.component';
+import { AdminInterfaceComponent } from './AdminInterface/AdminInterface.component';
 
 
 
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'Overview/:tenantname', component: OverviewComponent, canActivate: [AuthenticationGuard] },
   { path: 'CreateTicket/:tenantname', component: CreateTicketComponent, canActivate: [AuthenticationGuard] },
   { path: 'TicketList/:tenantname', component: TicketListComponent, canActivate: [AuthenticationGuard] },
-  { path: 'TicketDetails/:tenantname/:ticketID', component: TicketDetailsComponent, canActivate: [AuthenticationGuard] }
+  { path: 'TicketDetails/:tenantname/:ticketID', component: TicketDetailsComponent, canActivate: [AuthenticationGuard] },
+  { path: 'Admin/:tenantname', component: AdminInterfaceComponent, canActivate: [AuthenticationGuard] }
+
 
 
 

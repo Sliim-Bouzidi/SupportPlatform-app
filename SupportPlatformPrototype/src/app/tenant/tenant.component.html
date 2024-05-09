@@ -9,7 +9,7 @@
         
         <!-- PrimeNG Buttons -->
         <ng-container *ngFor="let tenant of tenants; let i = index">
-            <p-button  label="{{ tenant.name }}" [raised]="true" [routerLink]="['/Overview', tenant.name]" class="custom-button"></p-button>
+            <p-button  *ngIf="verifTenant(tenant.name)" label="{{ tenant.name }}" [raised]="true" [routerLink]="['/Overview', tenant.name]" class="custom-button"></p-button>
           </ng-container>
           
     </div>

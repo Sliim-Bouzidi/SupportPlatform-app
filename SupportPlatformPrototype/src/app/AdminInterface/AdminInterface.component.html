@@ -1,0 +1,176 @@
+<app-Navbar></app-Navbar>
+<app-Sidebar></app-Sidebar>
+
+    <div style="height: 120px;"></div>
+
+
+
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox" >
+                <div class="cardup">
+                    <div>
+                        <div class="numbers">40</div>
+                        <div class="cardName">Ticket Created</div>
+                    </div>
+
+                    <div class="iconBx">
+                        
+                    </div>
+                </div>
+
+                <div class="cardup">
+                    <div>
+                        <div class="numbers">{{ userCount }}</div>
+                        <div class="cardName">Users</div>
+                    </div>
+
+                    <div class="iconBx">
+                   
+                    </div>
+                </div>
+
+                <div class="cardup">
+                    <div>
+                        <div class="numbers">36</div>
+                        <div class="cardName">Comments</div>
+                    </div>
+
+                    <div class="iconBx">
+                       
+                    </div>
+                </div>
+
+                <div class="cardup">
+                    <div>
+                        <div class="numbers">3</div>
+                        <div class="cardName">Tenants</div>
+                    </div>
+
+                    <div class="iconBx">
+                       
+                    </div>
+                </div>
+            </div>
+
+           
+ 
+ 
+
+            <header>
+
+              <div class="container">
+                  <div class="k card">
+                      <p-table
+                              [value]="users"
+                               editMode="row"
+                              selectionMode="single"
+                              [resizableColumns]="true"
+                              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                              [rows]="10"
+                              [showCurrentPageReport]="true"
+                              [rowsPerPageOptions]="[5,10, 25, 50]"
+                              [paginator]="true">
+                              <ng-template pTemplate="caption">
+                                  <div class="flex" style="display: flex; align-items: center;">
+                                    <!-- <button pButton label="Retourner" class="p-button-outlined" icon="pi pi-arrow-left"></button>-->
+                                      <button pButton  class="p-button-outlined" icon="pi pi-refresh" (click)="ResetList()"   ></button>
+                                      <span class="p-input-icon-left" style="margin-left: auto;">
+                                          <i class="pi pi-search"></i>
+                                          <input pInputText type="text"  [(ngModel)]="searchkey" (ngModelChange)="Search()"   placeholder="Mot-clé à rechercher" />
+                                      </span>
+                                  </div>
+                              </ng-template>
+                              <ng-template pTemplate="header" let-columns>
+                                      <tr  >
+                                          <th pSortableColumn="code">Index 
+                                              <p-sortIcon field="code"></p-sortIcon>
+                                          </th>
+                                          <th>User Email
+                                              <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                                          </th>
+                                          <th>Username
+                                               <p-columnFilter type="text" field="username" display="menu"></p-columnFilter>
+                                          </th>
+
+                                          <th>Tenant
+                                            <p-columnFilter type="text" field="tenant.name" display="menu"></p-columnFilter>
+                                        </th>
+                                        
+                                         <th>Roles
+                                            <p-columnFilter type="text" field="roles.roleValue" display="menu"></p-columnFilter>
+                                        </th>
+      
+                      
+                                          
+                                      </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-user let-columns="columns" let-i="rowIndex">
+                                      <tr  class="clickableTicket"  >
+                                          <td>{{i}}</td>
+                                          
+      
+                                          <td>
+                                              <div style="display: flex; align-items: center;">
+                                                  <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
+                                                  <span style="margin-top: -5px; margin-left: 15px;">{{user.email}}</span>
+                                              </div>
+                                          </td>
+
+
+                                          <td [pEditableColumn]="user.username" pEditableColumnField="user.username"  >
+                                                
+                                                <p-cellEditor>
+                                                    <ng-template pTemplate="input">
+                                                        <input 
+                                                        pInputText 
+                                                        type="text" 
+                                                        
+                                                        required />
+                                                    </ng-template>
+                                                    <ng-template pTemplate="output">
+                                                        {{user.username}}
+                                                    </ng-template>
+                                                </p-cellEditor>
+                                            </td>
+
+
+
+
+                                           
+                                            
+                                         <td>{{user.tenant.name}}</td>
+
+                                         <td [pEditableColumn]="user.roles.roleValues" pEditableColumnField="user.role.roleValue">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <p-multiSelect [options]="userRoles" 
+
+                                                                   placeholder="Select Roles"
+                                                                   optionLabel="name" 
+                                                                   display="chip" 
+                                                                   [showClear]="true"></p-multiSelect>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    <ng-container *ngFor="let role of user.roles; let last = last">
+                                                        {{role.roleValue}}{{!last ? ', ' : ''}} <!-- Add a comma if it's not the last role -->
+                                                    </ng-container>
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        
+
+                                         
+
+                                         
+                                      <!--    <td    style="text-align: center;" (click)="showModel(); descriptionModel(ticket.description); $event.stopPropagation()"><svg class="clickable-icon" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512" style="margin-right: 50px; fill: #45494e;">
+                                             
+                                              <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 232V334.1l31-31c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0l-72-72c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l31 31V232c0-13.3 10.7-24 24-24s24 10.7 24 24z"/>
+                                          </svg></td>-->
+                                         
+      
+                                      </tr>
+                              </ng-template>
+                      </p-table>
+                  </div>   
+              </div>
+      </header>  

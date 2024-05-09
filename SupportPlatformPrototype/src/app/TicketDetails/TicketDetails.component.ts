@@ -15,6 +15,7 @@ import { TaggableItem } from '../../../shared/taggableitem.model';
 
 
 
+
 @Component({
   selector: 'app-TicketDetails',
   templateUrl: './TicketDetails.component.html',
@@ -40,6 +41,7 @@ export class TicketDetailsComponent implements OnInit {
   comments: any[] = [];
   placeholder = "Add a comment here !"
   visible1: boolean = false
+  visible2: boolean = false
   tags: string [] = []
   //usernames: Map<string, string> = new Map(); // Map to store usernames by user ID
   constructor(
@@ -57,10 +59,24 @@ export class TicketDetailsComponent implements OnInit {
     this.usePrimeNGQuill = !isPlatformServer(this.platformId);
   }
 
+  userOptions: {name: string} [] = []
+  AssignTo: any
+  title:string = ""
+
+
   ngOnInit() {
     
     
-
+    this.ServiceU.getAllUsers().subscribe({
+      next:(response: any) => {
+        for (let i = 0; i < response.length; i++) {
+          this.userOptions.push({ name: response[i].email });
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
+      }
+    });
 
 
 
@@ -156,16 +172,36 @@ export class TicketDetailsComponent implements OnInit {
 
 
 
-  UpdateTicketDetails() {
-    // Remove the tags property from the ticket object
-    const { tags, ...updateDataWithoutTags } = this.ticket;
-    
-    this.ServiceT.updateTicket(this.ticketID, updateDataWithoutTags).subscribe({
-      next: (response) => {
-        console.log(response);
-      }
-    });
-  }
+  // Method to update only the assignTo property
+updateAssignTo() {
+  const assignToUpdateData = {
+    assignTo: this.AssignTo.name
+  };
+
+  this.ServiceT.updateTicket(this.ticketID, assignToUpdateData).subscribe({
+    next: (response) => {
+      console.log('AssignTo update response:', response);
+    },
+    error: (error) => {
+      console.error('Error updating assignTo:', error);
+    }
+  });
+}
+
+// Method to update other properties excluding assignTo
+updateTicketWithoutAssignTo() {
+  // Remove the tags property from the ticket object
+  const { tags, ...updateDataWithoutTags } = this.ticket;
+
+  this.ServiceT.updateTicket(this.ticketID, updateDataWithoutTags).subscribe({
+    next: (response) => {
+      console.log('Update without assignTo response:', response);
+    },
+    error: (error) => {
+      console.error('Error updating ticket without assignTo:', error);
+    }
+  });
+}
 
 
   UpdateTags(){
@@ -179,6 +215,10 @@ export class TicketDetailsComponent implements OnInit {
 
   showcomment(){
     this.visible1 = !this.visible1
+  }
+
+  showAssignTo(){
+    this.visible2 = !this.visible2
   }
 
  /* fetchUsernamesForComments() {

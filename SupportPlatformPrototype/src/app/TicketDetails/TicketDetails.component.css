@@ -62,10 +62,10 @@
     transition: box-shadow 0.3s, transform 0.3s;
   }
   
-  /*.card:hover {
+  .card:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px);
-  }*/
+  }
   
 
 
@@ -315,6 +315,20 @@
   margin-bottom: 20px;
   margin-left: 10px;
   width: 200px;
+  
+}
+
+::ng-deep #Assignto .p-dropdown-label {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1 1 auto;
+  width: 1%;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  width: 180px;
+  margin-left: 10px;
+  margin-bottom: -3px;
   
 }
 
@@ -863,4 +877,6 @@ textarea:focus {
     position: relative;
     width: 130px;
     }
+    
+
     

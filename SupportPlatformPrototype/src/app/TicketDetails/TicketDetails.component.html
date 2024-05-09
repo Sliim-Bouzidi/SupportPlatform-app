@@ -7,7 +7,9 @@
 
 <div class="button-container">
     <p-button id="CancelButton" label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
-    <p-button label="Save"   (click)="UpdateTags()" (click)="UpdateTicketDetails()"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
+    <p-button label="Save"   (click)="UpdateTags()"  (click)="updateAssignTo();" (click)="updateTicketWithoutAssignTo();"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
+     <!--  <p-button label="Save"  (click)="UpdateTags()" (click)="updateTicketDetails()" class="top-right-button" icon="pi pi-plus" [rounded]="true"></p-button>-->
+
   </div>
 
 <div style="height: 70px;">
@@ -31,7 +33,7 @@
                     
             </div>
            
-            <i class="pi pi-pencil edit-icon" ></i>
+            <i   class="pi pi-pencil edit-icon" ></i>
         </div>
         
         
@@ -307,16 +309,21 @@
                         
 
 
-                        <div>Assigned to: <span style="color: black;">{{ this.ticket?.assignTo }}</span></div>
+                        
+                      
+                        
+                        <div>Created Date: <span style="color: black; font-size:17px ;" >{{ ticket?.createdDate | date:'medium' }}</span> </div>
+                        <div>Updated Date: <span style="color: black; font-size:17px ;">{{ ticket?.updatedDate | date:'medium' }}</span> </div>
                         
                         
-                    
-                        
-                        
-                        <div>Created Date: <span style="color: black; font-size:16px ;" >{{ ticket?.createdDate | date:'medium' }}</span> </div>
-                        <div>Updated Date: <span style="color: black; font-size:16px ;">{{ ticket?.updatedDate | date:'medium' }}</span> </div>
-                        
+                        <div style="display: flex; margin-top: -10px; margin-bottom: -25px;" >
+                            <div style="cursor: pointer;"> <div (click)="showAssignTo()"  style="cursor: pointer; margin-top: 10px; margin-right: 4px;"   >Assign to:</div></div> 
+                                 <div *ngIf="!visible2" style="margin-top: 17.5px;"  ><span    style="color: black;">{{ this.ticket?.assignTo }}</span></div>
 
+                                 
+                                <div   *ngIf="visible2" ><p-dropdown id="Assignto" [editable]="true"  [options]="userOptions" [(ngModel)]="this.AssignTo"   optionLabel="name" ></p-dropdown></div>
+                                
+                             </div>
                     
                         
                         
@@ -361,6 +368,8 @@
                             <br>
                             <hr style="margin-top: 20px; margin-bottom: 20px; color: #f4e8e8; border: solid 0.5px; ">
    
+
+                         
                             
                         <!--<div *ngFor="let tag of this.ticket.tags">
 

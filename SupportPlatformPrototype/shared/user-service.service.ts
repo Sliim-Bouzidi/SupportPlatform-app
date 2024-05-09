@@ -12,6 +12,8 @@ export class UserService {
 
   apiUrl: string = environment.apiBaseUrl + '/UserControllers/GetAllUsers'; // Update controller name
   apiUrl2: string = environment.apiBaseUrl + '/UserControllers/Login';
+  apiUrl3: string = environment.apiBaseUrl + '/UserControllers/UserRolesbyusername';
+
 
   constructor
   (
@@ -48,6 +50,10 @@ export class UserService {
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.apiUrl);
+  }
+
+  getUserRoles(): Observable<string[]> {
+    return this.http.get<string[]>(this.apiUrl3);
   }
 
   login(user: User): Observable<any> {
