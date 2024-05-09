@@ -8,7 +8,5 @@
         public User user { get; set; }
         public Ticket ticket { get; set; }
 
-    
-
     }
 }

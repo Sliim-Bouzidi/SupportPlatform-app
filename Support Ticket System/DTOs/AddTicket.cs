@@ -12,7 +12,9 @@ namespace Support_Ticket_System.DTOs
         public string SeverityName { get; set; }
         public string PriorirtyName { get; set; }
         public List<string> Tags { get; set; }
+        public List<string> categories { get; set; }
         public string processflowName { get; set; }
+        public string tickettype { get; set; }
         
         public string username { get; set; }
         

@@ -28,6 +28,9 @@ namespace Support_Ticket_System.DataContext
         public DbSet<Comment> comments { get; set; }
         public DbSet<Reason> reasons { get; set; }
         public DbSet<Attachment> attachments { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<TicketCategory> TicketCategory { get; set; }
+        public DbSet<TicketType> TicketType { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,6 +49,20 @@ namespace Support_Ticket_System.DataContext
                 .HasOne(ti => ti.tag)
                 .WithMany(t => t.taggableitems)
                 .HasForeignKey(ti => ti.TagID);
+
+
+            modelBuilder.Entity<TicketCategory>()
+               .HasKey(ti => new { ti.TicketID, ti.CategoryID });
+
+            modelBuilder.Entity<TicketCategory>()
+                .HasOne(ti => ti.ticket)
+                .WithMany(t => t.categories)
+                .HasForeignKey(ti => ti.TicketID);
+
+            modelBuilder.Entity<TicketCategory>()
+                .HasOne(ti => ti.category)
+                .WithMany(t => t.categories)
+                .HasForeignKey(ti => ti.CategoryID);
 
 
         }

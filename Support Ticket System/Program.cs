@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Support_Ticket_System.DataContext;
 using Support_Ticket_System.Services;
+using Support_Ticket_System.Services.CategoryServices;
 using Support_Ticket_System.Services.Commentservices;
 using Support_Ticket_System.Services.PriorityServices;
 using Support_Ticket_System.Services.ProcessFlowServices;
@@ -14,6 +15,7 @@ using Support_Ticket_System.Services.status_services;
 using Support_Ticket_System.Services.Tagservices;
 using Support_Ticket_System.Services.TenantServices;
 using Support_Ticket_System.Services.ticketservices;
+using Support_Ticket_System.Services.TicketTypeServices;
 using Support_Ticket_System.Services.User_Services;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
@@ -41,6 +43,8 @@ builder.Services.AddScoped<IUserServices, Userservices>();
 builder.Services.AddScoped<IProcessFlowServices, ProcessFlowServices>();
 builder.Services.AddScoped<ITenantServices, TenantServices>();
 builder.Services.AddScoped<ICommentServices, CommentServices>();
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();
+builder.Services.AddScoped<ITicketTypeServices, TicketTypeServices>();
 
 
 builder.Services.AddControllersWithViews()

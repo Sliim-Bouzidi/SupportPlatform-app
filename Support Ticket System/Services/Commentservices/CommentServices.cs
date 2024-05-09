@@ -16,7 +16,7 @@ namespace Support_Ticket_System.Services.Commentservices
             _context = context;
             _ticketService = ticketService;
 
-
+            
         }
         public async Task<Comment> AddComment(Guid ticketID, Guid userID, string textvalue)
         {
@@ -26,9 +26,9 @@ namespace Support_Ticket_System.Services.Commentservices
 
             if (user == null || ticket == null)
             {
-
+                
                 throw new InvalidOperationException("User or ticket not found.");
-            }
+            }           
             var comment = new Comment
             {
                 CommentID = Guid.NewGuid(),
@@ -37,7 +37,7 @@ namespace Support_Ticket_System.Services.Commentservices
                 user = user,
                 ticket = ticket
             };
-
+            
             _context.comments.Add(comment);
             await _context.SaveChangesAsync();
             var changetype = "Comment added";
@@ -57,15 +57,14 @@ namespace Support_Ticket_System.Services.Commentservices
                     text = c.text,
                     Date = c.Date,
                     user = c.user, // Include the user entity
-                   
                 })
+                .OrderByDescending(c => c.Date)
                 .ToListAsync();
 
             return comments;
         }
 
-
-        public async Task<string> RemoveComment(Guid ticketID, Guid CommentID)
+        public async Task<string> RemoveComment(Guid ticketID , Guid CommentID)
         {
             var comment = await _context.comments.Where(c => c.ticket.TicketID == ticketID || c.CommentID == CommentID).FirstOrDefaultAsync();
             if (comment == null)

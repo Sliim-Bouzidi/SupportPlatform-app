@@ -130,9 +130,34 @@ namespace Support_Ticket_System.Controllers
                 return Unauthorized();
             }
         }
-        
 
 
+
+
+
+        [HttpGet("Getlistofrolesofsingleuser")]
+        public async Task<ActionResult<IEnumerable<string>>> GetRolesofSinlgeUser(Guid UserID)
+        {
+            var userroles = await _userServices.GetRolesofSinlgeUser(UserID);
+            return Ok(userroles);
+        }
+        [HttpGet("GetSingleUser")]
+        public async Task<IActionResult> GetSingleUser(Guid userID)
+        {
+            var user = await _userServices.GetSingleUser(userID);
+            if (user == null)
+                return BadRequest("User does not exist");
+            return Ok(user);
+        }
+
+
+
+        [HttpGet("GetAllRoles")]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllRoles()
+        {
+            var roles = await _userServices.GetAllRoles();
+            return Ok(roles);
+        }
 
     }
 }

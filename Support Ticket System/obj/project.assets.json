@@ -8427,11 +8427,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\Support Ticket System.csproj",
+      "projectUniqueName": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 11\\Support Ticket System\\Support Ticket System.csproj",
       "projectName": "Support Ticket System",
-      "projectPath": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\Support Ticket System.csproj",
+      "projectPath": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 11\\Support Ticket System\\Support Ticket System.csproj",
       "packagesPath": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\",
+      "outputPath": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 11\\Support Ticket System\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

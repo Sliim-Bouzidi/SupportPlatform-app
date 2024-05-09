@@ -11,5 +11,13 @@ namespace Support_Ticket_System.Services.User_Services
         Task<User> Register(string username, string email, string password);
         Task<IEnumerable<string>> GetUserRoles(string username);
         (bool, JwtSecurityToken) VerifyToken(string jwtToken);
+
+
+        Task<IEnumerable<string>> GetRolesofSinlgeUser(Guid UserID);
+        Task<User> GetSingleUser(Guid userID);
+
+        Task<IEnumerable<string>> GetAllRoles();
+
+
     }
 }

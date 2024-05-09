@@ -6,7 +6,7 @@ namespace Support_Ticket_System.Entites
     {
         public Guid TicketID { get; set; }
         public string? Title { get; set; }
-        public string? Description { get; set; }
+        public string? Description { get; set; }    
         public DateTime CreatedDate { get; set;}
         public DateTime UpdatedDate { get; set;}
         public string? AssignTo { get; set; }
@@ -16,9 +16,11 @@ namespace Support_Ticket_System.Entites
         public Tenant? tenant { get; set; }
         public Priority ? priority { get; set; }
         public Severity  ? severity { get; set; }
+        public TicketType  ? TicketType { get; set; }
         public ICollection<TicketHistory> ? ticketHistories { get; set; }
         public Guid ? ProcessFlowId { get; set; }
         public ProcessFlow ? processFlow { get; set; }
         public ICollection<taggableitem>? tags { get; set; }
+        public ICollection<TicketCategory>? categories { get; set; }
     }
 }

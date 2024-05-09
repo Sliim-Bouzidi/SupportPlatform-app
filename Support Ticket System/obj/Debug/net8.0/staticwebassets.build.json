@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DAyCx9ApzhwSOYQz4zS9yqO3hvWgK3oHW4RoztmgDlk=",
+  "Hash": "vc2A2PeCz0agvySKM2RYt+fIJnLF/+0W4CdL0b11F4E=",
   "Source": "Support Ticket System",
   "BasePath": "_content/Support Ticket System",
   "Mode": "Default",
@@ -47,10 +47,10 @@
       "OriginalItemSpec": "C:\\Users\\slim.bouzidi\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.4\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css",
+      "Identity": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 11\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css",
       "SourceId": "Support Ticket System",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 11\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Support Ticket System",
       "RelativePath": "Support Ticket System.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 10\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css"
+      "OriginalItemSpec": "C:\\Users\\slim.bouzidi\\OneDrive - CED Cloud\\Bureau\\Support Ticket System 11\\Support Ticket System\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Support Ticket System.styles.css"
     }
   ]
 }

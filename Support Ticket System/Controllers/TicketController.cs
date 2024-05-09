@@ -40,12 +40,11 @@ namespace Support_Ticket_System.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost("CreateTicket")]
         public async Task<IActionResult> CreateTicket(CreateTicketDTO request)
         {
-            if (!ModelState.IsValid)
 
-                return BadRequest(ModelState);
+                
 
             string title = request.title;
             string description = request.description;
@@ -57,11 +56,13 @@ namespace Support_Ticket_System.Controllers
             string severityname = request.SeverityName;
             string priorityname = request.PriorirtyName;
             List<string> Tags = request.Tags;
+            List<string> categories = request.categories;
+            string tickettype = request.tickettype;
 
 
 
-            Ticket ticket = await _ticketService.CreateTicket(title, description, assignTo, statusName, processflow, user, tenantname, priorityname, severityname, Tags);
-            return Ok("ticket created succesfully");
+            Ticket ticket = await _ticketService.CreateTicket(title, description, assignTo, statusName, processflow, user, tenantname, priorityname, severityname,tickettype, Tags,categories);
+            return Ok("Ticket Creation Success");
         }
 
 
@@ -78,7 +79,7 @@ namespace Support_Ticket_System.Controllers
         [HttpGet("TicketDetails")]
         public async Task<IActionResult> GetTicketDetails(Guid ticketID)
         {
-            var ticketdetails = await _ticketService.ticketDetails(ticketID);
+            var ticketdetails =await _ticketService.ticketDetails(ticketID);
             if (ticketdetails == null)
             {
                 return BadRequest("Ticket does not exist");
@@ -118,10 +119,10 @@ namespace Support_Ticket_System.Controllers
 
 
         }
-        [HttpGet("TicketNotes")]
-        public async Task<IActionResult> GetTicketHistory(Guid TicketID)
+        [HttpGet("TicketNotes")]  
+        public async Task<IActionResult> GetTicketHistory (Guid TicketID)
         {
-            var ticketHistory = await _ticketService.GetTicketHistoryMessages(TicketID);
+            var ticketHistory =  await _ticketService.GetTicketHistoryMessages(TicketID);
             if (ticketHistory == null)
             {
                 return BadRequest("there are no ticket notes");
@@ -129,5 +130,5 @@ namespace Support_Ticket_System.Controllers
             return Ok(ticketHistory);
         }
     }
-
+    
 }

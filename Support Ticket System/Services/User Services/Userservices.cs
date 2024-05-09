@@ -2,6 +2,7 @@
 using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Support_Ticket_System.DataContext;
@@ -28,8 +29,12 @@ namespace Support_Ticket_System.Services
                 .Include(x=>x.Roles)
                 .Select(u => new User
                 {
-                    Username = u.Username, Email = u.Email, Roles= u.Roles
-                   
+                    Username = u.Username, Email = u.Email, Roles= u.Roles,
+                    tenant = new Tenant
+                    {
+                        Name = u.tenant.Name
+                    }
+
 
                 })
                 .ToList();
@@ -105,6 +110,7 @@ namespace Support_Ticket_System.Services
 
             var userrole = _context.users
                    .Include(u => u.Roles)
+                   .Include(u => u.tenant)
                    .FirstOrDefault(u => u.Username == user.Username);
             var userId = userrole.UserID.ToString();
 
@@ -112,10 +118,11 @@ namespace Support_Ticket_System.Services
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.NameIdentifier, userId)
-                
-                
-                
+                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.GivenName,userrole.tenant.Name),
+
+
+
             };
             foreach (var UserRole in userrole.Roles)
             {
@@ -177,5 +184,40 @@ namespace Support_Ticket_System.Services
 
 
 
+        public async Task<IEnumerable<string>> GetRolesofSinlgeUser(Guid UserID)
+        {
+            var userroles = await _context.UserRoles.Where(u => u.User.UserID == UserID)
+                .Select(u => u.RoleValue.ToString())
+                .ToListAsync();
+            return userroles;
+        }
+        public async Task<User> GetSingleUser(Guid userID)
+        {
+            var user = await _context.users
+                .Where(u => u.UserID == userID)
+                .Include(x => x.Roles)
+                .Select(u => new User
+                {
+                    UserID = u.UserID,
+                    Username = u.Username,
+                    Email = u.Email,
+                    tenant = new Tenant
+                    {
+                        Name = u.tenant.Name
+                    }
+                })
+                .FirstOrDefaultAsync();
+
+            return user;
+        }
+
+        public async Task<IEnumerable<string>> GetAllRoles()
+        {
+            var roles = await _context.Roles.Select(r => r.RoleName).ToListAsync();
+            return roles;
+        }
+
     }
+
+    
 }
