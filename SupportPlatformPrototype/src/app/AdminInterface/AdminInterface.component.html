@@ -54,14 +54,17 @@
 
            
  
- 
-
             <header>
 
+              
               <div class="container">
+                
                   <div class="k card">
+                    <p-contextMenu #cm [model]="items" />
                       <p-table
+                          
                               [value]="users"
+                              [contextMenu]="cm" 
                                editMode="row"
                               selectionMode="single"
                               [resizableColumns]="true"
@@ -81,7 +84,7 @@
                                   </div>
                               </ng-template>
                               <ng-template pTemplate="header" let-columns>
-                                      <tr  >
+                                      <tr   >
                                           <th pSortableColumn="code">Index 
                                               <p-sortIcon field="code"></p-sortIcon>
                                           </th>
@@ -98,14 +101,15 @@
                                         
                                          <th>Roles
                                             <p-columnFilter type="text" field="roles.roleValue" display="menu"></p-columnFilter>
-                                        </th>
-      
+                                        </th> 
+
+                                      
                       
                                           
                                       </tr>
                               </ng-template>
                               <ng-template pTemplate="body" let-user let-columns="columns" let-i="rowIndex">
-                                      <tr  class="clickableTicket"  >
+                                      <tr  [pContextMenuRow]="user"   class="clickableTicket"  >
                                           <td>{{i}}</td>
                                           
       
@@ -140,11 +144,10 @@
                                             
                                          <td>{{user.tenant.name}}</td>
 
-                                         <td [pEditableColumn]="user.roles.roleValues" pEditableColumnField="user.role.roleValue">
+                                       <!--  <td [pEditableColumn]="user.roles.roleValues" pEditableColumnField="user.role.roleValue">
                                             <p-cellEditor>
                                                 <ng-template pTemplate="input">
-                                                    <p-multiSelect [options]="userRoles" 
-
+                                                    <p-multiSelect [options]="roles" 
                                                                    placeholder="Select Roles"
                                                                    optionLabel="name" 
                                                                    display="chip" 
@@ -152,16 +155,36 @@
                                                 </ng-template>
                                                 <ng-template pTemplate="output">
                                                     <ng-container *ngFor="let role of user.roles; let last = last">
-                                                        {{role.roleValue}}{{!last ? ', ' : ''}} <!-- Add a comma if it's not the last role -->
+                                                        {{role.roleValue}}{{!last ? ', ' : ''}}
                                                     </ng-container>
                                                 </ng-template>
                                             </p-cellEditor>
-                                        </td>
+                                        </td>-->
+
                                         
 
-                                         
 
-                                         
+                                        <td [pEditableColumn]="user.roles" pEditableColumnField="user.roles">
+                                            <p-cellEditor>
+                                              <ng-template pTemplate="input">
+                                                <p-multiSelect [options]="Allroles" 
+                                                               placeholder="Select Roles"
+                                                               display="chip" 
+                                                               [(ngModel)]="UpdatedRoles" 
+                                                               (ngModelChange)="UpdateRole(user.userID)"
+                                                               [showClear]="true">
+                                                </p-multiSelect>
+                                              </ng-template>
+                                              <ng-template pTemplate="output">
+                                                <ng-container *ngFor="let role of user.roles; let last = last">
+                                                  {{role.roleValue}}{{!last ? ', ' : ''}}
+                                                </ng-container>
+                                              </ng-template>
+                                            </p-cellEditor>
+                                          </td>
+                                          
+                                        
+                                          
                                       <!--    <td    style="text-align: center;" (click)="showModel(); descriptionModel(ticket.description); $event.stopPropagation()"><svg class="clickable-icon" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 384 512" style="margin-right: 50px; fill: #45494e;">
                                              
                                               <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 232V334.1l31-31c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0l-72-72c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l31 31V232c0-13.3 10.7-24 24-24s24 10.7 24 24z"/>

@@ -299,5 +299,15 @@ namespace Support_Ticket_System.Services.ticketservices
         }
 
 
+
+        public async Task<bool> RemoveTicket(Guid ticketID)
+        {
+            var ticket = await _context.tickets.FindAsync(ticketID);
+            _context.Remove(ticket);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+
     }
 }

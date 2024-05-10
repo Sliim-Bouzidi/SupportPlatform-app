@@ -11,6 +11,8 @@ namespace Support_Ticket_System.Services.ticketservices
         Task<Ticket> UpdateTicket(Guid TicketID, Guid UserID, string title, string description, string assignTo, string statusName, List<string> tag);
         Task<Ticket> ticketDetails(Guid TicketID);
         Task<IEnumerable<string>> GetTicketHistoryMessages(Guid TicketID);
+
+        Task<bool> RemoveTicket(Guid ticketID);
     }
 
 }

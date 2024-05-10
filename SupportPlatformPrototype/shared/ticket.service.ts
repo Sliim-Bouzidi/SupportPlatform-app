@@ -51,6 +51,15 @@ export class TicketService {
     return this.http.put<any>(`${this.apiUrl}?TicketID=${ticketId}`, updateData);
   }
 
+
+  deleteTicket(ticketId: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/DeleteTicket?TicketID=${ticketId}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(error);
+      })
+    );
+  }
+
   
 
 }

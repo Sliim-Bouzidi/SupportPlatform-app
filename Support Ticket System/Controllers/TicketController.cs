@@ -129,6 +129,21 @@ namespace Support_Ticket_System.Controllers
             }
             return Ok(ticketHistory);
         }
+
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTicket(Guid TicketID)
+        {
+            var success = await _ticketService.RemoveTicket(TicketID);
+            if (success == false)
+            {
+                return BadRequest("invalid operation");
+            }
+            return Ok("Ticket has been removed Successfully");
+        }
+
     }
     
+
 }

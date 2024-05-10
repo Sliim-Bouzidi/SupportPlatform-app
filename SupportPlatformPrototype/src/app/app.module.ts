@@ -47,7 +47,8 @@ import { EditorModule as TinyMCEEditorModule } from '@tinymce/tinymce-angular'; 
 import { TagInputModule } from 'ngx-chips';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AdminInterfaceComponent } from './AdminInterface/AdminInterface.component';
-
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ContextMenuModule } from 'primeng/contextmenu';
 
 @NgModule({
   declarations: [									
@@ -100,7 +101,9 @@ import { AdminInterfaceComponent } from './AdminInterface/AdminInterface.compone
     TinyMCEEditorModule,
     TagInputModule,
     MultiSelectModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SplitButtonModule,
+    ContextMenuModule
  
 
   ],

@@ -29,7 +29,7 @@ namespace Support_Ticket_System.Services
                 .Include(x=>x.Roles)
                 .Select(u => new User
                 {
-                    Username = u.Username, Email = u.Email, Roles= u.Roles,
+                    Username = u.Username,UserID = u.UserID, Email = u.Email, Roles= u.Roles,
                     tenant = new Tenant
                     {
                         Name = u.tenant.Name
@@ -217,6 +217,82 @@ namespace Support_Ticket_System.Services
             return roles;
         }
 
+
+
+        public async Task<List<User>> UpdateUserRoles(Guid userId, List<string> roles)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var user1 = await _context.users
+                        .Include(u => u.Roles)
+                            .ThenInclude(u => u.Role)
+                        .FirstOrDefaultAsync(u => u.UserID == userId);
+
+                    if (user1 == null)
+                    {
+                        return null;
+                    }
+
+
+                    user1.Roles.Clear();
+
+
+                    await _context.SaveChangesAsync();
+
+
+                    foreach (var roleName in roles)
+                    {
+                        var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == roleName);
+                        if (role != null)
+                        {
+                            var userRole = new UserRoles
+                            {
+                                UserRolesID = Guid.NewGuid(),
+                                User = user1,
+                                Role = role,
+                                RoleValue = role.RoleName
+                            };
+                            await _context.UserRoles.AddAsync(userRole);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+
+
+
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                    var user = _context.users
+                .Include(x => x.Roles)
+                .Select(u => new User
+                {
+                    Username = u.Username,
+                    UserID = u.UserID,
+                    Email = u.Email,
+                    Roles = u.Roles,
+                    tenant = new Tenant
+                    {
+                        Name = u.tenant.Name
+                    }
+
+
+                }).ToList();
+                    return user;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return null;
+                }
+            }
+        }
+
+
+       
     }
 
     

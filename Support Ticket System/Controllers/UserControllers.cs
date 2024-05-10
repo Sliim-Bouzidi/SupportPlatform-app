@@ -159,5 +159,28 @@ namespace Support_Ticket_System.Controllers
             return Ok(roles);
         }
 
+
+
+
+        [HttpPut("UpdateUserRoles")]
+        public async Task<IActionResult> UpdateUserRoles(Guid UserID, UpdateUserRolesDto request)
+        {
+            if (request.Roles == null || request.Roles.Count == 0)
+            {
+                return BadRequest("Role list cannot be empty.");
+            }
+
+            var result = await _userServices.UpdateUserRoles(UserID, request.Roles);
+                if (result == null)
+                    {
+                return BadRequest("Update Failed");
+                    }
+           
+            
+                return Ok(result);
+            
+            
+        }
+
     }
 }

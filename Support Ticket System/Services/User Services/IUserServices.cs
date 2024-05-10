@@ -19,5 +19,7 @@ namespace Support_Ticket_System.Services.User_Services
         Task<IEnumerable<string>> GetAllRoles();
 
 
+        Task<List<User>> UpdateUserRoles(Guid userId, List<string> roles);
+
     }
 }

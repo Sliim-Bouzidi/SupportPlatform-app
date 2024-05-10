@@ -3,6 +3,12 @@ import { SessionService } from '../../../utils/SessionService';
 import { User } from '../../../shared/user.model';
 import { UserService } from '../../../shared/user-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from 'primeng/api'
+import { Role } from '../../../shared/Role.model';
+import { tenant } from '../../../shared/tenant.model';
+import { UserRoles } from '../../../shared/UserRoles.model';
+import { TicketService } from '../../../shared/ticket.service';
+
 @Component({
   selector: 'app-AdminInterface',
   templateUrl: './AdminInterface.component.html',
@@ -11,19 +17,33 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AdminInterfaceComponent implements OnInit {
   tenantname: string = "";
   userCount: number = 0; // Property to hold the user count
+  Allroles: string[] = []; // Initialize roles property
+
+  selectedRoles: string[] = [];
+  selectedUser: User | null = null;
   constructor(
     public ServiceS: SessionService,
     public ServiceUser: UserService,
-    public router: Router, private route: ActivatedRoute
-  ) { }
+    public router: Router, private route: ActivatedRoute,
+    public serviceM: MessageService,
+    public ticketService: TicketService
+  ) {
 
+    
 
+   }
+
+  
 
   users: User[] = [];
   originalList:User[] = [];
   
-
-
+  selectedProduct: any
+  items: any[] = [
+    { label: 'Delete', icon: 'pi pi-trash'   },
+    { label: 'View', icon: 'pi pi-eye'  },
+    { label: 'Export', icon: 'pi pi-file-export' },
+  ];
   ngOnInit() {
 
     
@@ -45,20 +65,29 @@ export class AdminInterfaceComponent implements OnInit {
       next: (response: User[]) => {
         this.users = response;
         this.originalList = response;
-        console.log(this.users[0].roles[0].roleValue);
+        console.log(this.users)
         
       }
     });
-
+    
 
 
     this.getUserRoles()
     
     
-
+    this.fetchRoles();
     
   }
 
+  getUserId(userId: string): void {
+    console.log('Clicked UserID:', userId);
+    // Perform actions with the userID, such as updating the selected user
+    // You can use this method to set the selected user based on the clicked row
+  }
+
+  selectUser(user: User): void {
+    this.selectedUser = user;
+  }
 
   getUserCount() {
     this.ServiceUser.getAllUsers().subscribe(users => {
@@ -96,8 +125,48 @@ export class AdminInterfaceComponent implements OnInit {
 
 
 
+  fetchRoles(): void {
+    this.ServiceUser.getAllRoles()
+      .subscribe(
+        Allroles => {
+          this.Allroles = Allroles;
+          console.log('Roles:', Allroles); // Log roles here
+        },
+        error => {
+          console.error('Error fetching roles:', error);
+        }
+      );
+}
+
+UpdatedRoles: any[] = []
+UpdateRole(UserID: string) {
+ 
+
+  
+   
+    this.ServiceUser.updateUserRoles(UserID, this.UpdatedRoles).subscribe({
+      next:(response) => {
+        console.log(response)
+        console.log(this.users)
+        this.users = response
+      }
+    });
+  
+}
 
 
+deleteTicket(ticketId: string): void {
+  this.ticketService.deleteTicket(ticketId).subscribe(
+    () => {
+      console.log('Ticket deleted successfully.');
+      // Handle any further actions upon successful deletion
+    },
+    error => {
+      console.error('Error deleting ticket:', error);
+      // Handle error
+    }
+  );
+}
 
 
   searchkey: string = "";

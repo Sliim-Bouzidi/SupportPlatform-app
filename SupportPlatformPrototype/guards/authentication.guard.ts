@@ -9,7 +9,7 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private sessionService: SessionService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const protectedRoutes: string[] = ['/Tenant', '/Overview', '/CreateTicket', '/TicketList','/TicketDetails'];
+    const protectedRoutes: string[] = ['/Tenant', '/Overview', '/CreateTicket', '/TicketList', '/TicketDetails', '/Admin'];
 
     // Check if the user is authenticated or has the necessary credentials
     let isAuthenticated: boolean;
@@ -25,6 +25,13 @@ export class AuthenticationGuard implements CanActivate {
     if ((protectedRoutes.includes(state.url) || state.url.match(/\/[\w\S]+\/[\w\S]+$/)) && !isAuthenticated) {
       // Redirect to the login page if the user is not authenticated and trying to access a protected route
       this.router.navigate(['']); // Change '/Sign_up' to the actual login page route
+      return false;
+    }
+
+    // Check if the route is an Admin route and the user has the Admin role
+    if (state.url.startsWith('/Admin/') && !this.sessionService.hasAdminRole()) {
+      // Redirect to a page indicating unauthorized access
+      this.router.navigate(['/unauthorized']); // Change '/unauthorized' to the appropriate route
       return false;
     }
 

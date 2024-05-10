@@ -20,15 +20,17 @@
                         </span>
                     </a>
                 </li>
+           
 
-                <li *ngIf="role === 'Admin'">
+                <li *ngIf="role.includes('Admin')">
                     <a [routerLink]="['/Admin', tenantname]">
-                      <img style="margin:18px;" height="30px" src="../../assets/user-gear.png" alt="">
-                      <span class="nav-text">
-                        Users Info
-                      </span>
+                        <img style="margin:18px;" height="30px" src="../../assets/user-gear.png" alt="">
+                        <span class="nav-text">
+                            Users Info
+                        </span>
                     </a>
-                  </li>
+                </li>
+                
                   
                 
             </ul>
