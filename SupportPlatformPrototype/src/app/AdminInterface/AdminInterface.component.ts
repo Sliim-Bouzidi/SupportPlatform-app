@@ -155,18 +155,7 @@ UpdateRole(UserID: string) {
 }
 
 
-deleteTicket(ticketId: string): void {
-  this.ticketService.deleteTicket(ticketId).subscribe(
-    () => {
-      console.log('Ticket deleted successfully.');
-      // Handle any further actions upon successful deletion
-    },
-    error => {
-      console.error('Error deleting ticket:', error);
-      // Handle error
-    }
-  );
-}
+
 
 
   searchkey: string = "";

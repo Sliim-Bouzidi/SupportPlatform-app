@@ -10,7 +10,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +49,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { AdminInterfaceComponent } from './AdminInterface/AdminInterface.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [									
@@ -103,13 +105,16 @@ import { ContextMenuModule } from 'primeng/contextmenu';
     MultiSelectModule,
     FontAwesomeModule,
     SplitButtonModule,
-    ContextMenuModule
- 
+    ContextMenuModule,
+    ConfirmDialogModule,
+    FileUploadModule,
+   
 
   ],
   providers: [
    // provideClientHydration(),
     MessageService,
+    ConfirmationService,
     provideHttpClient(withFetch()),
     { provide: HTTP_INTERCEPTORS, useClass: tokenInterceptor, multi: true }
  

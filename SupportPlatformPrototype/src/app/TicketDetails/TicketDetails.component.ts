@@ -12,7 +12,9 @@ import { UserService } from '../../../shared/user-service.service';
 import { response } from 'express';
 import { TagsService } from '../../../shared/Tags.service';
 import { TaggableItem } from '../../../shared/taggableitem.model';
-
+import { SessionService } from '../../../utils/SessionService';
+import { UserRoles } from '../../../shared/UserRoles.model';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -53,6 +55,8 @@ export class TicketDetailsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ServiceU: UserService,
     private ServiceTags: TagsService,
+    public ServiceS: SessionService,
+    public serviceM: MessageService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // Check if running on server to determine whether to use PrimeNG Quill
@@ -62,7 +66,7 @@ export class TicketDetailsComponent implements OnInit {
   userOptions: {name: string} [] = []
   AssignTo: any
   title:string = ""
-
+  
 
   ngOnInit() {
     
@@ -173,20 +177,29 @@ export class TicketDetailsComponent implements OnInit {
 
 
   // Method to update only the assignTo property
-updateAssignTo() {
-  const assignToUpdateData = {
-    assignTo: this.AssignTo.name
-  };
-
-  this.ServiceT.updateTicket(this.ticketID, assignToUpdateData).subscribe({
-    next: (response) => {
-      console.log('AssignTo update response:', response);
-    },
-    error: (error) => {
-      console.error('Error updating assignTo:', error);
+  updateAssignTo() {
+    // Check if this.AssignTo is defined before accessing its properties
+    if (!this.AssignTo || !this.AssignTo.name) {
+      console.error('AssignTo is not properly initialized.');
+      return;
     }
-  });
-}
+  
+    const assignToUpdateData = {
+      assignTo: this.AssignTo.name
+    };
+  
+    this.ServiceT.updateTicket(this.ticketID, assignToUpdateData).subscribe({
+      next: (response) => {
+        console.log('AssignTo update response:', response);
+        this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket Updated Successfully' });
+      },
+      error: (error) => {
+        console.error('Error updating assignTo:', error);
+        // Handle the error appropriately
+      }
+    });
+  }
+  
 
 // Method to update other properties excluding assignTo
 updateTicketWithoutAssignTo() {
@@ -196,9 +209,11 @@ updateTicketWithoutAssignTo() {
   this.ServiceT.updateTicket(this.ticketID, updateDataWithoutTags).subscribe({
     next: (response) => {
       console.log('Update without assignTo response:', response);
+      this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket Updated Successfully' });
     },
     error: (error) => {
       console.error('Error updating ticket without assignTo:', error);
+      this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket Updated Successfully' });
     }
   });
 }
@@ -208,6 +223,7 @@ updateTicketWithoutAssignTo() {
     this.ServiceTags.updateTagsForTicket(this.ticketID, this.tags).subscribe({
       next: (response) =>{
         console.log(response)
+         this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket Updated Successfully' });
       }
     })
   }
@@ -292,7 +308,51 @@ updateTicketWithoutAssignTo() {
       return 'Unknown'; // If token is not available or invalid
     }
   }
-  
-  
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  decodeToken(): string {
+    const token = this.getToken();
+    if (token) {
+        const tokenPayload = JSON.parse(atob(token.split('.')[1])); // Decode the token
+        return tokenPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || 'Unknown'; // Extract role
+    } else {
+        return 'Unknown';
+    }
+}
+
+showStatus(role1: string, role2: string, role3: string): boolean {
+    const userRole = this.decodeToken();
+    return (
+        userRole === role1 ||
+        userRole === role2 ||
+        userRole === role3 
+       
+    );
+}
+
+disabled = true
+verif1(){
+ return this.disabled = false
+}
+
+resetChanges() {
+  // Reload the ticket details to reset changes
+  this.ServiceT.getTicketById(this.ticketID).subscribe({
+    next: (ticket: Ticket) => {
+      this.ticket = ticket;
+      // Reset any variables holding changes
+      this.updatedFields = {};
+      this.tagNames = this.ticket.tags.map((tagObject: any) => tagObject.tag.tagName);
+    },
+    error: (error) => {
+      console.error('Error resetting changes:', error);
+    }
+  });
+}
+
+
   
 }

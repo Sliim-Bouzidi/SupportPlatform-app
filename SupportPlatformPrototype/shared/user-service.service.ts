@@ -29,7 +29,7 @@ export class UserService {
 
   getToken() {
     const token = localStorage.getItem('token');
-    console.log('Token:', token);
+  //  console.log('Token:', token);
     return token;
   }
   

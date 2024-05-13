@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <app-Navbar>
     <li><a [routerLink]="['/TicketList', tenantname]" >Ticket List</a></li>-
 
@@ -6,8 +7,8 @@
 <app-Sidebar></app-Sidebar>
 
 <div class="button-container">
-    <p-button id="CancelButton" label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
-    <p-button label="Save"   (click)="UpdateTags()"  (click)="updateAssignTo();" (click)="updateTicketWithoutAssignTo();"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
+    <p-button (click)="resetChanges()"   id="CancelButton"  label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
+    <p-button label="Save" [disabled]="disabled" (click)="UpdateTags()"  (click)="updateAssignTo();" (click)="updateTicketWithoutAssignTo();"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
      <!--  <p-button label="Save"  (click)="UpdateTags()" (click)="updateTicketDetails()" class="top-right-button" icon="pi pi-plus" [rounded]="true"></p-button>-->
 
   </div>
@@ -27,7 +28,7 @@
                         </ng-template>
                         <ng-template pTemplate="content">
                             <input style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 200px;" 
-                                   type="text" [(ngModel)]="ticket.title"  pInputText />
+                                   type="text" [(ngModel)]="ticket.title" (ngModelChange)="verif1()"   pInputText />
                         </ng-template>
                     </p-inplace>
                     
@@ -76,7 +77,7 @@
                  
                     <editor apiKey="8h1bs6757avrnz0rd3fii5i9js62c17nsifd4leees5dte39"  
                     [ngModel]="ticket?.description"  
-                    (ngModelChange)="ticket.description = $event"
+                    (ngModelChange)="ticket.description = $event;verif1()"
                     [init]="{plugins:'lists link image table code help wordcount'}">
                   </editor>
                        </div>
@@ -88,90 +89,6 @@
                 </div>
                      
 
-              <!--  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-                <div class="comment-container" *ngIf="currentContentIndex === 0">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="media g-mb-30 media-comment">
-                            
-                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
-                            <div class="g-mb-15">
-                                <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                                <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
-                            </div>
-                        
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="media g-mb-30 media-comment">
-
-                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"  size="large"></p-avatar>
-                            <div class="g-mb-15">
-                                <h5 class="h5 g-color-gray-dark-v1 mb-0">John Doe</h5>
-                                <span class="g-color-gray-dark-v4 g-font-size-12">5 days ago</span>
-                            </div>
-                        
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                                felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-                        
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>-->
-
-
-
-                
-              <!--  <div class="container d-flex justify-content-center mt-100 mb-100">
-                    <div class="row">
-                        <div class="col-md-12">
-                  
-                          <div class="card">
-                                              <div class="card-body">
-                                                  <h4 class="card-title">Recent Comments</h4>
-                                                  <h6 class="card-subtitle">Latest Comments section by users</h6> </div>
-                  
-                                              <div class="comment-widgets m-b-20">
-                  
-                                                  <div class="d-flex flex-row comment-row">
-                                                      <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
-                                                      <div class="comment-text w-100">
-                                                          <h5>Samso Nagaro</h5>
-                                                          <div class="comment-footer">
-                                                              <span class="date">April 14, 2019</span>
-                                                              <span class="label label-info">Pending</span> <span class="action-icons">
-                                                                      <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
-                                                                      <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
-                                                                      <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
-                                                                  </span>
-                                                          </div>
-                                                          <p class="m-b-5 m-t-10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it</p>
-                                                      </div>
-                                                  </div>
-                  
-                                            
-                  
-                                                
-                
-                                              </div>
-                                          </div>
-                  
-                        </div>
-                    </div>
-                  </div>-->
-
-
-
-                  
                   
                         
                     <div *ngIf="currentContentIndex === 0">
@@ -338,8 +255,11 @@
                                         <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
                                     </ng-template>
                                     <ng-template pTemplate="content">
-                                        <input style="margin-left: 10px;  color: black; font-weight: 500; font-size: 18px;width: 200px; " 
-                                            type="text" [(ngModel)]="ticket.statusName" pInputText  />
+                                        <input style="margin-left: 10px; color: black; font-weight: 500; font-size: 18px; width: 200px;" 
+                                        type="text" [disabled]="!showStatus('AppSupportL1', 'AppSupportL2', 'Admin')" 
+                                        [(ngModel)]="ticket.statusName" pInputText   (ngModelChange)="verif1()"     />
+                                 
+                                 
                                     </ng-template>
                                 </p-inplace>
                             </div>

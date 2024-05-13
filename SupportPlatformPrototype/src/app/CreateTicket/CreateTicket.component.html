@@ -17,12 +17,54 @@
         <h3>Ticket Creation</h3>
         <label for="PF">Process Flow*</label>
         <!--<p-dropdown id="PF" [options]="cities" placeholder="Select Process Flow" [editable]="true" optionLabel="name"></p-dropdown>-->
-        <p-treeSelect optionLabel="label" [(ngModel)]="ProcessFlowNames"   class="md:w-20rem w-full" [filter]="true" [filterInputAutoFocus]="true"  containerStyleClass="w-full"      [options]="nodes" placeholder="Select Process Flow"></p-treeSelect>
+      <!--  <p-treeSelect optionLabel="label" [(ngModel)]="ProcessFlowNames"   class="md:w-20rem w-full" [filter]="true" [filterInputAutoFocus]="true"  containerStyleClass="w-full"      [options]="nodes" placeholder="Select Process Flow"></p-treeSelect>-->
       
-        <div>
 
 
+      <p-treeSelect
+      optionLabel="label"
+      [(ngModel)]="ProcessFlowNames"
+      class="md:w-20rem w-full"
+      [filter]="true"
+      [filterInputAutoFocus]="true"
+      containerStyleClass="w-full"
+      [options]="nodes"
+      placeholder="Select Process Flow"
+    ></p-treeSelect>
+    
+    <!-- Attach file input -->
+    <div *ngIf="ProcessFlowNames && ProcessFlowNames.label === 'Mail Reader'">
+      
+    
+      <div class="formbold-mb-3">
+        <label for="upload">
+          Attach File
+        </label>
+        <input (click)="uploadFileAndUpdate()"
+          type="file"
+          name="upload"
+          id="upload"
+          class="formbold-form-input formbold-form-file"
+        />
+      </div>
 
+      <div class="formbold-checkbox-wrapper">
+        <label for="supportCheckbox" class="formbold-checkbox-label">
+          <div class="formbold-relative">
+            <input
+              type="checkbox"
+              id="supportCheckbox"
+              class="formbold-input-checkbox"
+            />
+          </div>
+        </label>
+      </div>
+
+    </div>
+    
+      
+
+      <div>
         <div style="display: flex; justify-content: space-between; width: 520px;">
           <label for="categoryDD">Category</label>
          <!--  <label for="category">Add Category</label>-->

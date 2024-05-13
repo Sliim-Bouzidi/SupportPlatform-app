@@ -6,8 +6,13 @@
 <header>
 
         <div class="container">
+            
             <div class="k card">
+                <p-contextMenu #cm [model]="items" />
                 <p-table
+                        [value]="tickets"
+                        [contextMenu]="cm" 
+                        [(contextMenuSelection)]="this.selectedTicket" 
                         [value]="tickets"
                         selectionMode="single"
                         [resizableColumns]="true"
@@ -60,7 +65,7 @@
                                 </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-ticket let-columns="columns" let-i="rowIndex">
-                                <tr  class="clickableTicket" (click)="navigateToTicketDetails(ticket.ticketID)" >
+                                <tr [pContextMenuRow]="ticket"    class="clickableTicket" (click)="navigateToTicketDetails(ticket.ticketID)" >
                                     <td>{{i}}</td>
                                     
 
@@ -85,6 +90,7 @@
                                 </tr>
                         </ng-template>
                 </p-table>
+                <p-contextMenu/>
             </div>   
         </div>
 </header>   
@@ -92,3 +98,4 @@
     <p class="m-0" [innerHTML]="description"></p>
 </p-dialog>-->
 
+<p-confirmDialog></p-confirmDialog>

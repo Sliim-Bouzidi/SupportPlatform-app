@@ -53,7 +53,7 @@ export class TicketService {
 
 
   deleteTicket(ticketId: string): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/DeleteTicket?TicketID=${ticketId}`).pipe(
+    return this.http.delete<any>(`${this.apiUrl}/?TicketID=${ticketId}`).pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error);
       })

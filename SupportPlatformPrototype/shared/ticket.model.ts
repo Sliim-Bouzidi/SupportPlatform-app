@@ -1,4 +1,5 @@
 export class Ticket {
+  ticketID!: string
   title: string = "";
   description: string = "";
   assignTo: string = "";

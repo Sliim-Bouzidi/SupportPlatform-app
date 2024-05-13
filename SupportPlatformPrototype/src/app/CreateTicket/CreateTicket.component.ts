@@ -39,7 +39,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
  
   htmlEditor: string = '';
   usePrimeNGQuill: boolean;
-  
+
 
 
   constructor(
@@ -57,6 +57,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
     public serviceCategory: CategoryService,
     public serviceTicketType : TicketTypeService,
     private successMessageService: SuccessMessageService, // Inject the SuccessMessageService
+    
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // Check if running on server to determine whether to use PrimeNG Quill
@@ -110,10 +111,10 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 
   priority: Priority[] = []; // Array to hold the list of statuses
   PriorityOptions: { name: string }[] = [];
-
+  
   ngAfterViewInit(): void {
   // @ts-ignore
-    new FroalaEditor("#editor")
+  //  new FroalaEditor("#editor")
   }
 
 
@@ -123,6 +124,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
  // nodes: any[] = [];
 
   ngOnInit() {
+  //  this.onProcessFlowSelection()
 
     this.route.params.subscribe(params => {
       this.tenantname = params['tenantname']; // corrected
@@ -172,19 +174,19 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 
 
 
-    
-   /* this.serviceCategory.getAllCategoryNames().subscribe(
-      (response: any) => {
-        // Loop over the response array and populate options array
-        for (let i = 0; i < response.length; i++) {
-          this.categoryOptions.push({ name: response[i] });
-        }
-      },
-      (error) => {
-        console.error('Error fetching statuses:', error);
-      }
-    );
-*/
+        
+      /* this.serviceCategory.getAllCategoryNames().subscribe(
+          (response: any) => {
+            // Loop over the response array and populate options array
+            for (let i = 0; i < response.length; i++) {
+              this.categoryOptions.push({ name: response[i] });
+            }
+          },
+          (error) => {
+            console.error('Error fetching statuses:', error);
+          }
+        );
+    */
 
         this.serviceCategory.getAllCategoryNames().subscribe({
           next: (response: string[]) => {
@@ -227,21 +229,21 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 
     
 
-  this.serviceU.getAllUsers().subscribe({
-    next:(response: any) => {
-      for (let i = 0; i < response.length; i++) {
-        this.userOptions.push({ name: response[i].email });
+    this.serviceU.getAllUsers().subscribe({
+      next:(response: any) => {
+        for (let i = 0; i < response.length; i++) {
+          this.userOptions.push({ name: response[i].email });
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching users:', error);
       }
-    },
-    error: (error) => {
-      console.error('Error fetching users:', error);
-    }
-  });
+    });
 
 
 
   
-  //console.log(this.firstLevelProcessFlow)
+    //console.log(this.firstLevelProcessFlow)
 
 
 
@@ -293,8 +295,14 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
    // console.log(treeData)
   }
 
+  /*isMailReaderSelected: boolean = false;
+  onProcessFlowSelection(event: any) {
+    console.log("Selected Process Flow:", event);
+    // Check if "Mail Reader" process flow is selected
+    this.isMailReaderSelected = event?.label === "Mail Reader";
+  }*/
   
-  
+
 
 
 
@@ -362,6 +370,8 @@ AddTicket() {
 
 
 
+
+
 Tags:string[] = [];
 filteredSuggestions:  string[] = []
 /*
@@ -389,7 +399,44 @@ search(event: any) {
     }
     }
   }*/
- 
 
 
+  selectedFileData: File | null = null;
+
+  
+
+  onFileSelected(event: any): void {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0]; // Get the first selected file
+    if (file) {
+      // Store the selected file data
+      this.selectedFileData = file;
+      // Here you can implement additional logic if needed
+      console.log('Selected file:', file);
+    }
+  }
+
+
+
+  uploadFileAndUpdate(): void {
+    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+    fileInput.accept = 'image/*'; // Adjust the accepted file types if needed
+    fileInput.onchange = (event) => {
+      this.onFileSelected(event); // Call the existing onFileSelected method
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        // Read the file content as a binary data
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          // Get the binary data from the FileReader result
+          const binaryData = reader.result as ArrayBuffer;
+          // Process the binary data as needed
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    };
+  }
+  
 }
+
+
