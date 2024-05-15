@@ -33,6 +33,12 @@ namespace Support_Ticket_System.DataContext
         public DbSet<TicketType> TicketType { get; set; }
 
 
+        public DbSet<Attribut> attributs { get; set; }
+
+        public DbSet<ProcessFlowAttrribut> ProcessFlowAttrributs { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -64,6 +70,9 @@ namespace Support_Ticket_System.DataContext
                 .WithMany(t => t.categories)
                 .HasForeignKey(ti => ti.CategoryID);
 
+
+
+           
 
         }
 

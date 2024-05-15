@@ -410,3 +410,31 @@ select.formbold-form-input,
   .checkbox-wrapper input[type="checkbox"]:checked + .terms-label .checkbox-tick {
   stroke-dashoffset: 0;
 }
+
+
+::ng-deep #DossierNumber{
+  width: 390px;
+  margin-right: 10px;
+}
+
+::ng-deep #SalesOrderNumber{
+  width: 390px;
+  margin-left: 10px;
+}
+
+
+::ng-deep #DossierNumberPIC{
+  width: 250px;
+ /* margin-right: 10px;*/
+}
+
+::ng-deep #SalesOrderNumberPIC{
+  width: 250px;
+ /* margin-left: 13.3px;
+  margin-right: 10px;*/
+}
+
+::ng-deep #AssistancePlanNumberPIC{
+  width: 250px;
+ /* margin-left: 13.3px;*/
+}

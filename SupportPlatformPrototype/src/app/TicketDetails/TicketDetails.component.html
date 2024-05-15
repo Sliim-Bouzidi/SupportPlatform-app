@@ -239,7 +239,7 @@
                                  <div *ngIf="!visible2" style="margin-top: 17.5px;"  ><span    style="color: black;">{{ this.ticket?.assignTo }}</span></div>
 
                                  
-                                <div   *ngIf="visible2" ><p-dropdown id="Assignto" [editable]="true"  [options]="userOptions" [(ngModel)]="this.AssignTo"   optionLabel="name" ></p-dropdown></div>
+                                <div   *ngIf="visible2" ><p-dropdown id="Assignto" [editable]="true"  [options]="userOptions" [(ngModel)]="this.AssignTo"    (ngModelChange)="verif1()" optionLabel="name" ></p-dropdown></div>
                                 
                              </div>
                     

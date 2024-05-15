@@ -16,7 +16,7 @@
                     <div class="email-input">
                         <p-iconField iconPosition="left">
                             <p-inputIcon styleClass="pi pi-user" />
-                            <input [(ngModel)]="user.username"  class="ng-invalid ng-dirty"   id="email" type="email" pInputText placeholder="Email or Username" />
+                            <input [(ngModel)]="user.email" [(ngModel)]="user.username"  class="ng-invalid ng-dirty"   id="email" type="email" pInputText placeholder="Email or Username" />
                         </p-iconField>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <p-password  class="ng-invalid ng-dirty"    [(ngModel)]="user.password"  id="password" [toggleMask]="true" [feedback]="false"  placeholder="Password"   ></p-password>
                 </div>
 
-                <p-button  (onClick)="verif()" [disabled]="!user.username || !user.password" label="Sign In" [rounded]="true" [severity]="buttonSeverity"></p-button>
+                <p-button  (onClick)="verif()" [disabled]="!user.email || !user.password" label="Sign In" [rounded]="true" [severity]="buttonSeverity"></p-button>
 
             </div>
             <div class="image-box"> <img src="../../assets/Tree.png" > </div>

@@ -41,32 +41,36 @@ namespace Support_Ticket_System.Controllers
         }
 
         [HttpPost("CreateTicket")]
-        public async Task<IActionResult> CreateTicket(CreateTicketDTO request)
+        public async Task<IActionResult> CreateTicket([FromBody] CreateTicketDTO  request)
         {
+            if (!ModelState.IsValid)
 
-                
+                return BadRequest(ModelState);
 
             string title = request.title;
             string description = request.description;
             string assignTo = request.assignTo;
-            string statusName = request.statusName;
             string processflow = request.processflowName;
             string user = request.username;
             string tenantname = request.tenantname;
             string severityname = request.SeverityName;
             string priorityname = request.PriorirtyName;
             List<string> Tags = request.Tags;
-            List<string> categories = request.categories;
-            string tickettype = request.tickettype;
+            string? DossierNumber = request.DossierNumber;
+            string? SalesOrderNumber = request.SalesOrderNumber;
+            string? WorkingOrderNumber = request.WorkingOrderNumber;
+            string? AssistancePlanNumber = request.AssistancePlanNumber;
+            IFormFile? file = request.file;
 
 
 
-            Ticket ticket = await _ticketService.CreateTicket(title, description, assignTo, statusName, processflow, user, tenantname, priorityname, severityname,tickettype, Tags,categories);
-            return Ok("Ticket Creation Success");
+
+            Ticket ticket = await _ticketService.CreateTicket(title, description, assignTo, processflow, user, tenantname, priorityname, severityname, Tags, DossierNumber, SalesOrderNumber, WorkingOrderNumber, AssistancePlanNumber, file);
+            return Ok("ticket created succesfully");
         }
+    
 
-
-        [HttpGet]
+                [HttpGet]
 
         public async Task<IActionResult> GetAllTicketsbytenant(string TenantName)
         {

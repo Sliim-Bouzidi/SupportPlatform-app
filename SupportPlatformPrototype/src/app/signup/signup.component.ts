@@ -19,8 +19,8 @@ export class SignupComponent {
   buttonSeverity: string = 'primary'; // Default severity is success
 
   verif() {
-    if (this.user.username === "" || this.user.password === "") {
-      this.serviceM.add({ severity: 'error', summary: 'Champs obligatoires', detail: 'Tous les champs sont obligatoires.' });
+    if ((this.user.email === "" &&  this.user.username === "") || this.user.password === "") {
+      this.serviceM.add({ severity: 'error', summary: 'Champs obligatoires', detail: 'All fields are mandatory.' });
     } else {
       // Make HTTP POST request to the C# backend API endpoint
       this.serviceUser.login(this.user).subscribe({

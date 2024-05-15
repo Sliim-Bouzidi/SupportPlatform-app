@@ -148,14 +148,14 @@ export class TicketListComponent implements OnInit {
     // Use the confirmation service to display a confirmation dialog
     this.ConfirmationService.confirm({
       message: 'Are you sure to delete this ticket ?',
-      header: 'Ticket Deletion',
+      header: 'Delete Ticket',
       icon: 'pi pi-exclamation-triangle pi-lg',
       accept: () => {
             // Call the onDelete method to perform the deletion
             this.deleteTicket(id);
         },
-        acceptLabel: 'Oui',
-        rejectLabel: 'Non',
+        acceptLabel: 'Yes',
+        rejectLabel: 'No',
         acceptButtonStyleClass: 'p-button-danger',
         rejectButtonStyleClass: 'p-button-secondary',
         reject: () => {

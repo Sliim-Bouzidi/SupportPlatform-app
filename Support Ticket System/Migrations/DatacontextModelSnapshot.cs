@@ -53,6 +53,21 @@ namespace Support_Ticket_System.Migrations
                     b.ToTable("attachments");
                 });
 
+            modelBuilder.Entity("Support_Ticket_System.Entites.Attribut", b =>
+                {
+                    b.Property<Guid>("AttributID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AttributID");
+
+                    b.ToTable("attributs");
+                });
+
             modelBuilder.Entity("Support_Ticket_System.Entites.Category", b =>
                 {
                     b.Property<Guid>("CategoryID")
@@ -134,6 +149,35 @@ namespace Support_Ticket_System.Migrations
                     b.HasIndex("TenantID");
 
                     b.ToTable("processFlows");
+                });
+
+            modelBuilder.Entity("Support_Ticket_System.Entites.ProcessFlowAttrribut", b =>
+                {
+                    b.Property<Guid>("PFAttributID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AttributID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProcessFlowId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TicketID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PFAttributID");
+
+                    b.HasIndex("AttributID");
+
+                    b.HasIndex("ProcessFlowId");
+
+                    b.HasIndex("TicketID");
+
+                    b.ToTable("ProcessFlowAttrributs");
                 });
 
             modelBuilder.Entity("Support_Ticket_System.Entites.Reason", b =>
@@ -504,6 +548,33 @@ namespace Support_Ticket_System.Migrations
                     b.Navigation("tenant");
                 });
 
+            modelBuilder.Entity("Support_Ticket_System.Entites.ProcessFlowAttrribut", b =>
+                {
+                    b.HasOne("Support_Ticket_System.Entites.Attribut", "attribut")
+                        .WithMany("PFAttributs")
+                        .HasForeignKey("AttributID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Support_Ticket_System.Entites.ProcessFlow", "processflow")
+                        .WithMany("PFAttributs")
+                        .HasForeignKey("ProcessFlowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Support_Ticket_System.Entites.Ticket", "ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("attribut");
+
+                    b.Navigation("processflow");
+
+                    b.Navigation("ticket");
+                });
+
             modelBuilder.Entity("Support_Ticket_System.Entites.Reason", b =>
                 {
                     b.HasOne("Support_Ticket_System.Entites.Ticket", "Ticket")
@@ -656,6 +727,11 @@ namespace Support_Ticket_System.Migrations
                     b.Navigation("ticket");
                 });
 
+            modelBuilder.Entity("Support_Ticket_System.Entites.Attribut", b =>
+                {
+                    b.Navigation("PFAttributs");
+                });
+
             modelBuilder.Entity("Support_Ticket_System.Entites.Category", b =>
                 {
                     b.Navigation("categories");
@@ -664,6 +740,8 @@ namespace Support_Ticket_System.Migrations
             modelBuilder.Entity("Support_Ticket_System.Entites.ProcessFlow", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("PFAttributs");
 
                     b.Navigation("tickets");
                 });

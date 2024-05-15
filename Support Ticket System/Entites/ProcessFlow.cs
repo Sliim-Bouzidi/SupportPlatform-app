@@ -9,5 +9,7 @@
         public List<ProcessFlow> Children { get; set; }
         public ICollection<Ticket> tickets { get; set; }
         public Tenant tenant { get; set; }
+
+        public ICollection<ProcessFlowAttrribut> PFAttributs { get; set; }
     }
 }

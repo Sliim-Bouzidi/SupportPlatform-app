@@ -31,6 +31,7 @@
       [options]="nodes"
       placeholder="Select Process Flow"
     ></p-treeSelect>
+
     
     <!-- Attach file input -->
     <div *ngIf="ProcessFlowNames && ProcessFlowNames.label === 'Mail Reader'">
@@ -62,40 +63,61 @@
 
     </div>
     
-      
+    
 
-      <div>
-        <div style="display: flex; justify-content: space-between; width: 520px;">
-          <label for="categoryDD">Category</label>
-         <!--  <label for="category">Add Category</label>-->
+
+    <!-- Sales Invoice Creation inputs -->
+    <div *ngIf="ProcessFlowNames && ProcessFlowNames.label === 'Sales Invoice Creation'">
+      
+  
+
+
+        <div style="display: flex;justify-content: space-between; width: 565px; ">
+          <label for="DossierNumber">Dossier Number</label>
+          <label for="SalesOrderNumber">Sales Order Number</label>
         </div>
-      
-       
-      <div style="display: flex;  justify-content: space-between;  width: 800px;">
-       
-        
-        <p-chips id="category" placeholder="Add Category"  [max]="4"    [(ngModel)]="ticket.categories"></p-chips>
-        
-        
-       <!-- <input id="category" type="text" pInputText   [(ngModel)]="ticket.category" placeholder="Add Ticket Category"/>-->
+        <div style="display: flex;">
+            <input id="DossierNumber"  [(ngModel)]="ticket.DossierNumber"  type="text" pInputText   placeholder="Add Dossier Number"/>
+            <input id="SalesOrderNumber"  [(ngModel)]="ticket.SalesOrderNumber"    type="text" pInputText   placeholder="Add Sales Order Number"/>
 
+        </div>
+
+    </div>
+    
+    
+    <!-- Sales Invoice Creation inputs -->
+    <div *ngIf="ProcessFlowNames && ProcessFlowNames.label === 'Purchase Invoice Creation'">
+          
       
+
+
+      <div style="display: flex;justify-content: space-between; width: 740px; ">
+        <label for="DossierNumberPIC">Dossier Number</label>
+        <label style="margin-right: -50px;"   for="SalesOrderNumberPIC">Working Order Number</label>
+        <label for="AssistancePlanNumberPIC">Assistance Plan Number</label>
+      </div>
+      <div style="display: flex;justify-content: space-between;">
+          <input id="DossierNumberPIC" type="text" pInputText   placeholder="Add Dossier Number"/>
+          <input id="SalesOrderNumberPIC" type="text" pInputText   placeholder="Add Working Order Number"/>
+          <input id="AssistancePlanNumberPIC" type="text" pInputText   placeholder="Add Assistance Plan Number"/>
+
       </div>
 
     </div>
 
-        <label for="Status">Status</label>
-        <p-dropdown id="Status" [options]="StatusOptions"  [(ngModel)]="Status" placeholder="Add Status" [editable]="true" optionLabel="name" ></p-dropdown>
+       
         
 
-        <label for="Tags">Add Tag</label>
-        <p-chips id="Tags" placeholder="Add tag"  [max]="4"    [(ngModel)]="ticket.tags"></p-chips>
+       
        
 
         <label for="TicketTitle">Ticket Title</label>
         <input id="TicketTitle" type="text" pInputText  [(ngModel)]="ticket.title"  placeholder="Ticket Title"/>
 
         
+        <label for="Tags">Add Tag</label>
+        <p-chips id="Tags" placeholder="Add tag"  [max]="4"    [(ngModel)]="ticket.tags"></p-chips>
+
         <ng-template pTemplate="caption">
           <p-multiSelect 
               display="chip" 
@@ -147,20 +169,14 @@
      
        
         
-      
+      <!--  <label for="Status">Status</label>
+        <p-dropdown id="Status" [options]="StatusOptions"  [(ngModel)]="Status" placeholder="Add Status" [editable]="true" optionLabel="name" ></p-dropdown>-->
+        
         <label for="Priority">Priority</label>
         <p-dropdown id="Priority" [options]="PriorityOptions" placeholder="Select Priority" [(ngModel)]="PriorityNames"   [editable]="true" optionLabel="name"></p-dropdown>
 
         <label for="Severity">Severity</label>
         <p-dropdown id="Severity" [options]="severityOptions"  [(ngModel)]="Severity" placeholder="Select Severity" [editable]="true" optionLabel="name"></p-dropdown>
-
-
-
-        
-        <label for="type">Type</label>
-        <p-dropdown id="Type"   [options]="TicketTypeOptions"  [(ngModel)]="TicketType"   placeholder="Select Ticket Type" [editable]="true" optionLabel="name"></p-dropdown>
-     
-     
 
 
     </div>

@@ -75,11 +75,9 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
   Status: any
   Severity:any
   TicketType: any
-
-
   ticket : Ticket = new Ticket
 
-
+  
 
   
   nodes = [
@@ -160,7 +158,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 
 
 
-    this.serviceS.getAllStatusNames().subscribe(
+   /* this.serviceS.getAllStatusNames().subscribe(
       (response: any) => {
         // Loop over the response array and populate options array
         for (let i = 0; i < response.length; i++) {
@@ -170,7 +168,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
       (error) => {
         console.error('Error fetching statuses:', error);
       }
-    );
+    );*/
 
 
 
@@ -198,7 +196,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
 
 
 
-    this.serviceTicketType.getAllTicketTypeNames().subscribe(
+   /* this.serviceTicketType.getAllTicketTypeNames().subscribe(
       (response: any) => {
         // Loop over the response array and populate options array
         for (let i = 0; i < response.length; i++) {
@@ -208,7 +206,7 @@ export class CreateTicketComponent implements OnInit,AfterViewInit {
       (error) => {
         console.error('Error fetching statuses:', error);
       }
-    );
+    );*/
 
 
 
@@ -324,7 +322,7 @@ AddTicket() {
   if (
     !this.ticket.title ||
     !this.AssignTo ||
-    !this.Status ||
+   // !this.Status ||
     !this.Severity ||
     !this.PriorityNames ||
     !this.ticket.tags ||
@@ -340,12 +338,12 @@ AddTicket() {
   this.ticket.assignTo = this.AssignTo.name;
   this.ticket.tags = this.ticket.tags;
   this.ticket.severityName = this.Severity.name;
-  this.ticket.statusName = this.Status.name;
+ // this.ticket.statusName = this.Status.name;
   this.ticket.processflowName = this.ProcessFlowNames.label;
   this.ticket.priorirtyName = this.PriorityNames.name;
   this.ticket.tenantname = this.tenantname;
-  this.ticket.categories = this.ticket.categories;
-  this.ticket.tickettype = this.TicketType.name;
+  //this.ticket.categories = this.ticket.categories;
+ // this.ticket.tickettype = this.TicketType.name;
 
   // If the user is logged in, set the username
   if (this.ServiceSession.User?.username) {

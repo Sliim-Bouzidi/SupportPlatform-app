@@ -51,9 +51,11 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { UserProfileComponent } from './UserProfile/UserProfile.component';
+
 
 @NgModule({
-  declarations: [									
+  declarations: [												
     AppComponent,
     SignupComponent,
     TenantComponent,
@@ -63,7 +65,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     CreateTicketComponent,
     TicketListComponent,
       TicketDetailsComponent,
-      AdminInterfaceComponent
+      AdminInterfaceComponent,
+      UserProfileComponent
    ],
   imports: [
     

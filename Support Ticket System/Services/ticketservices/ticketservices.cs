@@ -34,16 +34,20 @@ namespace Support_Ticket_System.Services.ticketservices
             _ticketTypeServices = ticketTypeServices;
             
         }
-       
 
-        public async Task<Ticket> CreateTicket(string title, string description, string assignTo, string statusName, string processFlowname, string username, string tenantname, string priorityname, string severityname,string TicketType, List<string> tag, List<string> category)
+
+        public async Task<Ticket> CreateTicket(string title, string description, string assignTo, string processFlowname, string username, string tenantname, string priorityname, string severityname, List<string> tag, string? DossierNumber, string? SalesOrderNumber, string? WorkingOrderNumber, string? AssistancePlanNumber, IFormFile? file)
         {
             var processFlow = await _context.processFlows.FirstOrDefaultAsync(p => p.ProcessFlowName == processFlowname);
             var user = await _context.users.FirstOrDefaultAsync(u => u.Username == username);
             var tenant = await _context.tenants.FirstOrDefaultAsync(t => t.Name == tenantname);
             var priority = _priorityServices.SetPriority(priorityname);
             var severity = await _context.severities.FirstOrDefaultAsync(s => s.SeverityName == severityname);
-            var type = await _context.TicketType.FirstOrDefaultAsync(s => s.Name == TicketType);
+            var statusNmae = "New";
+            var dossiernumberatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "DossierNumber");
+            var SalesOrderNumberatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "SalesOrderNumber");
+            var WorkingOrderatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "WorkingOrderAttribut");
+            var assistanceplanatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "AssistancePlanNumber");
 
             var ticket = new Ticket
             {
@@ -55,18 +59,93 @@ namespace Support_Ticket_System.Services.ticketservices
                 UpdatedDate = DateTime.UtcNow,
                 processFlow = processFlow,
                 severity = severity,
-                TicketType = type,
+
                 user = user,
                 priority = priority,
                 tenant = tenant
             };
+            switch (processFlowname)
+            {
+                case "Sales Invoice Creation":
+                     var pfattribut1 = new ProcessFlowAttrribut
+                    {
+                        PFAttributID = Guid.NewGuid(),
+                        processflow = processFlow,
+                        attribut = dossiernumberatt,
+                        Value = DossierNumber,
+                        ticket = ticket
+                    };
+                    var pfattribut2 = new ProcessFlowAttrribut
+                    {
+                        PFAttributID = Guid.NewGuid(),
+                        processflow = processFlow,
+                        attribut = SalesOrderNumberatt,
+                        Value = SalesOrderNumber,
+                        ticket = ticket
+                    };
+                    _context.Add(pfattribut1);
+                    _context.Add(pfattribut2);
+                    break;
+
+                case "Purchase Invoice Creation":
+                    var pfattribut3 = new ProcessFlowAttrribut
+                    {
+                        PFAttributID = Guid.NewGuid(),
+                        processflow = processFlow,
+                        attribut = dossiernumberatt,
+                        Value = DossierNumber,
+                        ticket = ticket
+                    };
+                    var pfattribut4 = new ProcessFlowAttrribut
+                    {
+                        PFAttributID = Guid.NewGuid(),
+                        processflow = processFlow,
+                        attribut = WorkingOrderatt,
+                        Value = WorkingOrderNumber,
+                        ticket = ticket
+                    };
+                    var pfattribut5 = new ProcessFlowAttrribut
+                    {
+                        PFAttributID = Guid.NewGuid(),
+                        processflow = processFlow,
+                        attribut = assistanceplanatt,
+                        Value = AssistancePlanNumber,
+                        ticket = ticket
+                    };
+                    _context.Add(pfattribut5); _context.Add(pfattribut4);
+                    _context.Add(pfattribut3);
+                    break;
+                case "Mail Reader":
+                    var attachment = new Attachment
+                    {
+                        Id = Guid.NewGuid(),
+                        FileName = file.FileName,
+                        ContentType = file.ContentType,
+                        FileSize = file.Length,
+                        ticket = ticket
+                    };
+                    using (var ms = new MemoryStream())
+                    {
+                        file.CopyTo(ms);
+
+
+                        var fileData = ms.ToArray();
+
+
+                    }
+                    _context.Add(attachment);
+                    break;
+
+
+                default:
+                    break;
+            }
 
             _context.tickets.Add(ticket);
             await _context.SaveChangesAsync();
-            
-            await StoreInTicketHistory(ticket.TicketID, ticket.UserID , "ticket Creation" , null , null);
+            await StoreInTicketHistory(ticket.TicketID, ticket.UserID, "ticket Creation", null, null);
 
-             _statusservice.SetStatus(ticket.TicketID, statusName ); 
+            _statusservice.SetStatus(ticket.TicketID, statusNmae);
             var statusvalue = await _context.statushistory
                 .Where(p => p.TicketID == ticket.TicketID)
                 .OrderByDescending(p => p.TimeStamp)
@@ -75,17 +154,11 @@ namespace Support_Ticket_System.Services.ticketservices
 
             ticket.Status = statusvalue;
 
-            var tagadded =  _tagServices.AddTagtoticket(ticket.TicketID, tag); 
+            var tagadded = _tagServices.AddTagtoticket(ticket.TicketID, tag);
             foreach (var tag1 in tagadded)
             {
                 ticket.tags.Add(tag1);
             }
-            var categoryadded = await _categoryservices.AddCategorytoticket(ticket.TicketID, category);
-            foreach (var singlecategory in categoryadded)
-            {
-                ticket.categories.Add(singlecategory);
-            }
-
             await _context.SaveChangesAsync();
 
             return ticket;
