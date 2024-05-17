@@ -8,7 +8,7 @@
 
 <div class="button-container">
     <p-button (click)="resetChanges()"   id="CancelButton"  label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
-    <p-button label="Save" [disabled]="disabled" (click)="UpdateTags()"  (click)="updateAssignTo();" (click)="updateTicketWithoutAssignTo();"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
+    <p-button label="Save" [disabled]="disabled"  (click)="UpdateTags()"  (click)="updateAssignTo();" (click)="updateTicketWithoutAssignTo();"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
      <!--  <p-button label="Save"  (click)="UpdateTags()" (click)="updateTicketDetails()" class="top-right-button" icon="pi pi-plus" [rounded]="true"></p-button>-->
 
   </div>
@@ -234,12 +234,15 @@
                         
                         
                         <div style="display: flex; margin-top: -10px; margin-bottom: -25px;" >
-                            <div style="cursor: pointer;"> <div (click)="showAssignTo()"  style="cursor: pointer; margin-top: 10px; margin-right: 4px;"   >Assign to:</div>
-                        </div> 
+                            <div style="cursor: pointer;">
+                                 <div (click)="showAssignTo()"  style="cursor: pointer; margin-top: 10px; margin-right: 4px;"   >Assign to:</div>
+                            </div> 
                                  <div *ngIf="!visible2" style="margin-top: 17.5px;"  ><span    style="color: black;">{{ this.ticket?.assignTo }}</span></div>
 
                                  
-                                <div   *ngIf="visible2" ><p-dropdown id="Assignto" [editable]="true"  [options]="userOptions" [(ngModel)]="this.AssignTo"    (ngModelChange)="verif1()" optionLabel="name" ></p-dropdown></div>
+                                <div   *ngIf="visible2" >
+                                    <p-dropdown id="Assignto" [editable]="true"  [options]="userOptions" [(ngModel)]="this.AssignTo"  placeholder="Selected Assigned User"   (ngModelChange)="verif1()" optionLabel="name" ></p-dropdown>
+                                </div>
                                 
                              </div>
                     
@@ -249,22 +252,37 @@
                         <div>Priority: <span style="color: black;"> {{ this.ticket?.priority?.priorityName }}</span></div>
 
                         <div style="display: flex; align-items: center;">
-                            <div>Status:
-                                <p-inplace [closable]="closable">
-                                    <ng-template pTemplate="display">
-                                        <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
-                                    </ng-template>
-                                    <ng-template pTemplate="content">
-                                        <input style="margin-left: 10px; color: black; font-weight: 500; font-size: 18px; width: 200px;" 
-                                        type="text" [disabled]="!showStatus('AppSupportL1', 'AppSupportL2', 'Admin')" 
-                                        [(ngModel)]="ticket.statusName" pInputText   (ngModelChange)="verif1()"     />
-                                 
-                                 
-                                    </ng-template>
-                                </p-inplace>
-                            </div>
-                            
+                            <!--<div style="cursor: pointer;">
+                                <div *ngIf="!visible3" style="margin-top: 17.5px;"  ><span    style="color: black;">{{ ticket?.status }}</span></div>
+                                <div (click)="showStatuses()"  style="cursor: pointer; margin-top: 10px; margin-right: 4px;"   >Status:</div>
+                            </div>   
+
+                           
+                                <div   *ngIf="visible3" >
+                                    <p-dropdown id="Status" [options]="StatusOptions"   (ngModelChange)="verif1()"   [(ngModel)]="this.statusName" placeholder="Add Status" [editable]="true" optionLabel="name" ></p-dropdown>
+                                </div> -->
+
+                                <div>Status:
+                                    
+                                    <p-inplace [closable]="closable">
+                                        <ng-template pTemplate="display">
+                                            <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
+                                        </ng-template>
+                                        <ng-template pTemplate="content">
+                                            <input style="margin-left: 10px; color: black; font-weight: 500; font-size: 18px; width: 200px;" 
+                                            type="text" [disabled]="!showStatus('AppSupportL1', 'AppSupportL2', 'Admin')" 
+                                            [(ngModel)]="ticket.statusName" placeholder="Change Status" pInputText (ngModelChange)="verif1()"     />
+                                    
+                                    
+                                        </ng-template>
+                                    </p-inplace>
+                                </div>
                         </div>
+
+
+                       
+                          
+                        
                         
                         <div style="display: flex; align-items: center;"></div>
                         
@@ -304,8 +322,38 @@
                                     </ng-template>
                                 </p-inplace>
                             </div>-->
-                        
-                        
+
+                            <div style="height: 20px;"></div>
+
+                            <div *ngIf="ticket?.processFlow.processFlowName == 'Sales Invoice Creation'" class="styled-inputs">
+                                <div class="input-group">
+                                    <label for="salesOrderNumber">Sales Order Number</label>
+                                    <input type="text" id="salesOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
+                                </div>
+                                <div class="input-group">
+                                    <label for="dossierNumber">Dossier Number</label>
+                                    <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
+                                </div>
+                            </div>
+                            
+                            
+                     
+                            <div *ngIf="ticket?.processFlow.processFlowName == 'Purchase Invoice Creation'" class="styled-inputs">
+                                <div class="input-group">
+                                    <label for="workingOrderNumber">Working Order Number</label>
+                                    <input type="text" id="workingOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
+                                </div>
+                                <div class="input-group">
+                                    <label for="dossierNumber">Dossier Number</label>
+                                    <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[2].value" readonly>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="AssistancePlanNumber">Assistance Plan Number</label>
+                                    <input type="text" id="AssistancePlanNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
+                                </div>
+                            </div>
+                            <div style="height: 20px;"></div>
                     </div>
                     
         </div>
@@ -317,40 +365,42 @@
           
 
           
-<div class="k   d-flex justify-content-center mt-100 mb-100">
+<!-- Add *ngIf directive to conditionally show the entire div -->
+<div class="k d-flex justify-content-center mt-100 mb-100" *ngIf="comments && comments.length > 0">
     <div class="row">
         <div class="col-md-12">
-  
-          <div class="card">
-                              <div class="card-body">
-                                  <h4 class="card-title">Recent Comments</h4>
-                                  <h6 class="card-subtitle">Latest Comments section by users</h6> </div>
-  
-                              <div class="comment-widgets m-b-20">
-  
-                                  <div class="d-flex flex-row comment-row"  *ngFor="let comment of comments">
-                                      <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
-                                      <div class="comment-text w-100">
-                                          <h3>{{ comment.user.username }}</h3>
-                                          <div class="comment-footer">
-                                            <span class="date">{{ formatDate(comment.date) }}</span>
-                                             <!-- <span class="label label-info">Pending</span>--> <span class="action-icons">
-                                                      <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
-                                                      <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
-                                                      <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
-                                                  </span>
-                                          </div>
-                                          <p class="m-b-5 m-t-10" [innerHTML]="comment.text"   ></p>
-                                      </div>
-                                  </div>
 
-                              </div>
-                          </div>
-  
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Recent Comments</h4>
+                    <h6 class="card-subtitle">Latest Comments section by users</h6>
+                </div>
+
+                <div class="comment-widgets m-b-20">
+                    <div class="d-flex flex-row comment-row" *ngFor="let comment of comments">
+                        <div class="p-2"><span class="round"><img src="https://i.imgur.com/uIgDDDd.jpg" alt="user" width="50"></span></div>
+                        <div class="comment-text w-100">
+                            <h3>{{ comment.user.username }}</h3>
+                            <div class="comment-footer">
+                                <span class="date">{{ formatDate(comment.date) }}</span>
+                                <span class="action-icons">
+                                    <a href="#" data-abc="true"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" data-abc="true"><i class="fa fa-rotate-right"></i></a>
+                                    <a href="#" data-abc="true"><i class="fa fa-heart"></i></a>
+                                </span>
+                            </div>
+                            <p class="m-b-5 m-t-10" [innerHTML]="comment.text"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
-  </div>
 </div>
+
+
 
 
 

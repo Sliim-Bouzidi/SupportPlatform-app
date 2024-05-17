@@ -12,7 +12,8 @@ export class Ticket {
   tenantname: string = "";
  // categories: string="";
  // tickettype: string ="";
-  DossierNumber: string = "";
-  SalesOrderNumber: string = "";
-
+  dossierNumber: string = "";
+  salesOrderNumber: string = "";
+  workingOrderNumber: string = "";
+  assistancePlanNumber : string = "";
 }

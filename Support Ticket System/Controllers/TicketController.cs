@@ -39,7 +39,8 @@ namespace Support_Ticket_System.Controllers
             _userServices = userservices;
             _logger = logger;
         }
-
+        
+        [Authorize(Roles = "Admin,AppUser")]
         [HttpPost("CreateTicket")]
         public async Task<IActionResult> CreateTicket([FromBody] CreateTicketDTO  request)
         {
@@ -76,8 +77,21 @@ namespace Support_Ticket_System.Controllers
         {
 
 
-            var tickets = await _ticketService.GetAllTicketsAsync(TenantName);
-            return Ok(tickets);
+
+            var userClaims = HttpContext.User.Identity as ClaimsIdentity;
+
+            var userIdClaim = userClaims.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            if (userIdClaim != null && Guid.TryParse(userIdClaim.Value, out Guid userId))
+            {
+
+                var tickets = await _ticketService.GetAllTicketsAsync(userId,TenantName);
+                return Ok(tickets);
+            }
+
+            return BadRequest("tickets was not found");
+
+
 
         }
         [HttpGet("TicketDetails")]

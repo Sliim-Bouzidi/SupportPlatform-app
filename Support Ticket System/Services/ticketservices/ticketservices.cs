@@ -46,7 +46,7 @@ namespace Support_Ticket_System.Services.ticketservices
             var statusNmae = "New";
             var dossiernumberatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "DossierNumber");
             var SalesOrderNumberatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "SalesOrderNumber");
-            var WorkingOrderatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "WorkingOrderAttribut");
+            var WorkingOrderatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "WorkingOrderNumber");
             var assistanceplanatt = await _context.attributs.FirstOrDefaultAsync(a => a.Name == "AssistancePlanNumber");
 
             var ticket = new Ticket
@@ -96,6 +96,7 @@ namespace Support_Ticket_System.Services.ticketservices
                         Value = DossierNumber,
                         ticket = ticket
                     };
+                    _context.Add(pfattribut3);
                     var pfattribut4 = new ProcessFlowAttrribut
                     {
                         PFAttributID = Guid.NewGuid(),
@@ -104,6 +105,7 @@ namespace Support_Ticket_System.Services.ticketservices
                         Value = WorkingOrderNumber,
                         ticket = ticket
                     };
+                    _context.Add(pfattribut4);
                     var pfattribut5 = new ProcessFlowAttrribut
                     {
                         PFAttributID = Guid.NewGuid(),
@@ -112,8 +114,8 @@ namespace Support_Ticket_System.Services.ticketservices
                         Value = AssistancePlanNumber,
                         ticket = ticket
                     };
-                    _context.Add(pfattribut5); _context.Add(pfattribut4);
-                    _context.Add(pfattribut3);
+                    _context.Add(pfattribut5); 
+                   
                     break;
                 case "Mail Reader":
                     var attachment = new Attachment
@@ -164,46 +166,218 @@ namespace Support_Ticket_System.Services.ticketservices
             return ticket;
         }
 
-        public async Task<IEnumerable<Ticket>> GetAllTicketsAsync(string TenantName)
+        public async Task<IEnumerable<Ticket>> GetAllTicketsAsync(Guid UserID, string TenantName)
         {
-            return await _context.tickets
-                .Where(t => t.tenant.Name == TenantName)
-                .Include(t => t.tags)
-                    .ThenInclude(ti => ti.tag)
-                .Include(t=>t.categories)
-                    .ThenInclude(c=>c.category)
-                .Include(t => t.user)
-                .Include(t => t.processFlow)
-                .Include(t => t.priority)
-                .Select(t => new Ticket
-                {
-                    TicketID = t.TicketID,
-                    AssignTo = t.AssignTo,
-                    Title = t.Title,
-                    Status = t.Status,
-                    Description = t.Description,
-                    CreatedDate = t.CreatedDate,
-                    user = t.user != null ? new User
+            var user = await _context.users.Where(u => u.UserID == UserID).FirstOrDefaultAsync();
+            var roles = _context.UserRoles.Where(r => r.User == user).Select(r => r.RoleValue).ToList();
+            if (roles.Contains("Admin"))
+            {
+                return await _context.tickets
+                    .Where(t => t.tenant.Name == TenantName)
+                    .Include(t => t.tags)
+                        .ThenInclude(ti => ti.tag)
+                    .Include(t => t.categories)
+                        .ThenInclude(c => c.category)
+                    .Include(t => t.user)
+                    .Include(t => t.processFlow)
+                    .Include(t => t.priority)
+                    .Select(t => new Ticket
                     {
-                        UserID = t.user.UserID,
-                        Username = t.user.Username,
-                    } : null,
-                    processFlow = new ProcessFlow
+                        TicketID = t.TicketID,
+                        AssignTo = t.AssignTo,
+                        Title = t.Title,
+                        Status = t.Status,
+                        Description = t.Description,
+                        CreatedDate = t.CreatedDate,
+                        user = t.user != null ? new User
+                        {
+                            UserID = t.user.UserID,
+                            Username = t.user.Username,
+                        } : null,
+                        processFlow = new ProcessFlow
+                        {
+                            ProcessFlowName = t.processFlow.ProcessFlowName
+                        },
+                        priority = t.priority != null ? new Priority
+                        {
+                            PriorityID = t.priority.PriorityID,
+                            PriorityName = t.priority.PriorityName
+                        } : null,
+                        tags = t.tags,
+                        categories = t.categories,
+
+                    })
+                     .OrderByDescending(t => t.CreatedDate)
+                    .ToListAsync();
+            }
+            if (roles.Contains("AppUser"))
+            {
+                return await _context.tickets
+                    .Where(t => t.Status == "new" && t.user.UserID == UserID)
+                    .Where(t => t.tenant.Name == TenantName)
+                    .Include(t => t.tags)
+                        .ThenInclude(ti => ti.tag)
+                    .Include(t => t.categories)
+                        .ThenInclude(c => c.category)
+                    .Include(t => t.user)
+                    .Include(t => t.processFlow)
+                    .Include(t => t.priority)
+                    .Select(t => new Ticket
                     {
-                        ProcessFlowName = t.processFlow.ProcessFlowName
-                    },
-                    priority = t.priority != null ? new Priority
+                        TicketID = t.TicketID,
+                        AssignTo = t.AssignTo,
+                        Title = t.Title,
+                        Status = t.Status,
+                        Description = t.Description,
+                        CreatedDate = t.CreatedDate.Date,
+                        user = t.user != null ? new User
+                        {
+                            UserID = t.user.UserID,
+                            Username = t.user.Username,
+                        } : null,
+                        processFlow = new ProcessFlow
+                        {
+                            ProcessFlowName = t.processFlow.ProcessFlowName
+                        },
+                        priority = t.priority != null ? new Priority
+                        {
+                            PriorityID = t.priority.PriorityID,
+                            PriorityName = t.priority.PriorityName
+                        } : null,
+                        tags = t.tags,
+                        categories = t.categories,
+                    })
+                     .OrderByDescending(t => t.CreatedDate)
+                    .ToListAsync();
+            }
+            if (roles.Contains("AppSupportL1"))
+            {
+                return await _context.tickets
+                    .Where(t => t.Status == "new")
+                    .Where(t => t.tenant.Name == TenantName)
+                    .Include(t => t.tags)
+                        .ThenInclude(ti => ti.tag)
+                    .Include(t => t.categories)
+                        .ThenInclude(c => c.category)
+                    .Include(t => t.user)
+                    .Include(t => t.processFlow)
+                    .Include(t => t.priority)
+                    .Select(t => new Ticket
                     {
-                        PriorityID = t.priority.PriorityID,
-                        PriorityName = t.priority.PriorityName
-                    } : null,
-                    tags = t.tags,
-                    categories = t.categories,
-                    
-                })
-                .OrderByDescending(t=>t.CreatedDate)
-                .ToListAsync();
+                        TicketID = t.TicketID,
+                        AssignTo = t.AssignTo,
+                        Title = t.Title,
+                        Status = t.Status,
+                        Description = t.Description,
+                        CreatedDate = t.CreatedDate.Date,
+                        user = t.user != null ? new User
+                        {
+                            UserID = t.user.UserID,
+                            Username = t.user.Username,
+                        } : null,
+                        processFlow = new ProcessFlow
+                        {
+                            ProcessFlowName = t.processFlow.ProcessFlowName
+                        },
+                        priority = t.priority != null ? new Priority
+                        {
+                            PriorityID = t.priority.PriorityID,
+                            PriorityName = t.priority.PriorityName
+                        } : null,
+                        tags = t.tags,
+                        categories = t.categories,
+                    })
+                     .OrderByDescending(t => t.CreatedDate)
+                    .ToListAsync();
+            }
+            if (roles.Contains("AppSupportL2"))
+            {
+                return await _context.tickets
+                    .Where(t => t.Status == "Transferred to Level 2")
+                    .Where(t => t.tenant.Name == TenantName)
+                    .Include(t => t.tags)
+                        .ThenInclude(ti => ti.tag)
+                    .Include(t => t.categories)
+                        .ThenInclude(c => c.category)
+                    .Include(t => t.user)
+                    .Include(t => t.processFlow)
+                    .Include(t => t.priority)
+                    .Select(t => new Ticket
+                    {
+                        TicketID = t.TicketID,
+                        AssignTo = t.AssignTo,
+                        Title = t.Title,
+                        Status = t.Status,
+                        Description = t.Description,
+                        CreatedDate = t.CreatedDate.Date,
+                        user = t.user != null ? new User
+                        {
+                            UserID = t.user.UserID,
+                            Username = t.user.Username,
+                        } : null,
+                        processFlow = new ProcessFlow
+                        {
+                            ProcessFlowName = t.processFlow.ProcessFlowName
+                        },
+                        priority = t.priority != null ? new Priority
+                        {
+                            PriorityID = t.priority.PriorityID,
+                            PriorityName = t.priority.PriorityName
+                        } : null,
+                        tags = t.tags,
+                        categories = t.categories,
+                    })
+                     .OrderByDescending(t => t.CreatedDate)
+                    .ToListAsync();
+            }
+            if (roles.Contains("AppSupportL3"))
+            {
+                return await _context.tickets
+                    .Where(t => t.Status == "Transferred to Level 3")
+                    .Where(t => t.tenant.Name == TenantName)
+                    .Include(t => t.tags)
+                        .ThenInclude(ti => ti.tag)
+                    .Include(t => t.categories)
+                        .ThenInclude(c => c.category)
+                    .Include(t => t.user)
+                    .Include(t => t.processFlow)
+                    .Include(t => t.priority)
+                    .Select(t => new Ticket
+                    {
+                        TicketID = t.TicketID,
+                        AssignTo = t.AssignTo,
+                        Title = t.Title,
+                        Status = t.Status,
+                        Description = t.Description,
+                        CreatedDate = t.CreatedDate.Date,
+                        user = t.user != null ? new User
+                        {
+                            UserID = t.user.UserID,
+                            Username = t.user.Username,
+                        } : null,
+                        processFlow = new ProcessFlow
+                        {
+                            ProcessFlowName = t.processFlow.ProcessFlowName
+                        },
+                        priority = t.priority != null ? new Priority
+                        {
+                            PriorityID = t.priority.PriorityID,
+                            PriorityName = t.priority.PriorityName
+                        } : null,
+                        tags = t.tags,
+                        categories = t.categories,
+                    })
+                    .OrderByDescending(t => t.CreatedDate)
+                    .ToListAsync();
+
+            }
+            return null;
+
         }
+
+
+        
+
 
         //public async Task<IEnumerable<TicketHistory>> GetTicketHistory(Guid TicketID)
         //{
@@ -267,37 +441,52 @@ namespace Support_Ticket_System.Services.ticketservices
                                 .Where(t => t.TicketID == TicketID)
                                 .Include(t => t.tags)
                                     .ThenInclude(tags => tags.tag)
+                                     .Include(t => t.processFlow)
+                                      .ThenInclude(pf => pf.PFAttributs)
+                                        .ThenInclude(pfa => pfa.attribut)
                                 .Include(t => t.categories)
                                     .ThenInclude(cat => cat.category)
+
                                 .Select(t => new Ticket
                                 {
                                     TicketID = t.TicketID,
                                     Title = t.Title,
                                     Description = t.Description,
                                     CreatedDate = t.CreatedDate,
-                                    UpdatedDate = t.UpdatedDate,
+                                    UpdatedDate = t.UpdatedDate.Date,
                                     AssignTo = t.AssignTo,
+
+
                                     processFlow = new ProcessFlow
                                     {
-                                        ProcessFlowName = t.processFlow.ProcessFlowName
+                                        ProcessFlowName = t.processFlow.ProcessFlowName,
+                                        PFAttributs = t.processFlow.PFAttributs.Where(t => t.ticket.TicketID == TicketID).ToList(),
                                     },
+
+
                                     priority = new Priority
                                     {
                                         PriorityName = t.priority.PriorityName
                                     },
+
                                     severity = new Severity
                                     {
                                         SeverityName = t.severity.SeverityName
                                     },
                                     Status = t.Status,
+
                                     tags = t.tags.Select(tag => new taggableitem
                                     {
                                         tagName = tag.tagName
                                     }).ToList(),
+
                                     categories = t.categories,
                                     TicketType = t.TicketType
+
+
                                 })
                                 .FirstOrDefaultAsync();
+
 
             return ticket;
         }

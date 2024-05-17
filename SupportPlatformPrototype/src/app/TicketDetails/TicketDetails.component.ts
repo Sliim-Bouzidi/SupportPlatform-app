@@ -15,6 +15,8 @@ import { TaggableItem } from '../../../shared/taggableitem.model';
 import { SessionService } from '../../../utils/SessionService';
 import { UserRoles } from '../../../shared/UserRoles.model';
 import { MessageService } from 'primeng/api';
+import { StatusService } from '../../../shared/Status.service';
+import { Status } from '../../../shared/Status.model';
 
 
 
@@ -44,6 +46,7 @@ export class TicketDetailsComponent implements OnInit {
   placeholder = "Add a comment here !"
   visible1: boolean = false
   visible2: boolean = false
+  visible3: boolean = false
   tags: string [] = []
   //usernames: Map<string, string> = new Map(); // Map to store usernames by user ID
   constructor(
@@ -57,6 +60,7 @@ export class TicketDetailsComponent implements OnInit {
     private ServiceTags: TagsService,
     public ServiceS: SessionService,
     public serviceM: MessageService,
+    public ServiceStatus: StatusService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // Check if running on server to determine whether to use PrimeNG Quill
@@ -67,6 +71,8 @@ export class TicketDetailsComponent implements OnInit {
   AssignTo: any
   title:string = ""
   
+  //statusName: any; // Array to hold the list of statuses
+ // StatusOptions: { name: string }[] = [];
 
   ngOnInit() {
     
@@ -92,6 +98,19 @@ export class TicketDetailsComponent implements OnInit {
     });
 
 
+
+    /* this.ServiceStatus.getAllStatusNames().subscribe(
+      (response: any) => {
+        // Loop over the response array and populate options array
+        for (let i = 0; i < response.length; i++) {
+          this.StatusOptions.push({ name: response[i] });
+        }
+      },
+      (error) => {
+        console.error('Error fetching statuses:', error);
+      }
+    );*/
+
     
     this.loadTicketHistory();
 
@@ -106,8 +125,10 @@ export class TicketDetailsComponent implements OnInit {
       })
 
     this.ServiceT.getTicketById(this.ticketID).subscribe({
+      
       next: (ticket: Ticket) => {
         this.ticket = ticket;
+        console.log(this.ticket);
        // this.tags = [];
        /* for (let i = 0; i < ticket.tags.length; i++) {
           this.tags.push(ticket.tags[i].tagName);
@@ -119,6 +140,7 @@ export class TicketDetailsComponent implements OnInit {
           this.tagNames = this.ticket.tags.map((tagObject: any) => tagObject.tag.tagName);
         }
       }
+      
     });
     
     
@@ -199,6 +221,8 @@ export class TicketDetailsComponent implements OnInit {
       }
     });
   }
+
+
   
 
 // Method to update other properties excluding assignTo
@@ -237,6 +261,10 @@ updateTicketWithoutAssignTo() {
     this.visible2 = !this.visible2
   }
 
+  showStatuses(){
+    this.visible3 = !this.visible3
+  }
+
  /* fetchUsernamesForComments() {
     // Iterate through comments and fetch usernames for each user ID
     for (const comment of this.comments) {
@@ -263,6 +291,11 @@ updateTicketWithoutAssignTo() {
     );
   }
 
+
+
+
+  
+   
 
   navigateToTicketList(tenantname: string) {
     console.log(tenantname);

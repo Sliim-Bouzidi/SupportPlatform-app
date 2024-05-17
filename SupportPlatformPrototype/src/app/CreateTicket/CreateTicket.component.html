@@ -77,29 +77,29 @@
           <label for="SalesOrderNumber">Sales Order Number</label>
         </div>
         <div style="display: flex;">
-            <input id="DossierNumber"  [(ngModel)]="ticket.DossierNumber"  type="text" pInputText   placeholder="Add Dossier Number"/>
-            <input id="SalesOrderNumber"  [(ngModel)]="ticket.SalesOrderNumber"    type="text" pInputText   placeholder="Add Sales Order Number"/>
+            <input id="DossierNumber"  [(ngModel)]="ticket.dossierNumber"  type="text" pInputText   placeholder="Add Dossier Number"/>
+            <input id="SalesOrderNumber"  [(ngModel)]="ticket.salesOrderNumber"    type="text" pInputText   placeholder="Add Sales Order Number"/>
 
         </div>
 
     </div>
     
     
-    <!-- Sales Invoice Creation inputs -->
+    <!-- Purchase Invoice Creation -->
     <div *ngIf="ProcessFlowNames && ProcessFlowNames.label === 'Purchase Invoice Creation'">
           
       
 
 
       <div style="display: flex;justify-content: space-between; width: 740px; ">
-        <label for="DossierNumberPIC">Dossier Number</label>
-        <label style="margin-right: -50px;"   for="SalesOrderNumberPIC">Working Order Number</label>
-        <label for="AssistancePlanNumberPIC">Assistance Plan Number</label>
+        <label for="DossierNumberPIC"  >Dossier Number</label>
+        <label style="margin-right: -50px;"    for="SalesOrderNumberPIC">Working Order Number</label>
+        <label for="AssistancePlanNumberPIC"  >Assistance Plan Number</label>
       </div>
       <div style="display: flex;justify-content: space-between;">
-          <input id="DossierNumberPIC" type="text" pInputText   placeholder="Add Dossier Number"/>
-          <input id="SalesOrderNumberPIC" type="text" pInputText   placeholder="Add Working Order Number"/>
-          <input id="AssistancePlanNumberPIC" type="text" pInputText   placeholder="Add Assistance Plan Number"/>
+          <input id="DossierNumberPIC"  [(ngModel)]="ticket.dossierNumber"  type="text" pInputText   placeholder="Add Dossier Number"/>
+          <input id="SalesOrderNumberPIC" [(ngModel)]="ticket.workingOrderNumber"  type="text" pInputText   placeholder="Add Working Order Number"/>
+          <input id="AssistancePlanNumberPIC" [(ngModel)]="ticket.assistancePlanNumber"  type="text" pInputText   placeholder="Add Assistance Plan Number"/>
 
       </div>
 

@@ -322,7 +322,6 @@ AddTicket() {
   if (
     !this.ticket.title ||
     !this.AssignTo ||
-   // !this.Status ||
     !this.Severity ||
     !this.PriorityNames ||
     !this.ticket.tags ||
@@ -338,12 +337,9 @@ AddTicket() {
   this.ticket.assignTo = this.AssignTo.name;
   this.ticket.tags = this.ticket.tags;
   this.ticket.severityName = this.Severity.name;
- // this.ticket.statusName = this.Status.name;
   this.ticket.processflowName = this.ProcessFlowNames.label;
   this.ticket.priorirtyName = this.PriorityNames.name;
   this.ticket.tenantname = this.tenantname;
-  //this.ticket.categories = this.ticket.categories;
- // this.ticket.tickettype = this.TicketType.name;
 
   // If the user is logged in, set the username
   if (this.ServiceSession.User?.username) {
@@ -358,11 +354,20 @@ AddTicket() {
         // Set the ticket creation success flag in local storage
         localStorage.setItem('ticketCreated', 'true');
         this.router.navigate(['/TicketList', this.tenantname]);
-        
       } 
     },
+    error: (err) => {
+      if (err.status === 403) {
+        // Display an error toast for forbidden access
+        this.serviceM.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to perform this action' });
+      } else {
+        // Handle other error cases if needed
+        console.error('An error occurred:', err);
+      }
+    }
   });
 }
+
 
 //test
 
