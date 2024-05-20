@@ -140,8 +140,7 @@ export class AdminInterfaceComponent implements OnInit {
                     scales: {
                       x: {
                         stacked: true,
-                        barPercentage: 0.2, // Adjust bar thickness
-                        categoryPercentage: 0.5 // Adjust bar thickness
+                      
                       },
                       y: {
                         stacked: true
@@ -161,11 +160,12 @@ export class AdminInterfaceComponent implements OnInit {
 
 
 
-    calculateWeeklyStatus() {
+  calculateWeeklyStatus() {
     const weekStart = this.getWeekStart(new Date());
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekStart.getDate() + 6);
-
+    weekEnd.setHours(23, 59, 59, 999); // Ensure weekEnd includes the entire day
+  
     const weekData = {
       new: Array(7).fill(0),
       transferredToADO: Array(7).fill(0),
@@ -174,7 +174,7 @@ export class AdminInterfaceComponent implements OnInit {
       transferredToLevel2: Array(7).fill(0),
       transferredToLevel3: Array(7).fill(0)
     };
-
+  
     this.tickets.forEach(ticket => {
       const ticketDate = new Date(ticket.createdDate);
       if (ticketDate >= weekStart && ticketDate <= weekEnd) {
@@ -201,15 +201,18 @@ export class AdminInterfaceComponent implements OnInit {
         }
       }
     });
-
+  
     return weekData;
   }
-
+  
   getWeekStart(date: Date): Date {
     const day = date.getDay();
     const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
-    return new Date(date.setDate(diff));
+    const weekStart = new Date(date.setDate(diff));
+    weekStart.setHours(0, 0, 0, 0); // Ensure weekStart includes the beginning of the day
+    return weekStart;
   }
+  
 
 
 
