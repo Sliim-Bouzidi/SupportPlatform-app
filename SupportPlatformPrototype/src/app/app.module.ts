@@ -52,8 +52,9 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
-
-
+import { ChartModule } from 'primeng/chart';
+import { SidebarModule } from 'primeng/sidebar';
+import { TimelineModule } from 'primeng/timeline';
 @NgModule({
   declarations: [												
     AppComponent,
@@ -111,6 +112,9 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
     ContextMenuModule,
     ConfirmDialogModule,
     FileUploadModule,
+    ChartModule,
+    SidebarModule,
+    TimelineModule
    
 
   ],

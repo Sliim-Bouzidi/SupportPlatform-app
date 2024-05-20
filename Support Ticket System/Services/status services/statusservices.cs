@@ -32,6 +32,8 @@ namespace Support_Ticket_System.Services.status_services
 
         public IEnumerable<Status> GetAllStatuses()
         {
+
+
             return _context.statuses.ToList();
         }
 
@@ -41,9 +43,11 @@ namespace Support_Ticket_System.Services.status_services
                 .Select(s=> new StatusHistory
                 {
                     StatusValue = s.StatusValue,
-                    TimeStamp = s.TimeStamp.Date
+                    TimeStamp = s.TimeStamp
                 })
+                .OrderBy(s=>s.TimeStamp)
                 .ToListAsync();
+
             return statushistory;
         }
 

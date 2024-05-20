@@ -16,4 +16,5 @@ export class Ticket {
   salesOrderNumber: string = "";
   workingOrderNumber: string = "";
   assistancePlanNumber : string = "";
+  createdDate!: Date;
 }

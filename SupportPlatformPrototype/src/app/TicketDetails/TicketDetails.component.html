@@ -8,356 +8,404 @@
 
 <div class="button-container">
     <p-button (click)="resetChanges()"   id="CancelButton"  label="Cancel" icon="pi pi-times" class="top-right-button" [rounded]="true" severity="danger"></p-button>
-    <p-button label="Save" [disabled]="disabled"  (click)="UpdateTags()"  (click)="updateAssignTo();" (click)="updateTicketWithoutAssignTo();"  class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button> 
+    <p-button label="Save" [disabled]="disabled"  (click)="UpdateTags()"  (click)="updateAssignTo();"   class="top-right-button"  icon="pi pi-plus" [rounded]="true"></p-button>
+     
      <!--  <p-button label="Save"  (click)="UpdateTags()" (click)="updateTicketDetails()" class="top-right-button" icon="pi pi-plus" [rounded]="true"></p-button>-->
 
   </div>
 
-<div style="height: 70px;">
-
-</div>
+<div style="height: 70px;"></div>
+<div id="body">
 <div class="container">
-    <div class="f card">
-        <div class="ticket-title-container">
-            <i class="pi pi-arrow-left arrow-icon" (click)="navigateToTicketList(tenantname)" style="margin-left: 20px; cursor: pointer;"></i>
-           
-                <div style="display: flex; align-items: center;">
-                    <p-inplace [closable]="closable" id="title-c">
-                        <ng-template pTemplate="display">
-                            <h3 class="ticket-title">{{ ticket?.title }}</h3>
-                        </ng-template>
-                        <ng-template pTemplate="content">
-                            <input style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 200px;" 
-                                   type="text" [(ngModel)]="ticket.title" (ngModelChange)="verif1()"   pInputText />
-                        </ng-template>
-                    </p-inplace>
-                    
-            </div>
-           
-            <i   class="pi pi-pencil edit-icon" ></i>
-        </div>
-        
-        
-        <div class="custom-container">
-            <!-- Place your card content here -->
-            <div class="icon-container">
-               <!-- <i class="pi pi-angle-left" (click)="showPreviousContent()"></i>-->
-                <!--<i class="pi pi-angle-right" (click)="showNextContent()"></i>-->
-
-                
-                <i class=" pi pi-info-circle"  (click)="showContent(0)" ></i>
-                <i class="pi pi-history" (click)="showContent(1)"  ></i>
-                <i class="pi pi-paperclip" (click)="showContent(2)"  ></i>
-            </div>
-        </div>
-    
-        <div class="card-content">
-           <!-- <div *ngIf="currentContentIndex === 0" style="margin-top: 50px;">
-                <div>
-                    <div *ngIf="usePrimeNGQuill">
-
-                        <p-editor [(ngModel)]="ticket.description" [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px' }">
-                        
-                        
-                           
-                        
-                        </p-editor>
-                    </div>
-                    <div *ngIf="!usePrimeNGQuill" >
-                        
-                        <textarea placeholder="Enter text here" [(ngModel)]="ticket.description"></textarea>
-                    </div>
-                </div>
-            </div>
-           -->
-
-           
-                <div *ngIf="currentContentIndex === 0" >
-                
-                 
-                    <editor apiKey="8h1bs6757avrnz0rd3fii5i9js62c17nsifd4leees5dte39"  
-                    [ngModel]="ticket?.description"  
-                    (ngModelChange)="ticket.description = $event;verif1()"
-                    [init]="{plugins:'lists link image table code help wordcount'}">
-                  </editor>
-                       </div>
+        <div class="f card">
+            <div class="ticket-title-container">
+                <i class="pi pi-arrow-left arrow-icon" (click)="navigateToTicketList(tenantname)" style="margin-left: 20px; cursor: pointer;"></i>
             
-
-                    
-                <div  *ngIf="currentContentIndex === 0"  style="height:200px;" >
-
-                </div>
-                     
-
-                  
+                    <div style="display: flex; align-items: center;">
+                        <p-inplace [closable]="closable" id="title-c">
+                            <ng-template pTemplate="display">
+                                <h3 class="ticket-title">{{ ticket?.title }}</h3>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                                <input style="margin-top: 20px; margin-bottom: 20px; margin-right: 20px; width: 200px;" 
+                                    type="text" [(ngModel)]="ticket.title" (ngModelChange)="verif1()"   pInputText />
+                            </ng-template>
+                        </p-inplace>
                         
-                    <div *ngIf="currentContentIndex === 0">
-                        <div style="text-align: center;  margin-bottom: 80px;" *ngIf="!visible1" (click)="(showcomment())" >
-                            <textarea placeholder="Add Comment here !" ></textarea>
-                              
-                          </div>
+                </div>
+            
+                <i   class="pi pi-pencil edit-icon" ></i>
+            </div>
+            
+            
+            <div class="custom-container">
+                <!-- Place your card content here -->
+                <div class="icon-container">
+                <!-- <i class="pi pi-angle-left" (click)="showPreviousContent()"></i>-->
+                    <!--<i class="pi pi-angle-right" (click)="showNextContent()"></i>-->
+
                     
-                    
+                    <i class=" pi pi-info-circle"  (click)="showContent(0)" ></i>
+                    <i class="pi pi-history" (click)="showContent(1)"  ></i>
+                    <i class="pi pi-paperclip" (click)="showContent(2)"  ></i>
+                </div>
+            </div>
+        
+            <div class="card-content">
+            <!-- <div *ngIf="currentContentIndex === 0" style="margin-top: 50px;">
+                    <div>
+                        <div *ngIf="usePrimeNGQuill">
+
+                            <p-editor [(ngModel)]="ticket.description" [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px' }">
+                            
+                            
+                            
+                            
+                            </p-editor>
+                        </div>
+                        <div *ngIf="!usePrimeNGQuill" >
+                            
+                            <textarea placeholder="Enter text here" [(ngModel)]="ticket.description"></textarea>
+                        </div>
                     </div>
-                   
-                      
+                </div>
+            -->
+
+                
+                    <div  *ngIf="currentContentIndex === 0" >
+                    
                      
+                                <editor  apiKey="8h1bs6757avrnz0rd3fii5i9js62c17nsifd4leees5dte39"  
+                                [ngModel]="ticket?.description"  
+                                (ngModelChange)="ticket.description = $event;verif1()"
+                                [init]="{plugins:'lists link image table code help wordcount'}">
+                                </editor>
+                  
+                    </div>
+                
 
+                        
+                    <div  *ngIf="currentContentIndex === 0"  style="height:200px;" >
 
-                   
-                 
-                    <div *ngIf="visible1">
+                    </div>
+                        
+
+                    
+                            
                         <div *ngIf="currentContentIndex === 0">
-                            <div *ngIf="usePrimeNGQuill">
-                                <p-editor #editor (ngModelChange)="verifcomment()" [(ngModel)]="comment" [style]="{ height: '200px', width: '800px', 'margin-left': '90px', 'margin-bottom': '25px'}"></p-editor>
-
-                            </div>
-                            <div *ngIf="!usePrimeNGQuill">
-                                <!-- Fallback editor or message for SSR -->
-                                <textarea placeholder="Enter text here" (input)="verifcomment()" [(ngModel)]="htmlEditor"></textarea>
-                            </div>
-                        </div>
-                    
-                        <!-- Additional contents can be added here with corresponding indices -->
-                    
-                        <div style="margin-left: 630px;  margin-bottom: 50px; display: flex;" *ngIf="currentContentIndex === 0">
-                            <p-button label="Cancel" severity="danger" (click)="showcomment()" icon="pi pi-times"></p-button>
-                            <div style="margin-left: 30px;">
-                                <p-button label="Send" [disabled]="!verif" (click)="AddComment()" icon="pi pi-check"></p-button>
-                            </div>
-                        </div>
-                    </div>
-                    
-
-        
-                
-
-                <div *ngIf="currentContentIndex === 1">
-                  
-                    <div class="history">
-                        
-                    
-                    <main class="table" id="customers_table">
-                        <section class="table__header">
-                            <h1>Ticket History</h1>
-                            <!-- Export file options (if needed) -->
-                        </section>
-                        <section class="table__body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Agent</th>
-                                        <th>Ticket Change</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Iterate over ticketHistories and generate table rows -->
-                                    <tr *ngFor="let history of ticketHistories">
-                                        <td> 
-                                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
-                                        </td>
-                                        <td>
-                                            {{ history }}
-                                        </td>
-                                    </tr>
-                                    <!-- End of iteration -->
-                                </tbody>
-                            </table>
-                        </section>
-                    </main>
-                    
-                    <div style="height: 150px;">
-
-                    </div>
-
-                </div>
-
-
-                </div>
-  
-
-
-             
-
-                    <div *ngIf="currentContentIndex === 2" class="center-content">
-                        <div class="attachment-icon">
-                            <i class="pi pi-paperclip"></i>
-                        </div>
-                        <p style="text-align: center;">No attachments have been added</p>
-                        <p-button label="Add attachments" icon="pi pi-upload"></p-button>
-                    </div>
-                
-                
-            
-        </div>
-        
-    </div>
-    
-
-
-
-          <div class="g card">
-                    <h3>Details</h3>
-                    <div style="display: flex; justify-content: space-between; cursor: pointer;">
-                        <h4>Ticket Info</h4>
-                        <i class="pi pi-chevron-down" style="font-size: 1.5rem;" (click)="showTicketInfo()"  ></i>
-                    </div>
-                    
-                    
-                    <div *ngIf="!visible">
-                        
-                    <!-- <div style="display: flex; align-items: center;">
-                            <div style="margin-right: 10px; white-space: nowrap;">Ticket ID:</div>
-                            <div style="position: relative; color: black; margin-top: 30px;">
-                                <span style="cursor: pointer;  " (click)="copyTicketID()">
-                                    <p style="color: black; word-break: break-all;">{{ ticketID }}</p>
-                        
-                                </span>
-                            </div>
-                        </div>
-                        
-                        -->
-
-                        <div class="ticketPFContainer">
-                            <div class="ticket-PFlabel">Process Flow: 
-                                <span class="ticket-pf">{{ this.ticket?.processFlow?.processFlowName }}</span>
-                            </div>
-                        </div>
-                        
-
-
-                        
-                      
-                        
-                        <div>Created Date: <span style="color: black; font-size:17px ;" >{{ ticket?.createdDate | date:'medium' }}</span> </div>
-                        <div>Updated Date: <span style="color: black; font-size:17px ;">{{ ticket?.updatedDate | date:'medium' }}</span> </div>
-                        
-                        
-                        <div style="display: flex; margin-top: -10px; margin-bottom: -25px;" >
-                            <div style="cursor: pointer;">
-                                 <div (click)="showAssignTo()"  style="cursor: pointer; margin-top: 10px; margin-right: 4px;"   >Assign to:</div>
-                            </div> 
-                                 <div *ngIf="!visible2" style="margin-top: 17.5px;"  ><span    style="color: black;">{{ this.ticket?.assignTo }}</span></div>
-
-                                 
-                                <div   *ngIf="visible2" >
-                                    <p-dropdown id="Assignto" [editable]="true"  [options]="userOptions" [(ngModel)]="this.AssignTo"  placeholder="Selected Assigned User"   (ngModelChange)="verif1()" optionLabel="name" ></p-dropdown>
-                                </div>
+                            <div style="text-align: center;  margin-bottom: 80px;" *ngIf="!visible1" (click)="(showcomment())" >
+                                <textarea placeholder="Add Comment here !" ></textarea>
                                 
-                             </div>
+                            </div>
+                        
+                        
+                        </div>
                     
                         
                         
-                        <div>Severity: <span style="color: black;">{{ this.ticket?.severity?.severityName }}</span></div>
-                        <div>Priority: <span style="color: black;"> {{ this.ticket?.priority?.priorityName }}</span></div>
 
-                        <div style="display: flex; align-items: center;">
-                            <!--<div style="cursor: pointer;">
-                                <div *ngIf="!visible3" style="margin-top: 17.5px;"  ><span    style="color: black;">{{ ticket?.status }}</span></div>
-                                <div (click)="showStatuses()"  style="cursor: pointer; margin-top: 10px; margin-right: 4px;"   >Status:</div>
-                            </div>   
 
-                           
-                                <div   *ngIf="visible3" >
-                                    <p-dropdown id="Status" [options]="StatusOptions"   (ngModelChange)="verif1()"   [(ngModel)]="this.statusName" placeholder="Add Status" [editable]="true" optionLabel="name" ></p-dropdown>
-                                </div> -->
+                    
+                    
+                        <div *ngIf="visible1">
+                            <div *ngIf="currentContentIndex === 0">
+                                <div *ngIf="usePrimeNGQuill">
+                                    <p-editor #editor (ngModelChange)="verifcomment()" [(ngModel)]="comment" [style]="{ height: '200px', width: '800px', 'margin-left': '120px', 'margin-bottom': '25px'}"></p-editor>
 
-                                <div>Status:
-                                    
-                                    <p-inplace [closable]="closable">
-                                        <ng-template pTemplate="display">
-                                            <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
-                                        </ng-template>
-                                        <ng-template pTemplate="content">
-                                            <input style="margin-left: 10px; color: black; font-weight: 500; font-size: 18px; width: 200px;" 
-                                            type="text" [disabled]="!showStatus('AppSupportL1', 'AppSupportL2', 'Admin')" 
-                                            [(ngModel)]="ticket.statusName" placeholder="Change Status" pInputText (ngModelChange)="verif1()"     />
-                                    
-                                    
-                                        </ng-template>
-                                    </p-inplace>
                                 </div>
+                                <div *ngIf="!usePrimeNGQuill">
+                                    <!-- Fallback editor or message for SSR -->
+                                    <textarea placeholder="Enter text here" (input)="verifcomment()" [(ngModel)]="htmlEditor"></textarea>
+                                </div>
+                            </div>
+                        
+                            <!-- Additional contents can be added here with corresponding indices -->
+                        
+                            <div style="margin-left: 630px;  margin-bottom: 50px; display: flex;" *ngIf="currentContentIndex === 0">
+                                <p-button label="Cancel" severity="danger" (click)="showcomment()" icon="pi pi-times"></p-button>
+                                <div style="margin-left: 30px;">
+                                    <p-button label="Send" [disabled]="!verif" (click)="AddComment()" icon="pi pi-check"></p-button>
+                                </div>
+                            </div>
                         </div>
+                        
 
+            
+                    
 
-                       
+                    <div *ngIf="currentContentIndex === 1">
+                    
+
+                        <section class="table__header">
+                            <h3>Status History</h3>
+                        
+                            
+                        </section>
+                        
+                        <div id="statuscircles" class="timeline px-2 border-none">
+                            <ul class="bs4-order-tracking">
+                              <li 
+                                class="step active" 
+                                (click)="statusHistory.length === 1 ? showSidebar() : loadStatusHistory()">
+                                <div>
+                                  <i class="pi pi-circle-fill" [style.color]="getStatusColor(statusHistory[0].statusValue)"></i>
+                                </div> 
+                                {{ statusHistory[0].statusValue }}
+                              </li>
+                              <li class="step active"></li>
+                              <ng-container *ngFor="let history of statusHistory.slice(1, 4); let last = last">
+                                <li class="step" *ngIf="!last">
+                                  <div>
+                                    <i class="pi pi-circle-fill" [style.color]="getStatusColor(history.statusValue)"></i>
+                                  </div> 
+                                  {{ history.statusValue }}
+                                </li>
+                                <li class="step" *ngIf="last" (click)="showSidebar()">
+                                  <div>
+                                    <i class="pi pi-circle-fill" [style.color]="getStatusColor(history.statusValue)"></i>
+                                  </div>
+                                  {{ history.statusValue }}
+                                </li>
+                              </ng-container>
+                            </ul>
+                          </div>
                           
                         
                         
-                        <div style="display: flex; align-items: center;"></div>
                         
-                        <hr style="margin-top: 20px; margin-bottom: 20px; color: #efefef; border: solid 0.5px; ">
-
-
+                        
+                        
                         
 
-                            <div>
-                                <div style="margin-bottom: 30px;">Tags:</div>
-                                
-                                    
-                                <!-- <tag-input [(ngModel)]="tagNames" [placeholder]="'Enter Tags'"></tag-input>-->
 
-                                <p-chips id="Tags" placeholder="Add tag"  [max]="8"    [(ngModel)]="this.tags"></p-chips>
+                        <div class="history">
+                            
+                        
+                        <main class="table" id="customers_table">
+                            <section class="table__header">
+                                <h3>Ticket History</h3>
+                                <!-- Export file options (if needed) -->
+                            </section>
+                            <section class="table__body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Agent</th>
+                                            <th>Ticket Change</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iterate over ticketHistories and generate table rows -->
+                                        <tr *ngFor="let history of ticketHistories">
+                                            <td> 
+                                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle"></p-avatar>
+                                            </td>
+                                            <td>
+                                                {{ history }}
+                                            </td>
+                                        </tr>
+                                        <!-- End of iteration -->
+                                    </tbody>
+                                </table>
+                            </section>
+                        </main>
+                        
+                        <div style="height: 150px;">
 
-                                <!-- <input id="TicketTitle" type="text" pInputText  [(ngModel)]="tagNames"  placeholder="Ticket Title"/>-->
-                                
+                        </div>
 
+                    </div>
+
+
+                    </div>
+    
+
+
+                
+
+                        <div *ngIf="currentContentIndex === 2" class="center-content">
+                            <div class="attachment-icon">
+                                <i class="pi pi-paperclip"></i>
                             </div>
-                                
-                            <br>
-                            <hr style="margin-top: 20px; margin-bottom: 20px; color: #f4e8e8; border: solid 0.5px; ">
-   
+                            <p style="text-align: center;">No attachments have been added</p>
+                            <p-button label="Add attachments" icon="pi pi-upload"></p-button>
+                        </div>
+                    
+                    
+                
+            </div>
+            
+        </div>
+    
 
-                         
+        
+        <div class="g card">
+            <h3>Details</h3>
+            <div style="display: flex; justify-content: space-between; cursor: pointer;">
+                <h4 style="color: rgb(223, 3, 3);">Ticket Info</h4>
+                <i class="pi pi-chevron-down" style="font-size: 1.5rem;" (click)="showTicketInfo()"  ></i>
+            </div>
+            
+            
+            <div *ngIf="!visible">
+                
+            <!-- <div style="display: flex; align-items: center;">
+                    <div style="margin-right: 10px; white-space: nowrap;">Ticket ID:</div>
+                    <div style="position: relative; color: black; margin-top: 30px;">
+                        <span style="cursor: pointer;  " (click)="copyTicketID()">
+                            <p style="color: black; word-break: break-all;">{{ ticketID }}</p>
+                
+                        </span>
+                    </div>
+                </div>
+                
+                -->
+                
+                <div class="ticketPFContainer">
+                    <div class="ticket-PFlabel">Process Flow: 
+                        <span class="ticket-pf">{{ this.ticket?.processFlow?.processFlowName }}</span>
+                    </div>
+                </div>
+                
+              
+
+                
+              
+                
+                <div>Created Date: <span style="color: black; font-size:16px ;" >{{ ticket?.createdDate | date:'medium' }}</span> </div>
+                <div>Updated Date: <span style="color: black; font-size:16px ;">{{ ticket?.updatedDate | date:'medium' }}</span> </div>
+                
+                
+                <div style="display: flex; margin-top: -10px; margin-bottom: -25px;">
+                    <div style="cursor: pointer;">
+                        <div (click)="showAssignTo()" style="cursor: pointer; margin-top: 10px; margin-right: 4px;">Assign to:</div>
+                    </div>
+                    <div *ngIf="!visible2" style="margin-top: 17.5px;">
+                        <span style="color: black;">{{ this.ticket?.assignTo }}</span>
+                    </div>
+                    <div *ngIf="visible2">
+                        <p-dropdown id="Assignto" [editable]="true" [options]="userOptions" [(ngModel)]="this.AssignTo" placeholder="Select Assigned User" (ngModelChange)="verif1()" optionLabel="name">
+                            <ng-template let-option pTemplate="item">
+                                <div style="display: flex; align-items: center;">
+                                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"></p-avatar>
+                                    <span style="margin-left: 15px; margin-bottom: 5px;">{{ option.name }}</span>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+                
+                <div>Severity: <span style="color: black;">{{ this.ticket?.severity?.severityName }}</span></div>
+                <div>Priority: <span style="color: black;">{{ this.ticket?.priority?.priorityName }}</span></div>
+                
+                <div style="display: flex; align-items: center;">
+                    <div style="cursor: pointer;">
+                        <div (click)="showStatuses()" style="cursor: pointer; margin-right: 4px;">Status:</div>
+                    </div>
+                    <div style="display: flex;">
+                        <div *ngIf="!visible3">
+                            <span style="color: black;">{{ ticket?.status }}</span>
+                        </div>
+                        <div *ngIf="visible3">
+                            <p-dropdown  id="Status" [options]="StatusOptions" [disabled]="!showStatus('AppSupportL1', 'AppSupportL2', 'Admin')" (ngModelChange)="verif1()" [(ngModel)]="this.statuses" placeholder="Update Status" [editable]="true" optionLabel="name"></p-dropdown>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--
+                    <div>Status:
+                        <p-inplace [closable]="closable">
+                            <ng-template pTemplate="display">
+                                <span style="color: black; font-weight: 500; font-size: 18px;">{{ ticket?.status }}</span>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                                <input style="margin-left: 10px; color: black; font-weight: 500; font-size: 16px; width: 200px;" 
+                                       type="text" [disabled]="!showStatus('AppSupportL1', 'AppSupportL2', 'Admin')" 
+                                       [(ngModel)]="ticket.statusName" placeholder="Change Status" pInputText (ngModelChange)="verif1()" />
+                            </ng-template>
+                        </p-inplace>
+                    </div>
+                -->
+                
+
+         
+                  
+                
+                
+                <div style="display: flex; align-items: center;"></div>
+                
+                <hr style="margin-top: 20px; margin-bottom: 20px; color:#e2e2e4; border: solid 0.5px; ">
+
+                
+
+                    <div>
+                        <div style="margin-bottom: 30px;">Tags:</div>
+                        
                             
-                        <!--<div *ngFor="let tag of this.ticket.tags">
+                        <!-- <tag-input [(ngModel)]="tagNames" [placeholder]="'Enter Tags'"></tag-input>-->
 
-                            
-                                <p-inplace [closable]="closable">
-                                    <ng-template pTemplate="display">
-                                        <span>Click to Edit</span>
-                                    </ng-template>
-                                    <ng-template pTemplate="content">
-                                        <p-chip label="{{tag.tag.tagName}}"></p-chip>
-                                    </ng-template>
-                                </p-inplace>
-                            </div>-->
+                        <p-chips id="Tags" placeholder="Add tag"  [max]="8"    [(ngModel)]="this.tags"></p-chips>
 
-                            <div style="height: 20px;"></div>
+                        <!-- <input id="TicketTitle" type="text" pInputText  [(ngModel)]="tagNames"  placeholder="Ticket Title"/>-->
+                        
 
-                            <div *ngIf="ticket?.processFlow.processFlowName == 'Sales Invoice Creation'" class="styled-inputs">
-                                <div class="input-group">
-                                    <label for="salesOrderNumber">Sales Order Number</label>
-                                    <input type="text" id="salesOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
-                                </div>
-                                <div class="input-group">
-                                    <label for="dossierNumber">Dossier Number</label>
-                                    <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
-                                </div>
-                            </div>
-                            
-                            
-                     
-                            <div *ngIf="ticket?.processFlow.processFlowName == 'Purchase Invoice Creation'" class="styled-inputs">
-                                <div class="input-group">
-                                    <label for="workingOrderNumber">Working Order Number</label>
-                                    <input type="text" id="workingOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
-                                </div>
-                                <div class="input-group">
-                                    <label for="dossierNumber">Dossier Number</label>
-                                    <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[2].value" readonly>
-                                </div>
+                    </div>
+                        
+                    <br>
+                    <hr style="margin-top: 20px; margin-bottom: 20px; color: #e2e2e4; border: solid 0.5px; ">
 
-                                <div class="input-group">
-                                    <label for="AssistancePlanNumber">Assistance Plan Number</label>
-                                    <input type="text" id="AssistancePlanNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
-                                </div>
-                            </div>
-                            <div style="height: 20px;"></div>
+
+                 
+                    
+                <!--<div *ngFor="let tag of this.ticket.tags">
+
+                    
+                        <p-inplace [closable]="closable">
+                            <ng-template pTemplate="display">
+                                <span>Click to Edit</span>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                                <p-chip label="{{tag.tag.tagName}}"></p-chip>
+                            </ng-template>
+                        </p-inplace>
+                    </div>-->
+
+                    <div style="height: 20px;"></div>
+
+                    <div *ngIf="ticket?.processFlow.processFlowName == 'Sales Invoice Creation'" class="styled-inputs">
+                        <div class="input-group">
+                            <label for="salesOrderNumber">Sales Order Number</label>
+                            <input type="text" id="salesOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label for="dossierNumber">Dossier Number</label>
+                            <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
+                        </div>
                     </div>
                     
-        </div>
-          
+                    
+             
+                    <div *ngIf="ticket?.processFlow.processFlowName == 'Purchase Invoice Creation'" class="styled-inputs">
+                        <div class="input-group">
+                            <label for="workingOrderNumber">Working Order Number</label>
+                            <input type="text" id="workingOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
+                        </div>
+                        <div class="input-group">
+                            <label for="dossierNumber">Dossier Number</label>
+                            <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[2].value" readonly>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="AssistancePlanNumber">Assistance Plan Number</label>
+                            <input type="text" id="AssistancePlanNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
+                        </div>
+                    </div>
+                    <div style="height: 20px;"></div>
+            </div>
+
+                    
+</div>
+         
           <!--<div class="n card">
                card n
           </div>-->
@@ -399,16 +447,53 @@
         </div>
     </div>
 </div>
+</div> 
 
 
 
 
 
 
+<p-sidebar [(visible)]="sidebarVisible">
+    <ng-template pTemplate="header"><h5 class="card-title">Status History</h5></ng-template>
+    
+    <div class="row d-flex justify-content-center mt-70 mb-70">
 
+        
+          <div class="main-card mb-3">
+              <div class="card-body">
+                 
+                  <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column" style="margin-top: -90px;">
+                      <div *ngFor="let historyItem of statusHistory" class="vertical-timeline-item vertical-timeline-element">
+                          <div>
+                              <span class="vertical-timeline-element-icon bounce-in">
+                                  <i class="pi pi-circle-fill" [ngStyle]="{ 'color': getStatusColor(historyItem.statusValue) }"></i>
+                              </span>
+                              <div class="vertical-timeline-element-content bounce-in">
+                                  <h4 class="timeline-title">{{ historyItem.statusValue }}</h4>
+                                  <p>Status was changed at {{ historyItem.timeStamp | date: 'medium' }}</p>
+                                  <span class="vertical-timeline-element-date">{{ historyItem.timeStamp | date: 'shortTime' }}</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>        
+     
+    </div>
 
-
-
+    <ng-template pTemplate="footer">
+        <!-- Your footer content here -->
+        <div style="text-align: left; padding: 10px; background-color: #f0f0f0;">
+            <span>
+                <span class="resultat-label">Current Status </span>
+                <i class="pi pi-circle-fill" [ngStyle]="{ 'color': getStatusColor(this.ticket.status), 'margin-right': '5px' }"></i>
+                <span>{{ ticket.status }}</span>
+            </span>
+        </div>
+    </ng-template>
+    
+</p-sidebar>
 
 
 

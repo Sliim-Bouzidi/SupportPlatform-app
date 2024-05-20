@@ -6,12 +6,13 @@ import { TicketService } from '../../../shared/ticket.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ConfirmationService, Message } from 'primeng/api';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-list',
   templateUrl: './ticket-list.component.html',
-  styleUrls: ['./ticket-list.component.css']
+  styleUrls: ['./ticket-list.component.css'],
+  providers: [DatePipe]
 })
 export class TicketListComponent implements OnInit {
 
@@ -23,6 +24,7 @@ export class TicketListComponent implements OnInit {
     public serviceM: MessageService,
     public ServiceS: SessionService,
     public ConfirmationService : ConfirmationService,
+    private datePipe: DatePipe
   ) {}
 
   tickets: Ticket[] = []
@@ -30,6 +32,7 @@ export class TicketListComponent implements OnInit {
   originalList: Ticket[] = [];
 
   ngOnInit() {
+
     if (this.ServiceS.hasSession()) {
       const ticketCreated = localStorage.getItem('ticketCreated');
       if (ticketCreated === 'true') {
@@ -47,11 +50,19 @@ export class TicketListComponent implements OnInit {
         next: (response: Ticket[]) => {
           this.tickets = response;
           this.originalList = response;
-          console.log(this.tickets);
+
         }
       });
     });
   }
+
+  logCreatedDate(date:string) {
+    const createdDate = new Date(date);
+    const offset = createdDate.getTimezoneOffset() * 60000; // Offset in milliseconds
+    const localDate = new Date(createdDate.getTime() - offset);
+    return this.datePipe.transform(localDate, 'medium')
+  }
+  
 
   deleteTicket(ticketId: string): void {
     this.tickets = this.tickets.filter(item => item.ticketID !== ticketId);

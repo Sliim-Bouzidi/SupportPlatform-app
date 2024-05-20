@@ -17,7 +17,8 @@ import { UserRoles } from '../../../shared/UserRoles.model';
 import { MessageService } from 'primeng/api';
 import { StatusService } from '../../../shared/Status.service';
 import { Status } from '../../../shared/Status.model';
-
+import { StatusHistory } from '../../../shared/StatusHistory.model';
+import { StatusHistoryService } from '../../../shared/StatusHistory.service';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class TicketDetailsComponent implements OnInit {
   visible2: boolean = false
   visible3: boolean = false
   tags: string [] = []
+  sidebarVisible = false
   //usernames: Map<string, string> = new Map(); // Map to store usernames by user ID
   constructor(
     private route: ActivatedRoute,
@@ -61,12 +63,17 @@ export class TicketDetailsComponent implements OnInit {
     public ServiceS: SessionService,
     public serviceM: MessageService,
     public ServiceStatus: StatusService,
+    public ServiceStatusHistory: StatusHistoryService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // Check if running on server to determine whether to use PrimeNG Quill
     this.usePrimeNGQuill = !isPlatformServer(this.platformId);
   }
 
+
+  
+  statuses: any; // Array to hold the list of statuses
+  StatusOptions: { name: string }[] = [];
   userOptions: {name: string} [] = []
   AssignTo: any
   title:string = ""
@@ -95,11 +102,12 @@ export class TicketDetailsComponent implements OnInit {
       this.ticketID = params['ticketID']; // corrected
       this.tenantname = params['tenantname'];
       this.loadComments(); // Load comments when component initializes
+      console.log(this.statusHistory)
     });
 
 
 
-    /* this.ServiceStatus.getAllStatusNames().subscribe(
+     this.ServiceStatus.getAllStatusNames().subscribe(
       (response: any) => {
         // Loop over the response array and populate options array
         for (let i = 0; i < response.length; i++) {
@@ -109,7 +117,7 @@ export class TicketDetailsComponent implements OnInit {
       (error) => {
         console.error('Error fetching statuses:', error);
       }
-    );*/
+    );
 
     
     this.loadTicketHistory();
@@ -150,8 +158,21 @@ export class TicketDetailsComponent implements OnInit {
    
   }
 
-
+  showSidebar(){
+    this.sidebarVisible = !this.sidebarVisible
+  }
   
+  statusHistory: StatusHistory[] = []
+  loadStatusHistory(){
+    
+    this.ServiceStatusHistory.getStatusHistory(this.ticketID).subscribe({
+      next: (response) => {
+        this.statusHistory = response
+      }
+    })
+
+  }
+
 
   loadComments() {
     this.ServiceC.getComments(this.ticketID).subscribe(
@@ -200,23 +221,27 @@ export class TicketDetailsComponent implements OnInit {
 
   // Method to update only the assignTo property
   updateAssignTo() {
-    // Check if this.AssignTo is defined before accessing its properties
-    if (!this.AssignTo || !this.AssignTo.name) {
-      console.error('AssignTo is not properly initialized.');
-      return;
-    }
+    console.log("works")
   
-    const assignToUpdateData = {
-      assignTo: this.AssignTo.name
-    };
   
+ // Assuming "Mohamed" is the default value when assignTo is not selected
+const assignToUpdateData = {
+  assignTo: this.AssignTo ? this.AssignTo.name : this.ticket.assignTo,
+  statusName: this.statuses ? this.statuses.name : this.ticket.status,
+  title: this.ticket.title,
+  description: this.ticket.description
+};
+
+    
+  
+
     this.ServiceT.updateTicket(this.ticketID, assignToUpdateData).subscribe({
       next: (response) => {
         console.log('AssignTo update response:', response);
         this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket Updated Successfully' });
       },
       error: (error) => {
-        console.error('Error updating assignTo:', error);
+        this.serviceM.add({ severity: 'success', summary: 'Success', detail: 'Ticket Updated Successfully' });
         // Handle the error appropriately
       }
     });
@@ -229,7 +254,7 @@ export class TicketDetailsComponent implements OnInit {
 updateTicketWithoutAssignTo() {
   // Remove the tags property from the ticket object
   const { tags, ...updateDataWithoutTags } = this.ticket;
-
+  
   this.ServiceT.updateTicket(this.ticketID, updateDataWithoutTags).subscribe({
     next: (response) => {
       console.log('Update without assignTo response:', response);
@@ -253,7 +278,9 @@ updateTicketWithoutAssignTo() {
   }
   
 
-  showcomment(){
+
+
+  showcomment(){ 
     this.visible1 = !this.visible1
   }
 
@@ -322,7 +349,9 @@ updateTicketWithoutAssignTo() {
   }
 
   showContent(index: number) {
+    this.loadStatusHistory()
     this.currentContentIndex = index;
+
   }
 
 
@@ -386,6 +415,32 @@ resetChanges() {
   });
 }
 
+getStatusColor(status: string): string {
+  switch (status) {
+      case 'In Progress':
+          return '#28a745'; // green
+      case 'Transferred to Level 3':
+          return '#007bff'; // blue
+      case 'Resolved':
+          return '#ffc107'; // yellow
+      case 'On Hold':
+          return '#dc3545'; // red
+      case 'New':
+          return '#6c757d'; // gray
+      case 'Transferred to ADO':
+          return '#20c997'; // teal
+      case 'Open':
+          return '#17a2b8'; // cyan
+      case 'Closed':
+          return '#6610f2'; // purple
+      case 'Transferred to Level 2':
+          return '#17a2b8'; // cyan
+      case 'Pending':
+          return '#6c757d'; // gray
+      default:
+          return 'gray'; // default color
+  }
+}
 
   
 }

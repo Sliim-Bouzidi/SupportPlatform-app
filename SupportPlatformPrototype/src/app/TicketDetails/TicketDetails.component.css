@@ -1,5 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
 
+
+
 .container {
     margin-top: 90px;
     display: grid;
@@ -60,6 +62,7 @@
     background-color: #fff;
     border: 1px solid #eee;
     transition: box-shadow 0.3s, transform 0.3s;
+    
   }
   
   .card:hover {
@@ -94,7 +97,7 @@
   margin-top: 8px;
   margin-bottom: 20px;
   
-  font-size: 18px;
+  font-size: 17px;
   color: #777;
   font-weight: 500;
 }
@@ -124,8 +127,10 @@
 
 
 .custom-container {
-  border-top: 2.5px solid #e2e2e4;
-  border-bottom: 2.5px solid #e2e2e4;
+  /*border-top: 2.5px solid #e2e2e4;
+  border-bottom: 2.5px solid #e2e2e4;*/
+  border-top: 1.5px solid#bfaaaa;
+  border-bottom: 1.5px solid #bfaaaa;
   width: 100%; /* Adjust width as needed */
   height: 50px;
   position: relative;
@@ -177,16 +182,21 @@
     }
     .ticket-title {
         margin: 7px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Optional: adds ellipsis (...) if text overflows */
+        max-width: 100%; /* or set a specific width like 300px or 100% of the parent container */
+      
+        
     }
 
 
     ::ng-deep .p-editor-container .p-editor-toolbar.ql-snow {
       border: 1px solid #e5e7eb;
-      
       width: 800px;
-      margin-left: 90px;
-     
-  }
+      margin-left: 120px;
+    }
+    
 
   ::ng-deep .p-editor-container .p-editor-content .ql-editor {
     background-color:#fff9f9;
@@ -219,8 +229,6 @@
     transition: box-shadow 0.3s, transform 0.3s;
     height: 700px;
   }*/
-
-
 
 
 
@@ -326,64 +334,11 @@
   width: 1%;
   text-overflow: ellipsis;
   cursor: pointer;
-  width: 180px;
+  width: 200px;
   margin-left: 10px;
   margin-bottom: -3px;
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -607,7 +562,7 @@ td img {
 
 table, th, td {
     border-collapse: collapse;
-    padding: 1rem;
+    padding: 1.5rem;
     text-align: left;
 }
 
@@ -928,4 +883,286 @@ textarea:focus {
   
   
   
-  
+
+/* Base styles for the container */
+.hoverEffect {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease; /* Smooth transition for transform property */
+  padding: 10px;
+  background-color: #f0f0f0; /* Background color for the container */
+  border-radius: 20px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Drop shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Styles for the container when hovered */
+.hoverEffect:hover {
+  transform: translateY(-5px); /* Move container slightly upwards on hover */
+}
+
+
+body{
+  background-color: #eee;
+}
+
+.mt-70{
+  margin-top: 70px;
+}
+
+.mb-70{
+  margin-bottom: 70px;
+}
+
+.card {
+ box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+ border-width: 0;
+ transition: all .2s;
+}
+
+.card {
+ position: relative;
+ display: flex;
+ flex-direction: column;
+ min-width: 0;
+ word-wrap: break-word;
+ background-color: #fff;
+ background-clip: border-box;
+ border: 1px solid rgba(26,54,126,0.125);
+ border-radius: .25rem;
+}
+
+.card-body {
+ flex: 1 1 auto;
+ padding: 1.25rem;
+}
+.vertical-timeline {
+ width: 100%;
+ position: relative;
+ padding: 1.5rem 0 1rem;
+}
+
+.vertical-timeline::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 67px;
+ height: 100%;
+ width: 4px;
+ background: #e9ecef;
+ border-radius: .25rem;
+}
+
+.vertical-timeline-element {
+ position: relative;
+ margin: 0 0 1rem;
+}
+
+.vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
+ visibility: visible;
+ animation: cd-bounce-1 .8s;
+}
+.vertical-timeline-element-icon {
+ position: absolute;
+ top: 0;
+ left: 60px;
+}
+
+.vertical-timeline-element-icon .badge-dot-xl {
+ box-shadow: 0 0 0 5px #fff;
+}
+
+.badge-dot-xl {
+ width: 18px;
+ height: 18px;
+ position: relative;
+}
+.badge:empty {
+ display: none;
+}
+
+
+.badge-dot-xl::before {
+ content: '';
+ width: 10px;
+ height: 10px;
+ border-radius: .25rem;
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ margin: -5px 0 0 -5px;
+ background: #fff;
+}
+
+.vertical-timeline-element-content {
+ position: relative;
+ margin-left: 90px;
+ font-size: .8rem;
+}
+
+.vertical-timeline-element-content .timeline-title {
+ font-size: .8rem;
+ text-transform: uppercase;
+ margin: 0 0 .5rem;
+ padding: 2px 0 0;
+ font-weight: bold;
+}
+
+.vertical-timeline-element-content .vertical-timeline-element-date {
+ display: block;
+ position: absolute;
+ left: -90px;
+ top: 0;
+ padding-right: 10px;
+ text-align: right;
+ color: #adb5bd;
+ font-size: .7619rem;
+ white-space: nowrap;
+}
+
+.vertical-timeline-element-content:after {
+ content: "";
+ display: table;
+ clear: both;
+}
+
+
+::ng-deep .p-sidebar-left
+{
+  width: 31rem;
+
+}
+
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+
+
+.bs4-order-tracking {
+  margin-bottom: 30px;
+  overflow: hidden;
+
+  padding-left: 0px;
+  margin-top: 30px;
+}
+
+.bs4-order-tracking li {
+  list-style-type: none;
+  font-size: 13px;
+  width: 25%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+
+  text-align: center;
+}
+
+.bs4-order-tracking li:first-child:before {
+  margin-left: 15px !important;
+  padding-left: 11px !important;
+  text-align: left !important;
+}
+
+.bs4-order-tracking li:last-child:before {
+  margin-right: 5px !important;
+  padding-right: 11px !important;
+  text-align: right !important;
+}
+
+.bs4-order-tracking li > div {
+  color: #fff;
+  width: 29px;
+  text-align: center;
+  line-height: 29px;
+  display: block;
+  font-size: 12px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.bs4-order-tracking li:after {
+  content: '';
+  width: 150%;
+  height: 2px;
+  background: #878788;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 15px;
+  z-index: -1;
+}
+
+.bs4-order-tracking li:first-child:after {
+  left: 50%;
+}
+
+.bs4-order-tracking li:last-child:after {
+  left: 0%!important;
+  width: 0% !important;
+}
+
+.bs4-order-tracking li.active {
+  font-weight: bold;
+ 
+}
+
+/*.bs4-order-tracking li.active > div {
+ 
+}*/
+
+.bs4-order-tracking li.active:after {
+  background: #dc3545;
+}
+
+.card-timeline {
+  background-color: #fff;
+  z-index: 0;
+}
+.bs4-order-tracking {
+  margin-bottom: 30px;
+  overflow: hidden;
+  color: #878788;
+  padding-left: 0px;
+  margin-top: 30px;
+}
+
+.bs4-order-tracking li {
+  list-style-type: none;
+  font-size: 13px;
+  width: 25%;
+  float: left;
+  position: relative;
+  font-weight: 400;
+  color: #878788;
+  text-align: center;
+}
+
+
+#statuscircles .pi {
+  font-size: 1.7rem;
+}
+
+
+
+
+/*  #body{
+  transform-origin: top left;
+  transform: scale(0.9);
+  width: 111.11%; 
+  height: 111.11%; 
+  margin: 0; */
+
+
+  ::ng-deep   #Assignto .p-dropdown-panel  .p-dropdown-item {
+
+    height: 70px;
+}
+
+
+::ng-deep .p-dropdown .p-dropdown-label.p-placeholder {
+  color: #6b7280;
+  font-size: 15px;
+}

@@ -453,7 +453,7 @@ namespace Support_Ticket_System.Services.ticketservices
                                     Title = t.Title,
                                     Description = t.Description,
                                     CreatedDate = t.CreatedDate,
-                                    UpdatedDate = t.UpdatedDate.Date,
+                                    UpdatedDate = t.UpdatedDate,
                                     AssignTo = t.AssignTo,
 
 

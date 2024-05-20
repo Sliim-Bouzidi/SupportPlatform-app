@@ -6,11 +6,12 @@
 
 
             <!-- ======================= Cards ================== -->
-            <div class="cardBox" >
+          <!--  <div class="cardBox" >
                 <div class="cardup">
                     <div>
                         <div class="numbers">40</div>
                         <div class="cardName">Ticket Created</div>
+                       
                     </div>
 
                     <div class="iconBx">
@@ -50,8 +51,18 @@
                        
                     </div>
                 </div>
-            </div>
+            </div>-->
 
+                    <div style="margin-left: 150px;  display: flex;" >
+                    <div class="card flex justify-content-center" style="height:  450px; width: 350px; margin-right: 40px; " >
+                        <p-chart type="pie" [data]="data"  />
+                    </div>
+
+                    
+                    <div class="card"  style="height: 450px; width: 900px;">
+                        <p-chart type="bar"  [data]="data2"  [options]="options" />
+                    </div>
+                    </div>
            
  
             <header>
