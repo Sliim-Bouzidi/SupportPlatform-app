@@ -267,7 +267,53 @@
                     </div>
                 </div>
                 
+
+
               
+            <div *ngIf="ticket?.processFlow.processFlowName == 'Purchase Invoice Creation'">
+                <div class="PICcontainer">
+                    <div class="PIClabel">Working Order Number:
+                        <span class="PICtext">{{ ticket?.processFlow?.pfAttributs[0].value }}</span>
+                    </div>
+                </div>
+                
+
+                <div class="PICcontainer">
+                    <div class="PIClabel">Dossier Number:
+                        <span class="PICtext">{{ ticket?.processFlow?.pfAttributs[2].value }}</span>
+                    </div>
+                </div>
+                
+
+                <div class="PICcontainer">
+                    <div class="PIClabel">Assistance Plan Number: 
+                        <span class="PICtext">{{ ticket?.processFlow?.pfAttributs[1].value }}</span>
+                    </div>
+                </div>
+                
+             </div>
+
+
+
+
+
+
+
+             <div *ngIf="ticket?.processFlow.processFlowName == 'Sales Invoice Creation'">
+                <div class="PICcontainer">
+                    <div class="PIClabel">Sales Order Number:
+                        <span class="PICtext">{{ ticket?.processFlow?.pfAttributs[0].value }}</span>
+                    </div>
+                </div>
+                
+
+                <div class="PICcontainer">
+                    <div class="PIClabel">Dossier Number:
+                        <span class="PICtext">{{ ticket?.processFlow?.pfAttributs[1].value }}</span>
+                    </div>
+                </div>
+                
+             </div>
 
                 
               
@@ -370,9 +416,17 @@
                         </p-inplace>
                     </div>-->
 
+
+                    <div class="TicketNumberSection" *ngIf="this.ticket.status === 'Transferred to ADO'">
+                        <label for="TicketNumber">Ticket Number</label>
+                        <div style="height: 3px;"></div>
+                        <input id="TicketNumber" type="text" pInputText  placeholder="Ticket Number" required/>
+                    </div>
+
+                    
                     <div style="height: 20px;"></div>
 
-                    <div *ngIf="ticket?.processFlow.processFlowName == 'Sales Invoice Creation'" class="styled-inputs">
+                    <!--<div *ngIf="ticket?.processFlow.processFlowName == 'Sales Invoice Creation'" class="styled-inputs">
                         <div class="input-group">
                             <label for="salesOrderNumber">Sales Order Number</label>
                             <input type="text" id="salesOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
@@ -381,11 +435,11 @@
                             <label for="dossierNumber">Dossier Number</label>
                             <input type="text" id="dossierNumber" [value]="ticket?.processFlow?.pfAttributs[1].value" readonly>
                         </div>
-                    </div>
+                    </div>-->
                     
                     
              
-                    <div *ngIf="ticket?.processFlow.processFlowName == 'Purchase Invoice Creation'" class="styled-inputs">
+               <!--     <div *ngIf="ticket?.processFlow.processFlowName == 'Purchase Invoice Creation'" class="styled-inputs">
                         <div class="input-group">
                             <label for="workingOrderNumber">Working Order Number</label>
                             <input type="text" id="workingOrderNumber" [value]="ticket?.processFlow?.pfAttributs[0].value" readonly>
@@ -401,6 +455,14 @@
                         </div>
                     </div>
                     <div style="height: 20px;"></div>
+                -->
+
+
+
+
+                  
+                            
+
             </div>
 
                     

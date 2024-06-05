@@ -15,5 +15,8 @@ namespace Support_Ticket_System.Entites
         public ICollection<Ticket> Tickets { get; set; }
         public ICollection<UserRoles> Roles { get; set; }
 
+
+        public ICollection<Usertenant> UserTenants { get; set; }
+
     }
 }

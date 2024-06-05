@@ -482,6 +482,27 @@ namespace Support_Ticket_System.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Support_Ticket_System.Entites.Usertenant", b =>
+                {
+                    b.Property<Guid>("UserTenantId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TenantID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserTenantId");
+
+                    b.HasIndex("TenantID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("usertenants");
+                });
+
             modelBuilder.Entity("Support_Ticket_System.Entites.taggableitem", b =>
                 {
                     b.Property<Guid>("TicketID")
@@ -708,6 +729,25 @@ namespace Support_Ticket_System.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Support_Ticket_System.Entites.Usertenant", b =>
+                {
+                    b.HasOne("Support_Ticket_System.Entites.Tenant", "tenant")
+                        .WithMany("UserTenants")
+                        .HasForeignKey("TenantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Support_Ticket_System.Entites.User", "user")
+                        .WithMany("UserTenants")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tenant");
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("Support_Ticket_System.Entites.taggableitem", b =>
                 {
                     b.HasOne("Support_Ticket_System.Entites.Tag", "tag")
@@ -753,6 +793,8 @@ namespace Support_Ticket_System.Migrations
 
             modelBuilder.Entity("Support_Ticket_System.Entites.Tenant", b =>
                 {
+                    b.Navigation("UserTenants");
+
                     b.Navigation("processflows");
 
                     b.Navigation("tickets");
@@ -774,6 +816,8 @@ namespace Support_Ticket_System.Migrations
                     b.Navigation("Roles");
 
                     b.Navigation("Tickets");
+
+                    b.Navigation("UserTenants");
                 });
 #pragma warning restore 612, 618
         }

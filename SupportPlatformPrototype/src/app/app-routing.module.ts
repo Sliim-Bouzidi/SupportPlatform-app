@@ -9,6 +9,7 @@ import { TicketListComponent } from './ticket-list/ticket-list.component';
 import { TicketDetailsComponent } from './TicketDetails/TicketDetails.component';
 import { AdminInterfaceComponent } from './AdminInterface/AdminInterface.component';
 import { UserProfileComponent } from './UserProfile/UserProfile.component';
+import { ChatbotComponent } from './Chatbot/Chatbot.component';
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'TicketDetails/:tenantname/:ticketID', component: TicketDetailsComponent, canActivate: [AuthenticationGuard] },
   { path: 'Admin/:tenantname', component: AdminInterfaceComponent, canActivate: [AuthenticationGuard] },
   { path: 'UserProfile/:tenantname/:userID', component: UserProfileComponent, canActivate: [AuthenticationGuard] },
+  { path: 'Chatbot/:tenantname', component: ChatbotComponent, canActivate: [AuthenticationGuard] }
  
 
 

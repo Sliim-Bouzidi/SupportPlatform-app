@@ -55,8 +55,9 @@ import { UserProfileComponent } from './UserProfile/UserProfile.component';
 import { ChartModule } from 'primeng/chart';
 import { SidebarModule } from 'primeng/sidebar';
 import { TimelineModule } from 'primeng/timeline';
+import { ChatbotComponent } from './Chatbot/Chatbot.component';
 @NgModule({
-  declarations: [												
+  declarations: [													
     AppComponent,
     SignupComponent,
     TenantComponent,
@@ -67,7 +68,8 @@ import { TimelineModule } from 'primeng/timeline';
     TicketListComponent,
       TicketDetailsComponent,
       AdminInterfaceComponent,
-      UserProfileComponent
+      UserProfileComponent,
+      ChatbotComponent
    ],
   imports: [
     

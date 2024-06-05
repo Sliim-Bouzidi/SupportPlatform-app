@@ -122,6 +122,34 @@
 
 
 
+.PICcontainer {
+  color: #777;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+
+
+.PIClabel {
+  color: #777;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+
+.PICtext {
+  color: black;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1165,4 +1193,10 @@ body{
 ::ng-deep .p-dropdown .p-dropdown-label.p-placeholder {
   color: #6b7280;
   font-size: 15px;
+}
+
+
+
+#TicketNumber{
+  width: 350px;
 }

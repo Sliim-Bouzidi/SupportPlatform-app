@@ -38,7 +38,6 @@ namespace Support_Ticket_System.DataContext
         public DbSet<ProcessFlowAttrribut> ProcessFlowAttrributs { get; set; }
 
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
