@@ -41,7 +41,7 @@ export class ChatbotComponent implements OnInit {
 
     (window as any).WebChat.renderWebChat({
       directLine: (window as any).WebChat.createDirectLine({
-        token: 'noK6z3wdLMo.D0VD1pqpW8yY3ymCK40PJWWwNGYTax44WH9f83sz31k'
+        
       }),
       styleOptions: { ...styleOptions, ...avatarOptions }
     }, document.getElementById('webchat'));
