@@ -1,1 +1,8 @@
 <router-outlet></router-outlet>
+<div class="chatbot-icon" (click)="toggleChatbot()" *ngIf="shouldShowChatbot()">
+    <img src="../assets/chatboticon.png" alt="Chatbot Icon">
+</div>
+
+<div class="chatbot-container" id="chatbot-container" *ngIf="isChatbotVisible && shouldShowChatbot()">
+    <app-chatbot2></app-chatbot2>
+</div>

@@ -17,8 +17,11 @@ body, html {
   
 }
 
+
+
 .webchat__send-box__main{
     border-radius: 25px  !important;
     width: 60%  !important;
     margin-left: 20%  !important;
     }
+

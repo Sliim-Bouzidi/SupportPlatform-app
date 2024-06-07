@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-Chatbot',
-  templateUrl: './Chatbot.component.html',
-  styleUrls: ['./Chatbot.component.css']
+  selector: 'app-chatbot2',
+  templateUrl: './chatbot2.component.html',
+  styleUrls: ['./chatbot2.component.css']
 })
-export class ChatbotComponent implements OnInit {
+export class Chatbot2Component implements OnInit {
 
   constructor() { }
-  ngOnInit(): void {
+
+  ngOnInit() {
     const styleOptions: any = {
       bubbleBackground: 'rgba(173, 216, 230, 1)', // Light blue color
       bubbleFromUserBackground: 'rgba(0, 87, 249)',
@@ -21,12 +22,10 @@ export class ChatbotComponent implements OnInit {
       sendBoxHeight: 60, // Adjusting the height of the send box
       sendBoxBackground: 'rgba(255, 255, 255, 0.9)',
       sendBoxTextWrap: true,
-  
       sendBoxButtonTextColor: 'white',
       sendBoxPlaceholderColor: 'rgba(0, 0, 0, 0.5)',
       sendBoxBorderTop: 'solid 1px rgba(0, 0, 0, 0.1)',
       sendBoxMaxHeight: 100, // Adjusting the maximum height of the send box
-
       paddingRegular: 8, // Default padding used in most visual components
       paddingWide: 16, // Padding used for suggestedAction buttons
     };
@@ -46,4 +45,5 @@ export class ChatbotComponent implements OnInit {
       styleOptions: { ...styleOptions, ...avatarOptions }
     }, document.getElementById('webchat'));
   }
+
 }

@@ -164,7 +164,7 @@ export class TicketDetailsComponent implements OnInit {
   
   statusHistory: StatusHistory[] = []
   loadStatusHistory(){
-    
+    console.log("works")
     this.ServiceStatusHistory.getStatusHistory(this.ticketID).subscribe({
       next: (response) => {
         this.statusHistory = response
@@ -231,6 +231,7 @@ const assignToUpdateData = {
   title: this.ticket.title,
   description: this.ticket.description
 };
+
 
     
   

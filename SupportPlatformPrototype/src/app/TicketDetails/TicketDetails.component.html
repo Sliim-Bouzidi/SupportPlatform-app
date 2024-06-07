@@ -160,7 +160,7 @@
                                   </div> 
                                   {{ history.statusValue }}
                                 </li>
-                                <li class="step" *ngIf="last" (click)="showSidebar()">
+                                <li class="step" *ngIf="last" (click)="showSidebar(); loadStatusHistory()">
                                   <div>
                                     <i class="pi pi-circle-fill" [style.color]="getStatusColor(history.statusValue)"></i>
                                   </div>
@@ -549,8 +549,8 @@
         <div style="text-align: left; padding: 10px; background-color: #f0f0f0;">
             <span>
                 <span class="resultat-label">Current Status </span>
-                <i class="pi pi-circle-fill" [ngStyle]="{ 'color': getStatusColor(this.ticket.status), 'margin-right': '5px' }"></i>
-                <span>{{ ticket.status }}</span>
+                <i class="pi pi-circle-fill" [ngStyle]="{ 'color': getStatusColor(this.statuses ? this.statuses.name : this.ticket.status), 'margin-right': '5px' }"></i>
+                <span>{{ this.statuses ? this.statuses.name : this.ticket.status }}</span>
             </span>
         </div>
     </ng-template>
