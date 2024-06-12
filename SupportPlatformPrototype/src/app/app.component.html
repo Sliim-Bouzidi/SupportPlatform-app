@@ -1,8 +1,22 @@
 <router-outlet></router-outlet>
 <div class="chatbot-icon" (click)="toggleChatbot()" *ngIf="shouldShowChatbot()">
-    <img src="../assets/chatboticon.png" alt="Chatbot Icon">
+    <img src="../assets/file2.png" alt="Chatbot Icon">
 </div>
 
-<div class="chatbot-container" id="chatbot-container" *ngIf="isChatbotVisible && shouldShowChatbot()">
+<div class="chatbot-container" 
+     id="chatbot-container" 
+     *ngIf="isChatbotVisible && shouldShowChatbot()" 
+     [ngStyle]="{'top.px': position.top, 'left.px': position.left, 'position': position.fixed ? 'fixed' : 'absolute'}">
+     <!--<div class="chatbot-container" id="chatbot-container" [class.visible]="isChatbotVisible && shouldShowChatbot()"></div>-->
+    <div class="chatbot-header" (mousedown)="onDragStart($event)">
+        <span class="chatbot-title">Support Chatbot</span>
+        <img src="https://cdn-icons-png.flaticon.com/512/6231/6231457.png" alt="Bot Icon" class="bot-icon">
+        <div class="status-indicator">
+            <div class="status-color color1"></div>
+            <div class="status-color color2"></div>
+            <div class="status-color color3"></div>
+        </div>
+        <button class="close-button" (click)="toggleChatbot()">✖</button>
+    </div>
     <app-chatbot2></app-chatbot2>
 </div>

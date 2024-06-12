@@ -1,0 +1,12 @@
+GET https://872f-165-51-54-152.ngrok-free.app/Logs/Log
+###
+
+
+GET https://872f-165-51-54-152.ngrok-free.app/Emailing/Email/SendR
+
+Content-Type: "application/json"
+{
+    issue:"hello men 3and slim",
+    Email:"jjj544754@gmail.com",
+    Description:"Ya mnayek ya3tik 3asba"
+}

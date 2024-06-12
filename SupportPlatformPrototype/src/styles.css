@@ -19,9 +19,18 @@ body, html {
 
 
 
-.webchat__send-box__main{
-    border-radius: 25px  !important;
-    width: 60%  !important;
-    margin-left: 20%  !important;
+.webchat .webchat__send-box__main {
+    border-radius: 0px  !important;
+    width: 100%  !important;
+    margin-left: 0.00001%  !important;
+    
     }
 
+
+
+    .webchat__send-box__main {
+        border-radius: 25px  !important;
+        width: 60%  !important;
+        margin-left: 20%  !important;
+        }
+    

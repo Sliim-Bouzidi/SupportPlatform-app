@@ -57,6 +57,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { TimelineModule } from 'primeng/timeline';
 import { ChatbotComponent } from './Chatbot/Chatbot.component';
 import { Chatbot2Component } from './chatbot2/chatbot2.component';
+
 @NgModule({
   declarations: [														
     AppComponent,
@@ -118,7 +119,8 @@ import { Chatbot2Component } from './chatbot2/chatbot2.component';
     FileUploadModule,
     ChartModule,
     SidebarModule,
-    TimelineModule
+    TimelineModule,
+    
    
 
   ],

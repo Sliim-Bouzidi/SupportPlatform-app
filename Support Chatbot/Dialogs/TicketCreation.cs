@@ -28,7 +28,7 @@ namespace QnABotWithMSI.Dialogs
 {
     public class TicketCreation : CancelAndHelpDialog
     {
-        
+
         public TicketCreation() : base(nameof(TicketCreation))
         {
             AddDialog(new TextPrompt(nameof(TextPrompt)));
@@ -37,9 +37,8 @@ namespace QnABotWithMSI.Dialogs
             AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
            {    TitleStepAsync,
-                DescriptionStepAsync,
-                AssignToStepAsync,
-                StatusStepAsync,
+
+
                 ProcessFlowStepAsync,
                 TenantNameStepAsync,
                 PriorityNameStepAsync,
@@ -49,7 +48,7 @@ namespace QnABotWithMSI.Dialogs
                 FinalStepAsync,
 
             }));
-            
+
 
 
 
@@ -78,52 +77,52 @@ namespace QnABotWithMSI.Dialogs
             return await stepContext.NextAsync(TicketDetails.Title, cancellationToken);
         }
 
-        private async Task<DialogTurnResult> DescriptionStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            var TicketDetails = (Ticket)stepContext.Options;
-            TicketDetails.Title = (string)stepContext.Result;
-            if (TicketDetails.Description == null)
-            {
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions
-                {
-                    Prompt = MessageFactory.Text("please enter the description of the ticket that you want to submit ")
-                }, cancellationToken);
-            }
-            return await stepContext.NextAsync(TicketDetails.Description, cancellationToken);
-        }
-        private async Task<DialogTurnResult> AssignToStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            var TicketDetails = (Ticket)stepContext.Options;
-            TicketDetails.Description = (string)stepContext.Result;
+        //private async Task<DialogTurnResult> DescriptionStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        //{
+        //    var TicketDetails = (Ticket)stepContext.Options;
+        //    TicketDetails.Title = (string)stepContext.Result;
+        //    if (TicketDetails.Description == null)
+        //    {
+        //        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions
+        //        {
+        //            Prompt = MessageFactory.Text("please enter the description of the ticket that you want to submit ")
+        //        }, cancellationToken);
+        //    }
+        //    return await stepContext.NextAsync(TicketDetails.Description, cancellationToken);
+        //}
+        //private async Task<DialogTurnResult> AssignToStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        //{
+        //    var TicketDetails = (Ticket)stepContext.Options;
+        //    TicketDetails.Description = (string)stepContext.Result;
 
-            if (TicketDetails.AssignTo == null)
-            {
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions
-                {
-                    Prompt = MessageFactory.Text("please enter the name of the assignee ")
-                }, cancellationToken);
-            }
-            return await stepContext.NextAsync(TicketDetails.AssignTo, cancellationToken);
-        }
-        private async Task<DialogTurnResult> StatusStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            var TicketDetails = (Ticket)stepContext.Options;
-            TicketDetails.AssignTo = (string)stepContext.Result;
+        //    if (TicketDetails.AssignTo == null)
+        //    {
+        //        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions
+        //        {
+        //            Prompt = MessageFactory.Text("please enter the name of the assignee ")
+        //        }, cancellationToken);
+        //    }
+        //    return await stepContext.NextAsync(TicketDetails.AssignTo, cancellationToken);
+        //}
+        //private async Task<DialogTurnResult> StatusStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        //{
+        //    var TicketDetails = (Ticket)stepContext.Options;
+        //    TicketDetails.AssignTo = (string)stepContext.Result;
 
-            if (TicketDetails.StatusName == null)
-            {
-                return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions
-                {
-                    Prompt = MessageFactory.Text("please enter the status of the ticket that you want to submit ")
-                }, cancellationToken);
-            }
-            return await stepContext.NextAsync(TicketDetails.StatusName, cancellationToken);
-        }
+        //    if (TicketDetails.StatusName == null)
+        //    {
+        //        return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions
+        //        {
+        //            Prompt = MessageFactory.Text("please enter the status of the ticket that you want to submit ")
+        //        }, cancellationToken);
+        //    }
+        //    return await stepContext.NextAsync(TicketDetails.StatusName, cancellationToken);
+        //}
 
         private async Task<DialogTurnResult> ProcessFlowStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var TicketDetails = (Ticket)stepContext.Options;
-            TicketDetails.StatusName = (string)stepContext.Result;
+            TicketDetails.Title = (string)stepContext.Result;
 
             if (TicketDetails.ProcessFlowName == null)
             {
@@ -192,7 +191,7 @@ namespace QnABotWithMSI.Dialogs
         {
             var TicketDetails = (Ticket)stepContext.Options;
             TicketDetails.CreationDate = (string)stepContext.Result;
-           
+
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
             {
                 Body = new List<AdaptiveElement>
@@ -210,17 +209,17 @@ namespace QnABotWithMSI.Dialogs
                     },
                     new AdaptiveTextBlock
                     {
-                        Text = $"Description : {TicketDetails.Description}",
+                        Text = $"Status : New ",
                         Size = AdaptiveTextSize.Medium,
                     },
                     new AdaptiveTextBlock
                     {
-                        Text = $"Priority : {TicketDetails.PriorityName}",
+                        Text = $"Tenant : {TicketDetails.TenantName}",
                         Size = AdaptiveTextSize.Medium,
                     },
                      new AdaptiveTextBlock
                     {
-                        Text = $"Tenant : {TicketDetails.TenantName}",
+                        Text = $"Priority : {TicketDetails.PriorityName}",
                         Size = AdaptiveTextSize.Medium,
                     },
                       new AdaptiveTextBlock
@@ -248,7 +247,7 @@ namespace QnABotWithMSI.Dialogs
                 Content = JObject.FromObject(card),
             };
             await stepContext.Context.SendActivityAsync(MessageFactory.Attachment(attachment), cancellationToken);
-            return await stepContext.NextAsync(null,cancellationToken);
+            return await stepContext.NextAsync(null, cancellationToken);
         }
 
         //    return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
